@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>丸々建設株式会社｜地域とともに、たしかな建設を</title>
+<meta name="description" content="丸々建設株式会社は、新築・リフォーム・外構工事まで対応する地域密着の総合建設会社です。自社施工とアフター保証で、暮らしを支えます。">
+<style>
+  :root{
+    --navy:#0f2540;
+    --navy-2:#16345c;
+    --amber:#f5a623;
+    --amber-d:#d98a08;
+    --ink:#1c2530;
+    --muted:#5b6773;
+    --line:#e5e9ef;
+    --bg:#ffffff;
+    --bg-soft:#f5f7fa;
+    --radius:14px;
+    --shadow:0 10px 30px rgba(15,37,64,.08);
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);background:var(--bg);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:999px;font-weight:700;
+    background:var(--amber);color:#1a1305;transition:.2s;border:none;cursor:pointer;
+    box-shadow:0 6px 18px rgba(245,166,35,.35);
+  }
+  .btn:hover{background:var(--amber-d);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6);box-shadow:none}
+  .btn.ghost:hover{background:rgba(255,255,255,.12)}
+  .eyebrow{color:var(--amber-d);font-weight:800;letter-spacing:.12em;font-size:13px;margin:0 0 10px}
+  .sec-title{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:.02em;margin:0 0 14px;line-height:1.3}
+  .sec-lead{color:var(--muted);margin:0 auto 46px;max-width:640px}
+  section{padding:88px 0}
+  .center{text-align:center}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;color:var(--navy)}
+  .brand .mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--navy-2));display:grid;place-items:center}
+  .nav-links{display:flex;gap:28px;align-items:center;font-weight:600;font-size:15px;color:#324}
+  .nav-links a{color:var(--ink);opacity:.85;transition:.15s}
+  .nav-links a:hover{opacity:1;color:var(--amber-d)}
+  .nav-cta{display:flex;align-items:center;gap:16px}
+  .tel{font-weight:800;color:var(--navy);font-size:17px;white-space:nowrap}
+  .tel small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+  .burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{display:block;width:24px;height:2px;background:var(--navy);margin:5px 0;transition:.2s}
+
+  /* Hero */
+  .hero{
+    position:relative;color:#fff;overflow:hidden;
+    background:
+      linear-gradient(180deg,rgba(15,37,64,.82),rgba(15,37,64,.72)),
+      linear-gradient(135deg,#1b3a63,#0f2540 70%);
+    padding:110px 0 120px;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;opacity:.10;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
+    background-size:48px 48px;mask:linear-gradient(180deg,#000,transparent);
+  }
+  .hero .wrap{position:relative;z-index:2;max-width:820px}
+  .hero h1{font-size:clamp(32px,6vw,58px);line-height:1.2;margin:0 0 20px;font-weight:900;letter-spacing:.01em}
+  .hero p.lead{font-size:clamp(16px,2.4vw,20px);opacity:.92;margin:0 0 34px;max-width:600px}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap}
+  .hero .stats div{border-left:3px solid var(--amber);padding-left:16px}
+  .hero .stats b{display:block;font-size:32px;font-weight:900;line-height:1}
+  .hero .stats span{font-size:13px;opacity:.8}
+
+  /* Services */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:34px 28px;transition:.2s}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+  .card .ic{width:56px;height:56px;border-radius:12px;background:var(--bg-soft);display:grid;place-items:center;margin-bottom:18px;color:var(--navy)}
+  .card h3{margin:0 0 10px;font-size:20px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+
+  /* Why */
+  .why{background:var(--bg-soft)}
+  .why .grid-3{gap:20px}
+  .why .card{background:#fff}
+  .why .num{font-size:14px;font-weight:800;color:var(--amber-d)}
+
+  /* Works */
+  .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .work{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3;color:#fff;display:flex;align-items:flex-end;padding:20px}
+  .work span{position:relative;z-index:2;font-weight:700}
+  .work small{position:relative;z-index:2;display:block;opacity:.85;font-weight:600}
+  .work::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
+  .w1{background:linear-gradient(135deg,#3a5a80,#1f3a5c)}
+  .w2{background:linear-gradient(135deg,#8a6d3b,#5c4423)}
+  .w3{background:linear-gradient(135deg,#4a6b52,#2c4232)}
+  .w4{background:linear-gradient(135deg,#5a6472,#333b47)}
+  .w5{background:linear-gradient(135deg,#7a5450,#4a2f2c)}
+  .w6{background:linear-gradient(135deg,#456d78,#274850)}
+
+  /* Company */
+  .company{background:var(--navy);color:#fff}
+  .company .sec-lead{color:rgba(255,255,255,.75)}
+  table.info{width:100%;border-collapse:collapse;max-width:760px;margin:0 auto;background:rgba(255,255,255,.04);border-radius:var(--radius);overflow:hidden}
+  table.info th,table.info td{text-align:left;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.12);font-size:15px}
+  table.info th{width:34%;color:var(--amber);font-weight:700;white-space:nowrap}
+  table.info tr:last-child th,table.info tr:last-child td{border-bottom:none}
+
+  /* Contact */
+  .contact{background:linear-gradient(135deg,var(--amber),#f7b84b);color:#231a06;text-align:center}
+  .contact h2{font-size:clamp(26px,4vw,40px);margin:0 0 12px;font-weight:900}
+  .contact p{margin:0 0 30px;font-weight:600;opacity:.85}
+  .contact .tel-big{font-size:clamp(30px,6vw,46px);font-weight:900;letter-spacing:.02em}
+  .contact .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .contact .btn{background:var(--navy);color:#fff;box-shadow:0 8px 22px rgba(15,37,64,.25)}
+  .contact .btn:hover{background:var(--navy-2)}
+
+  /* Footer */
+  footer{background:#0a1a2e;color:rgba(255,255,255,.7);padding:44px 0;font-size:14px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot .brand{color:#fff}
+  .foot .brand .mark{background:var(--amber)}
+
+  /* Responsive */
+  @media(max-width:860px){
+    .grid-3,.works-grid{grid-template-columns:1fr 1fr}
+    .nav-links,.nav-cta .tel{display:none}
+    .burger{display:block}
+    .nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:20px 24px;gap:18px}
+  }
+  @media(max-width:560px){
+    section{padding:64px 0}
+    .grid-3,.works-grid{grid-template-columns:1fr}
+    .hero .stats{gap:24px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      丸々建設株式会社
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">事業内容</a>
+      <a href="#why">選ばれる理由</a>
+      <a href="#works">施工事例</a>
+      <a href="#company">会社概要</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="tel">0120-000-000<small>受付 8:00〜19:00 / 年中無休</small></div>
+      <a href="#contact" class="btn">無料相談</a>
+      <button class="burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--amber)">地域密着・創業40年の総合建設</p>
+    <h1>暮らしを、<br>たしかに建てる。</h1>
+    <p class="lead">新築からリフォーム、外構工事まで。自社施工とアフター保証で、お客様の「こうしたい」を最後まで責任をもって形にします。</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn">無料で相談する</a>
+      <a href="#works" class="btn ghost">施工事例を見る</a>
+    </div>
+    <div class="stats">
+      <div><b>40<span style="font-size:16px">年</span></b><span>地域での実績</span></div>
+      <div><b>1,200<span style="font-size:16px">件+</span></b><span>累計施工数</span></div>
+      <div><b>98<span style="font-size:16px">%</span></b><span>お客様満足度</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="center">
+  <div class="wrap">
+    <p class="eyebrow">SERVICES</p>
+    <h2 class="sec-title">事業内容</h2>
+    <p class="sec-lead">住まいと暮らしにまつわる工事を、ワンストップで承ります。</p>
+    <div class="grid-3" style="text-align:left">
+      <div class="card">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V9l7-5 7 5v12M10 21v-5h4v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>新築工事</h3>
+        <p>戸建住宅から店舗・倉庫まで。設計から施工、引き渡しまで一貫対応。土地探しのご相談も承ります。</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M14 6l4 4M3 21l1-5L15 5a2.8 2.8 0 014 4L8 20l-5 1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>リフォーム・改修</h3>
+        <p>水回り・内装・耐震補強まで。小さな修繕から大規模リノベーションまで、住みながらの工事も可能です。</p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 20V10l8-6 8 6v10M4 20h16M9 20v-4h6v4M12 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>外構・エクステリア</h3>
+        <p>駐車場・門まわり・お庭のリフォーム。防犯や動線を考えた、暮らしやすい外まわりをご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why" class="why center">
+  <div class="wrap">
+    <p class="eyebrow">OUR STRENGTH</p>
+    <h2 class="sec-title">選ばれる理由</h2>
+    <p class="sec-lead">創業以来、変わらず大切にしている3つのこと。</p>
+    <div class="grid-3" style="text-align:left">
+      <div class="card">
+        <p class="num">01</p>
+        <h3>自社施工でコストも品質も</h3>
+        <p>下請け任せにせず、自社の職人が責任施工。中間マージンを抑えつつ、現場の品質を自分たちの目で守ります。</p>
+      </div>
+      <div class="card">
+        <p class="num">02</p>
+        <h3>地域密着だから、すぐ動ける</h3>
+        <p>創業40年、この地域一筋。「雨漏りが」「ドアが閉まらない」——そんな時もすぐ駆けつけます。</p>
+      </div>
+      <div class="card">
+        <p class="num">03</p>
+        <h3>引き渡し後も、最長10年保証</h3>
+        <p>工事して終わり、にはしません。定期点検とアフター保証で、建てたあとの安心まで含めてお付き合いします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works" class="center">
+  <div class="wrap">
+    <p class="eyebrow">WORKS</p>
+    <h2 class="sec-title">施工事例</h2>
+    <p class="sec-lead">これまでに手がけた工事の一部をご紹介します。</p>
+    <div class="works-grid">
+      <div class="work w1"><div><small>新築工事</small><span>木造2階建て 注文住宅</span></div></div>
+      <div class="work w2"><div><small>リフォーム</small><span>キッチン・浴室まるごと改修</span></div></div>
+      <div class="work w3"><div><small>外構工事</small><span>駐車場・お庭のリフォーム</span></div></div>
+      <div class="work w4"><div><small>店舗工事</small><span>カフェの内装・改装</span></div></div>
+      <div class="work w5"><div><small>耐震補強</small><span>築40年住宅の耐震改修</span></div></div>
+      <div class="work w6"><div><small>外壁塗装</small><span>屋根・外壁のリペイント</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section id="company" class="company center">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--amber)">COMPANY</p>
+    <h2 class="sec-title">会社概要</h2>
+    <p class="sec-lead">私たちについて。</p>
+    <table class="info">
+      <tr><th>会社名</th><td>丸々建設株式会社</td></tr>
+      <tr><th>所在地</th><td>〒000-0000 ○○県○○市○○町1-2-3</td></tr>
+      <tr><th>代表者</th><td>代表取締役 丸々 太郎</td></tr>
+      <tr><th>設立</th><td>1985年4月（創業40年）</td></tr>
+      <tr><th>事業内容</th><td>新築工事／リフォーム・改修／外構・エクステリア工事</td></tr>
+      <tr><th>建設業許可</th><td>○○県知事許可（般-00）第00000号</td></tr>
+      <tr><th>電話番号</th><td>0120-000-000（受付 8:00〜19:00 / 年中無休）</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#8a6a12">CONTACT</p>
+    <h2>まずは、お気軽にご相談を。</h2>
+    <p>見積り・現地調査は無料です。しつこい営業は一切いたしません。</p>
+    <div class="tel-big">0120-000-000</div>
+    <p style="margin-top:6px">受付 8:00〜19:00 / 年中無休</p>
+    <div class="cta-row">
+      <a href="mailto:info@example.com" class="btn">メールで問い合わせる</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:rgba(255,255,255,.55);padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の会社・実在しません）。&nbsp;<a href="index.html" style="color:var(--amber);font-weight:700">‹ サンプル一覧へ戻る</a>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" stroke="#0a1a2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      丸々建設株式会社
+    </a>
+    <div>© 2026 丸々建設株式会社 All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // モバイルメニュー開閉
+  const burger = document.getElementById('burger');
+  const links = document.getElementById('navLinks');
+  burger.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+</body>
+</html>

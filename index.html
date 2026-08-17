@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIで作った 業種別ホームページ サンプル集</title>
+<meta name="description" content="AIに言葉で指示して制作した、業種別の1ページ・ホームページのサンプル集です。掲載しているのはすべて架空の会社・店舗です。">
+<style>
+  :root{
+    --bg:#f6f7f9;
+    --panel:#ffffff;
+    --ink:#1a2230;
+    --ink-2:#66707e;
+    --line:#e6e9ef;
+    --accent:#2f5ecc;
+    --accent-d:#254db0;
+    --accent-soft:#e9eefb;
+    --max:1040px;
+    --r:16px;
+    --shadow:0 10px 30px rgba(20,30,50,.08),0 2px 6px rgba(20,30,50,.05);
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --mono:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171d;--panel:#1d222b;--ink:#eef1f6;--ink-2:#9aa4b2;--line:#2c333e;
+      --accent:#6f95f0;--accent-d:#88a8f5;--accent-soft:#243149;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171d;--panel:#1d222b;--ink:#eef1f6;--ink-2:#9aa4b2;--line:#2c333e;
+    --accent:#6f95f0;--accent-d:#88a8f5;--accent-soft:#243149;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.8;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+  /* ヘッダー */
+  .top{padding:70px 0 44px;text-align:center;position:relative;overflow:hidden}
+  .top::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(500px 260px at 50% -40px,var(--accent-soft),transparent 70%);z-index:0}
+  .top .wrap{position:relative;z-index:1}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+    letter-spacing:.14em;color:var(--accent);background:var(--accent-soft);
+    padding:6px 14px;border-radius:999px;font-weight:700;margin-bottom:22px}
+  .top h1{font-size:clamp(26px,4.6vw,40px);font-weight:900;line-height:1.32;margin:0 0 18px;letter-spacing:.01em}
+  .top h1 .u{background:linear-gradient(transparent 60%,var(--accent-soft) 60%);padding:0 4px}
+  .top p{color:var(--ink-2);max-width:620px;margin:0 auto;font-size:15.5px}
+
+  /* 但し書き */
+  .disclaimer{max-width:var(--max);margin:8px auto 0;padding:0 22px}
+  .disclaimer div{background:var(--panel);border:1px dashed var(--line);border-radius:12px;
+    padding:14px 20px;font-size:13.5px;color:var(--ink-2);display:flex;gap:12px;align-items:flex-start}
+  .disclaimer .b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);
+    color:var(--accent);display:grid;place-items:center;font-weight:800}
+
+  /* ギャラリー */
+  .gallery{padding:48px 0 80px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .item{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column}
+  .item:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(20,30,50,.14)}
+
+  /* ブラウザ枠のミニプレビュー */
+  .frame{border-bottom:1px solid var(--line)}
+  .frame .bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--bg)}
+  .frame .bar i{width:10px;height:10px;border-radius:50%;display:block}
+  .frame .bar .r{background:#ff5f57}.frame .bar .y{background:#febc2e}.frame .bar .g{background:#28c840}
+  .frame .bar .url{margin-left:8px;font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:2px 10px;flex:1;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .shot{height:210px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:26px 28px}
+
+  /* 建設プレビュー（紺×アンバー） */
+  .shot.kensetsu{background:linear-gradient(150deg,#1b3a63,#0f2540)}
+  .shot.kensetsu .eb{color:#f5a623;font-size:10px;font-weight:800;letter-spacing:.12em;margin-bottom:8px}
+  .shot.kensetsu h3{color:#fff;font-size:26px;font-weight:900;line-height:1.25;margin:0}
+  .shot.kensetsu .pill{display:inline-block;margin-top:14px;background:#f5a623;color:#231a06;
+    font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+  .shot.kensetsu .grid-dots{position:absolute;inset:0;opacity:.1;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:26px 26px;-webkit-mask:linear-gradient(180deg,#000,transparent)}
+
+  /* 整体プレビュー（セージ×クリーム） */
+  .shot.seitai{background:linear-gradient(150deg,#e6efe6,#f6e7d9)}
+  .shot.seitai .eb{color:#5c8069;font-size:10px;font-weight:800;letter-spacing:.1em;margin-bottom:8px}
+  .shot.seitai h3{color:#3b352d;font-size:24px;font-weight:900;line-height:1.3;margin:0}
+  .shot.seitai h3 .mk{background:linear-gradient(transparent 62%,#f6d9bf 62%);padding:0 2px}
+  .shot.seitai .pill{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:#06c755;color:#fff;
+    font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+
+  /* 農家プレビュー（クリーム×緑×実り） */
+  .shot.nouka{background:linear-gradient(150deg,#e8efdb,#f8ead0)}
+  .shot.nouka .eb{color:#48622c;font-size:10px;font-weight:800;letter-spacing:.08em;margin-bottom:8px}
+  .shot.nouka h3{color:#33301f;font-size:23px;font-weight:900;line-height:1.35;margin:0}
+  .shot.nouka h3 .g{color:#48622c}.shot.nouka h3 .s{color:#e0972f}
+  .shot.nouka .pill{display:inline-block;margin-top:14px;background:#e0972f;color:#3a2708;font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+
+  /* 町工場プレビュー（鋼×シアン） */
+  .shot.koujou{background:linear-gradient(120deg,#1f2a36,#2c3a49)}
+  .shot.koujou .eb{color:#2bc0dd;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.16em;margin-bottom:8px}
+  .shot.koujou h3{color:#fff;font-size:24px;font-weight:900;line-height:1.24;margin:0}
+  .shot.koujou h3 .c{color:#2bc0dd}
+  .shot.koujou .pill{display:inline-block;margin-top:14px;background:#0aa5c4;color:#04222a;font-size:11px;font-weight:800;padding:6px 14px;border-radius:8px;width:fit-content}
+  .shot.koujou .grid-dots{position:absolute;inset:0;opacity:.1;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:24px 24px;-webkit-mask:radial-gradient(120% 100% at 100% 0,#000,transparent 70%)}
+
+  /* 職人プレビュー（和紙×朱） */
+  .shot.shokunin{background:linear-gradient(150deg,#efe8d8,#f2ddd4)}
+  .shot.shokunin .eb{color:#b5432a;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:10px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+  .shot.shokunin h3{color:#2a2620;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:23px;font-weight:900;line-height:1.4;margin:0}
+  .shot.shokunin h3 .shu{color:#b5432a}
+  .shot.shokunin .pill{display:inline-block;margin-top:14px;background:#b5432a;color:#fdf6f2;font-size:11px;font-weight:800;padding:6px 14px;border-radius:6px;width:fit-content}
+
+  /* 清掃プレビュー（水色×やさしさ） */
+  .shot.seisou{background:linear-gradient(150deg,#dcf0f8,#e0f0ea)}
+  .shot.seisou .eb{color:#1f86b3;font-size:10px;font-weight:800;letter-spacing:.08em;margin-bottom:8px}
+  .shot.seisou h3{color:#1c2b34;font-size:22px;font-weight:900;line-height:1.36;margin:0}
+  .shot.seisou h3 .s{color:#1f86b3}
+  .shot.seisou .pill{display:inline-block;margin-top:14px;background:#e8a44b;color:#3a2708;font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+
+  /* 社労士プレビュー（ペトロール×金茶） */
+  .shot.sharoushi{background:linear-gradient(150deg,#e0edeb,#f3e8cf)}
+  .shot.sharoushi .eb{color:#a2762d;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:10px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+  .shot.sharoushi h3{color:#1d5f5b;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:23px;font-weight:900;line-height:1.4;margin:0}
+  .shot.sharoushi h3 .t{color:#bd8f3f}
+  .shot.sharoushi .pill{display:inline-block;margin-top:14px;background:#bd8f3f;color:#2a1f08;font-size:11px;font-weight:800;padding:6px 14px;border-radius:8px;width:fit-content}
+
+  /* 診断サイトプレビュー（グリーンLP） */
+  .shot.shindan{background:linear-gradient(150deg,#e4f2ea,#f6ecd3);align-items:center;text-align:center}
+  .shot.shindan .eb{color:#256f49;font-size:10px;font-weight:800;letter-spacing:.04em;margin-bottom:8px;background:#f6ecd3;color:#956c1f;padding:4px 12px;border-radius:999px;display:inline-block}
+  .shot.shindan h3{color:#1c2a23;font-size:22px;font-weight:900;line-height:1.4;margin:0}
+  .shot.shindan h3 .u{color:#256f49;background:linear-gradient(transparent 60%,#f6ecd3 60%);padding:0 2px}
+  .shot.shindan .pill{display:inline-block;margin-top:14px;background:#2f8f5f;color:#f4fbf6;font-size:11px;font-weight:800;padding:7px 18px;border-radius:999px}
+
+  .meta{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}
+  .tag{align-self:flex-start;font-size:11.5px;font-weight:800;letter-spacing:.06em;
+    color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:999px;margin-bottom:12px}
+  .meta h2{font-size:19px;font-weight:800;margin:0 0 6px}
+  .meta .lead{color:var(--ink-2);font-size:14px;margin:0 0 16px}
+  .made{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);background:var(--bg);
+    border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;margin:0 0 18px}
+  .open{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 20px;border-radius:10px;font-weight:800;font-size:14px;
+    background:var(--accent);color:#fff;transition:.18s}
+  .open:hover{background:var(--accent-d)}
+
+  /* 近日追加カード */
+  .item.soon{border-style:dashed;box-shadow:none;background:transparent;align-items:center;justify-content:center;
+    min-height:340px;text-align:center;color:var(--ink-2)}
+  .item.soon:hover{transform:none;box-shadow:none}
+  .item.soon .plus{width:52px;height:52px;border-radius:50%;border:2px dashed var(--line);
+    display:grid;place-items:center;font-size:26px;margin:0 auto 14px;color:var(--ink-2)}
+  .item.soon b{color:var(--ink);font-size:16px}
+  .item.soon span{font-size:13px}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;
+    font-size:12.5px;color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="kicker">◆ AI × ホームページ制作</span>
+    <h1>AIに言葉で指示するだけで、<br><span class="u">業種別のホームページ</span>を作ってみた。</h1>
+    <p>コードを手で書かず、「こうしたい」を伝えて仕上げた1ページ・サイトのサンプル集です。業種ごとに、必要な見せ方は変わります。</p>
+  </div>
+</header>
+
+<div class="disclaimer">
+  <div>
+    <span class="b">i</span>
+    <span><b>掲載しているのは、すべて架空の会社・店舗です。</b>制作の実演サンプルであり、実在する事業者ではありません。会社名・電話番号・料金・お客様の声などはすべてダミーです。</span>
+  </div>
+</div>
+
+<section class="gallery">
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- 建設 -->
+      <article class="item">
+        <a href="kensetsu.html" class="frame" aria-label="丸々建設のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">maru-kensetsu.example.com</span></div>
+          <div class="shot kensetsu">
+            <div class="grid-dots"></div>
+            <div style="position:relative;z-index:1">
+              <div class="eb">地域密着・創業40年の総合建設</div>
+              <h3>暮らしを、<br>たしかに建てる。</h3>
+              <span class="pill">無料で相談する</span>
+            </div>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">建設・工務店</span>
+          <h2>丸々建設株式会社</h2>
+          <p class="lead">信頼・実績・堅牢さを伝える、硬派なコーポレート系。BtoC＋採用も意識した構成。</p>
+          <p class="made">指示：「地域の工務店。信頼感が出る紺系で、実績と施工事例を目立たせて」</p>
+          <a href="kensetsu.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 整体 -->
+      <article class="item">
+        <a href="seitai.html" class="frame" aria-label="こもれび整体院のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">komorebi-seitai.example.com</span></div>
+          <div class="shot seitai">
+            <div class="eb">○○市の整体院</div>
+            <h3>その<span class="mk">肩こり・腰痛</span>、<br>我慢していませんか。</h3>
+            <span class="pill">◆ LINEで予約</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">整体・治療院</span>
+          <h2>こもれび整体院</h2>
+          <p class="lead">安心・あたたかさを伝えるBtoC系。料金明示・施術者の顔・予約導線を重視。</p>
+          <p class="made">指示：「個人の整体院。やわらかい雰囲気で、料金と予約をわかりやすく」</p>
+          <a href="seitai.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 農家 -->
+      <article class="item">
+        <a href="nouka.html" class="frame" aria-label="まるまる農園のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-farm.example.com</span></div>
+          <div class="shot nouka">
+            <div class="eb">土づくりから、食卓まで。</div>
+            <h3>今朝<span class="g">畑でとれた</span>ものを、<br>そのまま<span class="s">食卓へ</span>。</h3>
+            <span class="pill">お取り寄せする</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">農家・直販</span>
+          <h2>まるまる農園</h2>
+          <p class="lead">一次産業・お取り寄せEC系。商品カード・定期便・生産者の顔で"直販"を作る。</p>
+          <p class="made">指示：「家族経営の農家。あたたかい実りの雰囲気で、お取り寄せと定期便を推して」</p>
+          <a href="nouka.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 町工場 -->
+      <article class="item">
+        <a href="koujou.html" class="frame" aria-label="丸々製作所のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-mfg.example.com</span></div>
+          <div class="shot koujou">
+            <div class="grid-dots"></div>
+            <div style="position:relative;z-index:1">
+              <div class="eb">PRECISION METAL MACHINING</div>
+              <h3>その<span class="c">試作</span>、<br>うちで形にできます。</h3>
+              <span class="pill">図面で見積り</span>
+            </div>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">製造・BtoB</span>
+          <h2>丸々製作所</h2>
+          <p class="lead">唯一のBtoB。技術力・設備スペック・品質保証で"取引したくなる"工場に。採用も意識。</p>
+          <p class="made">指示：「金属加工の町工場。硬派で技術的に。設備一覧と加工精度を数字で見せて」</p>
+          <a href="koujou.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 職人 -->
+      <article class="item">
+        <a href="shokunin.html" class="frame" aria-label="丸々塗装のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-toso.example.com</span></div>
+          <div class="shot shokunin">
+            <div class="eb">○○市の一人親方</div>
+            <h3>塗るのも、<span class="shu">責任も</span>、<br>ぜんぶ<span class="shu">わたし</span>が。</h3>
+            <span class="pill">無料見積り</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">職人・一人親方</span>
+          <h2>丸々塗装</h2>
+          <p class="lead">個人事業・和のcraft系。職人の顔・約束・Before/Afterで"人"と"手仕事"を売る。</p>
+          <p class="made">指示：「塗装の一人親方。和の落ち着いた雰囲気で、下請けを使わない誠実さを前面に」</p>
+          <a href="shokunin.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 清掃・遺品整理 -->
+      <article class="item">
+        <a href="seisou.html" class="frame" aria-label="まるまるサービスのサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-service.example.com</span></div>
+          <div class="shot seisou">
+            <div class="eb">○○市の遺品整理・生前整理</div>
+            <h3>大切な思い出に、<br><span class="s">ていねいに</span>向き合います。</h3>
+            <span class="pill">無料で見積り依頼</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">生活サービス</span>
+          <h2>まるまるサービス</h2>
+          <p class="lead">遺品整理・生活サービス系。デリケートな業種を、清潔感と"寄り添う安心"で。料金明示。</p>
+          <p class="made">指示：「遺品整理の会社。清潔で優しい雰囲気に。料金の目安と、女性対応・明朗会計の安心を」</p>
+          <a href="seisou.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 社労士事務所 -->
+      <article class="item">
+        <a href="sharoushi.html" class="frame" aria-label="丸々社会保険労務士事務所のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-sr.example.com</span></div>
+          <div class="shot sharoushi">
+            <div class="eb">○○市の社会保険労務士事務所</div>
+            <h3>会社の「人」のことを、<br>いちばん近くで<span class="t">支える</span>。</h3>
+            <span class="pill">無料で相談する</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">社労士・士業</span>
+          <h2>丸々社会保険労務士事務所</h2>
+          <p class="lead">士業・BtoB系。<strong>左サイド固定ナビ＋罫線のエディトリアル</strong>で、他サンプルと違う格式ある設計。</p>
+          <p class="made">指示：「社労士事務所。他と違う、士業らしい格式あるレイアウトで」</p>
+          <a href="sharoushi.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 助成金診断サイト（業種HPでなく集客ツール） -->
+      <article class="item">
+        <a href="shindan.html" class="frame" aria-label="助成金かんたん診断サイトを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">shindan-navi.example.com</span></div>
+          <div class="shot shindan">
+            <div class="eb">30秒・無料・登録不要</div>
+            <h3>もらえる<span class="u">助成金</span>、<br>あるかもしれません。</h3>
+            <span class="pill">診断をはじめる</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">診断ツール・SEO集客</span>
+          <h2>助成金かんたん診断サイト</h2>
+          <p class="lead">※業種HPではなく<strong>集客ツール</strong>。検索から見込み客を拾い、社労士へ流す"入口"。診断エンジンは埋め込みと共通。</p>
+          <p class="made">指示：「検索で助成金を探す人を拾う、独立した診断サイトを（SEO＋FAQ＋相談導線つき）」</p>
+          <a href="shindan.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">AIで作る、業種別ホームページ サンプル集 — すべて架空のデモです。</div>
+</footer>
+
+</body>
+</html>

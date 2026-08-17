@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>こもれび整体院｜○○市の整体・骨盤矯正</title>
+<meta name="description" content="○○市の整体院。肩こり・腰痛・骨盤のゆがみを、国家資格者がマンツーマンで。料金は明朗表示。完全予約制。">
+<style>
+  :root{
+    /* 温かい・柔らかい・自然（明） */
+    --bg:#faf6ef;        /* 生成りのクリーム */
+    --card:#ffffff;      /* カード面 */
+    --card-2:#f3efe6;    /* 淡いベージュ */
+    --ink:#3b352d;       /* 温かいダークブラウン */
+    --ink-2:#7c7466;     /* 補助テキスト */
+    --line:#e7e0d3;      /* 罫線 */
+    --accent:#5c8069;    /* セージグリーン（癒し・信頼） */
+    --accent-d:#4a6b56;  /* 濃いめ（hover） */
+    --accent-soft:#e6efe6;/* アクセントの淡い面 */
+    --warm:#c98a5e;      /* テラコッタ（差し色・温かさ） */
+    --warm-soft:#f6e7d9;
+    --on-accent:#fbfdfb;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1080px;
+    --r:18px;
+    --shadow:0 6px 24px rgba(59,53,45,.07),0 1px 3px rgba(59,53,45,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#201d18;--card:#2a2620;--card-2:#322d25;--ink:#f0ebe1;--ink-2:#b3aa99;
+      --line:#3c362c;--accent:#8bb094;--accent-d:#9cc0a4;--accent-soft:#2f3a31;
+      --warm:#dba274;--warm-soft:#3a2f24;--on-accent:#1a1712;--shadow:0 6px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#201d18;--card:#2a2620;--card-2:#322d25;--ink:#f0ebe1;--ink-2:#b3aa99;
+    --line:#3c362c;--accent:#8bb094;--accent-d:#9cc0a4;--accent-soft:#2f3a31;
+    --warm:#dba274;--warm-soft:#3a2f24;--on-accent:#1a1712;--shadow:0 6px 24px rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.9;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;text-wrap:balance;font-weight:800;letter-spacing:.02em}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);font-size:14px;letter-spacing:.18em;color:var(--accent);
+    font-weight:700;display:inline-block;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;
+    background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);
+    transition:.18s;box-shadow:var(--shadow);cursor:pointer}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .btn.line{background:#06c755;border-color:#06c755;color:#fff}
+  .btn.line:hover{background:#05b34c;border-color:#05b34c}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2);transform:translateY(-2px)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px}
+  .brand .leaf{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .brand small{display:block;font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.1em}
+  .nav-links{display:flex;gap:24px;font-size:14px;font-weight:700}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s}
+  .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .nav-tel{text-align:right;line-height:1.25}
+  .nav-tel b{font-size:19px;font-weight:800;letter-spacing:.02em}
+  .nav-tel small{display:block;font-size:10px;color:var(--ink-2)}
+  @media(max-width:940px){.nav-links,.nav-tel{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;overflow:hidden;padding:74px 0 84px}
+  .hero::before{content:"";position:absolute;right:-160px;top:-120px;width:520px;height:520px;
+    background:radial-gradient(circle,var(--warm-soft),transparent 68%);z-index:0}
+  .hero::after{content:"";position:absolute;left:-140px;bottom:-160px;width:440px;height:440px;
+    background:radial-gradient(circle,var(--accent-soft),transparent 68%);z-index:0}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:34px}}
+  .hero h1{font-size:clamp(30px,5.4vw,50px);line-height:1.32;font-weight:900}
+  .hero h1 .mark{background:linear-gradient(transparent 62%,var(--warm-soft) 62%);padding:0 3px}
+  .hero .lead{color:var(--ink-2);font-size:clamp(15px,1.9vw,17px);margin:24px 0 30px;max-width:520px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-visual{aspect-ratio:4/5;border-radius:26px;background:
+    linear-gradient(160deg,var(--accent-soft),var(--warm-soft));
+    box-shadow:var(--shadow);display:grid;place-items:center;position:relative;overflow:hidden}
+  .hero-visual .ph{color:var(--accent);opacity:.55}
+  .hero-visual .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;
+    font-size:11.5px;color:var(--ink-2);font-family:var(--serif);letter-spacing:.08em}
+  .trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px}
+  .trust div{line-height:1.3}
+  .trust b{display:block;font-size:24px;font-weight:900;color:var(--accent)}
+  .trust span{font-size:12px;color:var(--ink-2)}
+
+  /* ===== 共通セクション ===== */
+  section{padding:80px 0}
+  .head{text-align:center;margin-bottom:48px}
+  .head h2{font-size:clamp(24px,3.6vw,33px);font-weight:900}
+  .head p{color:var(--ink-2);margin-top:14px;font-size:15px}
+
+  /* ===== お悩み ===== */
+  .worry{background:var(--card-2)}
+  .worry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:760px){.worry-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.worry-grid{grid-template-columns:1fr}}
+  .worry-item{background:var(--card);border-radius:var(--r);padding:24px 22px;
+    box-shadow:var(--shadow);display:flex;gap:14px;align-items:flex-start}
+  .worry-item .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .worry-item p{margin:0;font-weight:700;font-size:15.5px}
+  .worry-item small{display:block;font-weight:500;color:var(--ink-2);font-size:13px;margin-top:4px}
+
+  /* ===== 特徴 ===== */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.feats{grid-template-columns:1fr}}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:32px 28px;box-shadow:var(--shadow)}
+  .feat .no{font-family:var(--serif);font-size:13px;letter-spacing:.14em;color:var(--warm);font-weight:700}
+  .feat .ic{margin:14px 0 16px;width:52px;height:52px;border-radius:15px;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .feat h3{font-size:19px;margin-bottom:10px}
+  .feat p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* ===== 施術の流れ ===== */
+  .flow{background:var(--accent-soft)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:420px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border-radius:var(--r);padding:26px 22px;position:relative;box-shadow:var(--shadow)}
+  .step .n{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--on-accent);
+    display:grid;place-items:center;font-weight:900;font-size:16px;margin-bottom:14px}
+  .step h3{font-size:16px;margin-bottom:8px}
+  .step p{color:var(--ink-2);font-size:13.5px;margin:0}
+
+  /* ===== 料金 ===== */
+  .price-wrap{max-width:720px;margin:0 auto}
+  .price-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;box-shadow:var(--shadow)}
+  .price-row{display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:22px 28px;border-bottom:1px solid var(--line)}
+  .price-row:last-child{border-bottom:none}
+  .price-row .name{font-weight:800;font-size:16px}
+  .price-row .name small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+  .price-row .yen{font-family:var(--serif);font-weight:700;font-size:22px;white-space:nowrap}
+  .price-row .yen span{font-size:13px;color:var(--ink-2)}
+  .price-row.hl{background:var(--warm-soft)}
+  .price-row.hl .badge{display:inline-block;background:var(--warm);color:#fff;font-size:11px;
+    font-weight:800;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+  .price-note{text-align:center;color:var(--ink-2);font-size:13px;margin-top:18px}
+
+  /* ===== 施術者 ===== */
+  .staff{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:26px;padding:40px;box-shadow:var(--shadow)}
+  @media(max-width:760px){.staff{grid-template-columns:1fr;padding:30px;gap:26px;text-align:center}}
+  .staff-photo{aspect-ratio:1;border-radius:22px;background:linear-gradient(160deg,var(--accent-soft),var(--warm-soft));
+    display:grid;place-items:center;color:var(--accent);position:relative;overflow:hidden}
+  .staff-photo .cap{position:absolute;bottom:12px;left:0;right:0;text-align:center;
+    font-size:11px;color:var(--ink-2);font-family:var(--serif)}
+  .staff-info .role{font-family:var(--serif);color:var(--warm);font-weight:700;font-size:14px;letter-spacing:.06em}
+  .staff-info h3{font-size:26px;margin:6px 0 4px}
+  .staff-info .name-en{color:var(--ink-2);font-size:13px;letter-spacing:.1em;margin-bottom:18px}
+  .staff-info p{color:var(--ink-2);font-size:14.5px;margin:0 0 14px}
+  .staff-info .lic{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+  @media(max-width:760px){.staff-info .lic{justify-content:center}}
+  .staff-info .lic span{background:var(--accent-soft);color:var(--accent-d);font-size:12.5px;
+    font-weight:700;padding:6px 14px;border-radius:999px}
+
+  /* ===== 声 ===== */
+  .voice{background:var(--card-2)}
+  .voices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.voices{grid-template-columns:1fr}}
+  .vcard{background:var(--card);border-radius:var(--r);padding:28px 26px;box-shadow:var(--shadow)}
+  .vcard .stars{color:var(--warm);font-size:16px;letter-spacing:2px;margin-bottom:12px}
+  .vcard p{font-size:14.5px;margin:0 0 18px}
+  .vcard .who{display:flex;align-items:center;gap:12px}
+  .vcard .who .av{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent);font-weight:800;font-size:15px}
+  .vcard .who b{font-size:13.5px}
+  .vcard .who small{display:block;color:var(--ink-2);font-size:12px;font-weight:500}
+
+  /* ===== アクセス ===== */
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+  @media(max-width:760px){.access-grid{grid-template-columns:1fr}}
+  .info-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .info-table .r{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line)}
+  .info-table .r:last-child{border-bottom:none}
+  .info-table .k{background:var(--card-2);padding:16px 18px;font-weight:800;font-size:13.5px;color:var(--accent-d)}
+  .info-table .v{padding:16px 20px;font-size:14.5px}
+  .map-ph{position:relative;overflow:hidden;border-radius:var(--r);min-height:280px;background:var(--card-2);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+
+  /* ===== CTA ===== */
+  .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:var(--on-accent);text-align:center}
+  .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:900}
+  .cta-band p{opacity:.92;margin:14px 0 8px;font-weight:500}
+  .cta-band .tel{font-family:var(--serif);font-size:clamp(30px,6vw,46px);font-weight:700;margin:18px 0 4px}
+  .cta-band .sub{font-size:12.5px;opacity:.85;margin-bottom:26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-band .btn{background:var(--on-accent);color:var(--accent-d);border-color:var(--on-accent)}
+  .cta-band .btn:hover{background:transparent;color:var(--on-accent);border-color:var(--on-accent)}
+  .cta-band .btn.line{background:#06c755;border-color:#06c755;color:#fff}
+
+  /* ===== Footer ===== */
+  footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .brand small{color:var(--ink-2)}
+  .foot .copy{font-size:12px;color:var(--ink-2)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3C7 5 4 9 4 14a8 8 0 0016 0c0-2-1-4-2-5-1 3-3 4-5 4 1-3 1-7-1-10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+      こもれび整体院<small>○○市・骨盤矯正／姿勢改善</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#worry">お悩み</a>
+      <a href="#feature">特徴</a>
+      <a href="#flow">施術の流れ</a>
+      <a href="#price">料金</a>
+      <a href="#staff">施術者</a>
+      <a href="#access">アクセス</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel"><b>0120-000-000</b><small>受付 9:00〜20:00</small></div>
+      <a href="#contact" class="btn line">LINEで予約</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal">○○市の整体院</span>
+        <h1 class="reveal">その<span class="mark">肩こり・腰痛</span>、<br>もう「いつものこと」に<br>していませんか。</h1>
+        <p class="lead reveal">つらい所だけを揉むのではなく、体のゆがみの“おおもと”から。国家資格をもつ院長が、おひとりずつマンツーマンで向き合います。</p>
+        <div class="cta reveal">
+          <a href="#contact" class="btn line">LINEで予約する</a>
+          <a href="#price" class="btn ghost">料金を見る</a>
+        </div>
+        <div class="trust reveal">
+          <div><b>15,000<span style="font-size:14px">+</span></b><span>のべ施術実績</span></div>
+          <div><b>4.9</b><span>口コミ評価</span></div>
+          <div><b>完全予約制</b><span>待ち時間なし</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <img class="scene" src="img/seitai-hero.jpg" alt="笑顔で施術する女性施術者" style="object-position:center top">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- お悩み -->
+<section id="worry" class="worry">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>こんなお悩み、ありませんか？</h2>
+      <p>ひとつでも当てはまれば、体のゆがみが原因かもしれません。</p>
+    </div>
+    <div class="worry-grid">
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 21c0-4 2.7-6 6-6s6 2 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><p>肩こり・首こり<small>デスクワークで夕方には重だるい</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M8 8l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>慢性的な腰痛<small>朝起きたときや前かがみがつらい</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="5" y="4" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 9h6M9 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><p>骨盤のゆがみ<small>脚を組む・片側に体重をかける癖</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><p>頭痛・眼精疲労<small>薬に頼りがちで根本が変わらない</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 6c-3 0-5 2-5 4s2 3 5 3 5 1 5 3-2 4-5 4" stroke="currentColor" stroke-width="1.5"/></svg></span><p>姿勢・猫背<small>写真で見ると背中が丸まっている</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><p>産後の不調<small>骨盤の開き・体型の戻りが気になる</small></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 特徴 -->
+<section id="feature">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>こもれび整体院が選ばれる理由</h2>
+      <p>「その場しのぎ」で終わらせない、3つのこだわり。</p>
+    </div>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="no">POINT 01</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h3>国家資格者が担当</h3>
+        <p>柔道整復師の資格をもつ院長が、体の構造にもとづいて施術。なんとなくではなく、理由のある一手を積み重ねます。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="no">POINT 02</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M17 6l2 2 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>完全予約・マンツーマン</h3>
+        <p>お一人ずつの完全予約制。待ち時間も、人目も気になりません。じっくり問診して、その日の体に合わせて調整します。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="no">POINT 03</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h3>料金は明朗表示</h3>
+        <p>あとから物販やコースを無理にすすめることはありません。料金はすべてこのページに記載。安心してお越しください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 施術の流れ -->
+<section id="flow" class="flow">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>初めての方へ・施術の流れ</h2>
+      <p>初回は問診・検査をふくめて約60分。ご予約だけでOKです。</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>ていねいな問診</h3><p>いつから・どんな時につらいか。生活の癖までうかがい、原因を一緒にさがします。</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>body検査</h3><p>姿勢・骨盤・関節の動きをチェック。今の状態を分かりやすくご説明します。</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>整体施術</h3><p>バキバキしない、やさしい手技が中心。強さはその都度おうかがいします。</p></div>
+      <div class="step reveal"><div class="n">4</div><h3>アフター説明</h3><p>ご自宅でのストレッチや通う目安をお伝え。むやみに回数券はすすめません。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section id="price">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>料金のご案内</h2>
+      <p>表示はすべて税込。この価格以外に費用はいただきません。</p>
+    </div>
+    <div class="price-wrap reveal">
+      <div class="price-card">
+        <div class="price-row hl">
+          <div class="name"><span class="badge">初回おすすめ</span>初回 お試し整体<small>問診＋検査＋施術（約60分）</small></div>
+          <div class="yen">2,980<span>円</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">整体・骨盤矯正<small>2回目以降（約40分）</small></div>
+          <div class="yen">5,500<span>円</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">産後骨盤矯正<small>お子さま連れOK（約40分）</small></div>
+          <div class="yen">6,000<span>円</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">姿勢・猫背集中ケア<small>60分じっくりコース</small></div>
+          <div class="yen">7,700<span>円</span></div>
+        </div>
+      </div>
+      <p class="price-note">※ 回数券もございますが、必要な方にだけご案内します。強引な勧誘は一切いたしません。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 施術者 -->
+<section id="staff">
+  <div class="wrap">
+    <div class="staff reveal">
+      <div class="staff-photo">
+        <img class="scene" src="img/seitai-staff.jpg" alt="こもれび整体院 院長の笑顔">
+      </div>
+      <div class="staff-info">
+        <div class="role">院長・柔道整復師</div>
+        <h3>丸々 ほぐみ</h3>
+        <div class="name-en">HOGUMI MARUMARU</div>
+        <p>「痛みをとるだけでなく、また痛くならない体まで。」整形外科・整骨院で10年の経験を積み、地元○○市で開業しました。強い刺激が苦手な方、ご年配の方も安心してお任せください。</p>
+        <div class="lic">
+          <span>柔道整復師（国家資格）</span>
+          <span>骨盤矯正</span>
+          <span>産後ケア</span>
+          <span>のべ15,000人施術</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 声 -->
+<section class="voice">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>お客様の声</h2>
+      <p>実際に通ってくださっている方から届いた声です。</p>
+    </div>
+    <div class="voices">
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「長年の肩こりで、夕方には頭痛までしていました。3回ほどで朝の軽さが違うのを実感。押し売りが全くないのも安心でした。」</p>
+        <div class="who"><span class="av">Ａ</span><div><b>Ａ.Ｓ さん</b><small>40代・女性／事務職</small></div></div>
+      </div>
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「腰痛でゴルフを諦めかけていましたが、原因から説明してもらえて納得。今ではまたラウンドできています。」</p>
+        <div class="who"><span class="av">Ｔ</span><div><b>Ｔ.Ｋ さん</b><small>50代・男性／自営業</small></div></div>
+      </div>
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「産後の骨盤矯正でお世話になりました。子どもを見ていてくれるので、安心して通えました。体型も戻ってうれしいです。」</p>
+        <div class="who"><span class="av">Ｍ</span><div><b>Ｍ.Ｎ さん</b><small>30代・女性／育児中</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section id="access">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>アクセス・営業時間</h2>
+      <p>○○駅から徒歩5分。お車の方は提携駐車場をご利用いただけます。</p>
+    </div>
+    <div class="access-grid reveal">
+      <div class="info-table">
+        <div class="r"><div class="k">住所</div><div class="v">〒000-0000<br>○○県○○市○○町1-2-3 こもれびビル2F</div></div>
+        <div class="r"><div class="k">電話</div><div class="v">0120-000-000</div></div>
+        <div class="r"><div class="k">営業時間</div><div class="v">9:00〜20:00（最終受付 19:00）</div></div>
+        <div class="r"><div class="k">定休日</div><div class="v">水曜・祝日</div></div>
+        <div class="r"><div class="k">アクセス</div><div class="v">○○線「○○駅」東口より徒歩5分／提携駐車場あり</div></div>
+      </div>
+      <div class="map-ph">
+        <svg class="scene" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif">
+          <rect width="560" height="300" fill="#eef2ec"/>
+          <rect x="34" y="204" width="118" height="78" rx="8" fill="#d9e8d4"/>
+          <text x="93" y="248" font-size="12" fill="#7c9a72" text-anchor="middle">○○公園</text>
+          <g fill="#e3e7e0"><rect x="196" y="34" width="92" height="72" rx="6"/><rect x="332" y="38" width="92" height="60" rx="6"/><rect x="444" y="36" width="82" height="96" rx="6"/><rect x="330" y="186" width="74" height="76" rx="6"/><rect x="430" y="196" width="96" height="80" rx="6"/></g>
+          <rect x="0" y="130" width="560" height="34" fill="#ffffff"/>
+          <rect x="250" y="0" width="30" height="300" fill="#ffffff"/>
+          <line x1="0" y1="147" x2="560" y2="147" stroke="#e0a94b" stroke-width="2" stroke-dasharray="12 9"/>
+          <line x1="16" y1="16" x2="236" y2="122" stroke="#b8bfb4" stroke-width="11"/>
+          <line x1="16" y1="16" x2="236" y2="122" stroke="#ffffff" stroke-width="11" stroke-dasharray="3 11"/>
+          <rect x="150" y="60" width="64" height="26" rx="5" fill="#4a6b56"/>
+          <text x="182" y="78" font-size="12" fill="#fff" text-anchor="middle">○○駅</text>
+          <g transform="translate(300,150)">
+            <ellipse cx="0" cy="40" rx="17" ry="5" fill="#000" opacity="0.12"/>
+            <path d="M0 40 C-15 12 -18 5 -18 -8 A18 18 0 1 1 18 -8 C18 5 15 12 0 40 Z" fill="#5c8069"/>
+            <circle cx="0" cy="-8" r="7" fill="#fff"/>
+          </g>
+          <g><rect x="322" y="150" width="168" height="30" rx="7" fill="#fff" stroke="#cdd8c8"/><text x="336" y="170" font-size="13" fill="#33403a" font-weight="bold">こもれび整体院 2F</text></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <h2>まずは、お気軽にご相談ください。</h2>
+    <p>「これって整体で良くなる？」だけのご相談も歓迎です。</p>
+    <div class="tel">0120-000-000</div>
+    <div class="sub">受付 9:00〜20:00 ／ 水曜・祝日休</div>
+    <div class="btns">
+      <a href="#" class="btn line">LINEで予約する</a>
+      <a href="tel:0120000000" class="btn">電話でかける</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。&nbsp;<a href="index.html" style="color:var(--accent);font-weight:700">‹ サンプル一覧へ戻る</a>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3C7 5 4 9 4 14a8 8 0 0016 0c0-2-1-4-2-5-1 3-3 4-5 4 1-3 1-7-1-10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+      こもれび整体院<small>○○市・骨盤矯正／姿勢改善</small>
+    </a>
+    <span class="copy">© 2026 Komorebi Seitai — All Rights Reserved</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      els.forEach(function(e){e.classList.add('in')});return;
+    }
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  })();
+</script>
+</body>
+</html>

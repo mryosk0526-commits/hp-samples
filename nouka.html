@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まるまる農園｜○○産・農家直送のお米と季節の野菜</title>
+<meta name="description" content="○○県の家族経営の農園から、農家直送でお届け。農薬をできるだけ使わない、顔の見えるお米と旬の野菜。定期便・お取り寄せ承ります。">
+<style>
+  :root{
+    --bg:#fbf8f0;         /* 生成り・稲わら */
+    --card:#ffffff;
+    --card-2:#f2ecdd;
+    --ink:#33301f;        /* 土のこげ茶 */
+    --ink-2:#7a745c;
+    --line:#e6dfcb;
+    --green:#5c7a3a;      /* 若葉・畑 */
+    --green-d:#48622c;
+    --green-soft:#e8efdb;
+    --sun:#e0972f;        /* 実り・稲穂 */
+    --sun-soft:#f8ead0;
+    --tomato:#c0492f;     /* 完熟トマトの差し色 */
+    --on-green:#fbfdf5;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1060px;--r:18px;
+    --shadow:0 8px 26px rgba(51,48,31,.08),0 1px 3px rgba(51,48,31,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1a12;--card:#26241a;--card-2:#2e2b1f;--ink:#efead9;--ink-2:#b0a889;
+      --line:#3a3626;--green:#8fac62;--green-d:#a0bd72;--green-soft:#2c3320;
+      --sun:#e6b055;--sun-soft:#3a3020;--tomato:#d9694f;--on-green:#16140d;
+      --shadow:0 8px 26px rgba(0,0,0,.32);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1a12;--card:#26241a;--card-2:#2e2b1f;--ink:#efead9;--ink-2:#b0a889;
+    --line:#3a3626;--green:#8fac62;--green-d:#a0bd72;--green-soft:#2c3320;
+    --sun:#e6b055;--sun-soft:#3a3020;--tomato:#d9694f;--on-green:#16140d;
+    --shadow:0 8px 26px rgba(0,0,0,.32);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:800;text-wrap:balance}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);color:var(--green-d);font-weight:700;font-size:14px;letter-spacing:.14em;display:inline-block;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;background:var(--green);color:var(--on-green);border:2px solid var(--green);transition:.18s;box-shadow:var(--shadow);cursor:pointer}
+  .btn:hover{background:var(--green-d);border-color:var(--green-d);transform:translateY(-2px)}
+  .btn.sun{background:var(--sun);border-color:var(--sun);color:#3a2708}
+  .btn.sun:hover{background:#cf8722;border-color:#cf8722}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2);transform:translateY(-2px)}
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px}
+  .brand .badge{width:40px;height:40px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;color:var(--green)}
+  .brand small{display:block;font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.08em}
+  .nav-links{display:flex;gap:24px;font-size:14px;font-weight:700}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s}
+  .nav-links a:hover{color:var(--ink);border-color:var(--sun)}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:66px 0 78px}
+  .hero::before{content:"";position:absolute;right:-140px;top:-100px;width:460px;height:460px;background:radial-gradient(circle,var(--sun-soft),transparent 68%)}
+  .hero::after{content:"";position:absolute;left:-120px;bottom:-140px;width:400px;height:400px;background:radial-gradient(circle,var(--green-soft),transparent 68%)}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+  .hero h1{font-size:clamp(30px,5.4vw,52px);line-height:1.3;font-weight:900}
+  .hero h1 .g{color:var(--green-d)}.hero h1 .s{color:var(--sun)}
+  .hero .lead{color:var(--ink-2);font-size:clamp(15px,1.9vw,17px);margin:24px 0 30px;max-width:500px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-visual{aspect-ratio:1;border-radius:26px;background:linear-gradient(160deg,var(--green-soft),var(--sun-soft));box-shadow:var(--shadow);display:grid;place-items:center;position:relative;overflow:hidden}
+  .hero-visual .ph{color:var(--green);opacity:.5}
+  .hero-visual .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-size:11.5px;color:var(--ink-2);font-family:var(--serif)}
+  .ribbons{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .ribbons span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;font-size:12.5px;font-weight:700;color:var(--green-d);box-shadow:var(--shadow)}
+
+  section{padding:78px 0}
+  .head{text-align:center;margin-bottom:46px}
+  .head h2{font-size:clamp(24px,3.6vw,33px);font-weight:900}
+  .head p{color:var(--ink-2);margin-top:14px;font-size:15px}
+
+  /* こだわり */
+  .story{background:var(--card-2)}
+  .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.story-grid{grid-template-columns:1fr}}
+  .scard{background:var(--card);border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);text-align:center}
+  .scard .ic{width:60px;height:60px;border-radius:50%;background:var(--green-soft);display:grid;place-items:center;color:var(--green);margin:0 auto 18px}
+  .scard h3{font-size:19px;margin-bottom:10px}
+  .scard p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* 商品（お取り寄せ） */
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.shop-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.shop-grid{grid-template-columns:1fr}}
+  .product{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+  .product:hover{transform:translateY(-4px)}
+  .product .pic{aspect-ratio:4/3;display:grid;place-items:center;color:#fff;position:relative}
+  .product .pic .tag{position:absolute;top:12px;left:12px;background:var(--tomato);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:999px}
+  .p-rice{background:linear-gradient(150deg,#c99a3f,#9c7620)}
+  .p-veg{background:linear-gradient(150deg,#6f9440,#4c6b2a)}
+  .p-set{background:linear-gradient(150deg,#c0492f,#8f3320)}
+  .product .body{padding:20px 22px}
+  .product h3{font-size:17px;margin-bottom:6px}
+  .product p{color:var(--ink-2);font-size:13px;margin:0 0 14px}
+  .product .price{display:flex;align-items:baseline;justify-content:space-between}
+  .product .price .yen{font-family:var(--serif);font-weight:700;font-size:22px}
+  .product .price .yen small{font-size:12px;color:var(--ink-2)}
+  .product .price .buy{font-size:12.5px;font-weight:800;color:var(--green-d);background:var(--green-soft);padding:6px 14px;border-radius:999px}
+
+  /* 定期便 */
+  .teiki{background:linear-gradient(150deg,var(--green),var(--green-d));color:var(--on-green)}
+  .teiki-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+  @media(max-width:760px){.teiki-grid{grid-template-columns:1fr;text-align:center}}
+  .teiki h2{font-size:clamp(24px,3.6vw,32px);margin-bottom:16px}
+  .teiki p{opacity:.92;margin:0 0 22px;font-size:15px}
+  .teiki ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px}
+  .teiki li{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:14.5px}
+  .teiki li svg{flex:none;margin-top:4px}
+  .teiki-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:var(--r);padding:30px;text-align:center}
+  .teiki-box .big{font-family:var(--serif);font-size:40px;font-weight:700;line-height:1}
+  .teiki-box .big small{font-size:16px;opacity:.85}
+  .teiki-box .note{font-size:12.5px;opacity:.85;margin-top:8px}
+  .teiki-box .btn{margin-top:20px;background:var(--on-green);color:var(--green-d);border-color:var(--on-green)}
+  .teiki-box .btn:hover{background:transparent;color:var(--on-green);border-color:var(--on-green)}
+
+  /* 生産者 */
+  .farmer{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:40px;box-shadow:var(--shadow)}
+  @media(max-width:760px){.farmer{grid-template-columns:1fr;padding:30px;text-align:center}}
+  .farmer-photo{aspect-ratio:1;border-radius:22px;background:linear-gradient(160deg,var(--green-soft),var(--sun-soft));display:grid;place-items:center;color:var(--green);position:relative;overflow:hidden}
+  .farmer-photo .cap{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11px;color:var(--ink-2);font-family:var(--serif)}
+  .farmer .role{font-family:var(--serif);color:var(--sun);font-weight:700;letter-spacing:.06em}
+  .farmer h3{font-size:26px;margin:6px 0 16px}
+  .farmer p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* FAQ */
+  .faq{background:var(--card-2)}
+  .faq-list{max-width:760px;margin:0 auto;display:grid;gap:14px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;box-shadow:var(--shadow)}
+  .qa .q{font-weight:800;font-size:15.5px;display:flex;gap:12px;align-items:flex-start}
+  .qa .q b{color:var(--sun);font-family:var(--serif);font-size:18px;flex:none}
+  .qa .a{color:var(--ink-2);font-size:14px;margin:10px 0 0;padding-left:30px}
+
+  .cta-band{background:var(--sun-soft);text-align:center}
+  .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:900}
+  .cta-band p{color:var(--ink-2);margin:14px 0 26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{background:var(--bg);padding:40px 0 34px;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .brand small{color:var(--ink-2)}
+  .foot .copy{font-size:12px;color:var(--ink-2)}
+  .scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+  @media (prefers-reduced-motion:no-preference){.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20c0-5 3-9 8-10-1 5-4 9-8 10zM12 20c0-5-3-9-8-10 1 5 4 9 8 10zM12 20V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      まるまる農園<small>○○県・農家直送</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#story">こだわり</a>
+      <a href="#shop">お取り寄せ</a>
+      <a href="#teiki">定期便</a>
+      <a href="#farmer">生産者</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#contact">ご注文</a>
+    </nav>
+    <a href="#shop" class="btn sun" style="padding:11px 22px">お取り寄せ</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal">土づくりから、食卓まで。</span>
+        <h1 class="reveal">今朝<span class="g">畑でとれた</span>ものを、<br>そのまま<span class="s">食卓へ</span>。</h1>
+        <p class="lead reveal">○○県の小さな家族農園です。農薬をできるだけ使わず、土から育てたお米と季節の野菜を、農家直送でお届けします。スーパーには並ばない、採れたての味を。</p>
+        <div class="cta reveal">
+          <a href="#shop" class="btn sun">お取り寄せする</a>
+          <a href="#story" class="btn ghost">こだわりを見る</a>
+        </div>
+        <div class="ribbons reveal">
+          <span>🌾 農家直送</span><span>🍅 減農薬栽培</span><span>📦 全国発送</span><span>🎁 のし・ギフト対応</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <img class="scene" src="img/nouka-hero.jpg" alt="実りの田んぼが広がる、○○県の田園風景">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- こだわり -->
+<section id="story" class="story">
+  <div class="wrap">
+    <div class="head reveal"><h2>まるまる農園の、3つのこだわり</h2><p>おいしさは、目に見えないところで決まります。</p></div>
+    <div class="story-grid">
+      <div class="scard reveal">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 20h18M5 20c0-4 3-7 7-7s7 3 7 7M12 13V7M9 8l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>土からつくる</h3>
+        <p>化学肥料に頼らず、堆肥で土そのものを育てます。健やかな土が、味の濃い作物を育てます。</p>
+      </div>
+      <div class="scard reveal">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>朝どれを直送</h3>
+        <p>ご注文を受けてから収穫し、その日のうちに発送。市場を通さないから、鮮度が違います。</p>
+      </div>
+      <div class="scard reveal">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <h3>顔が見える安心</h3>
+        <p>誰が、どう育てたか。同封のお便りで、その季節の畑の様子までお届けします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- お取り寄せ -->
+<section id="shop">
+  <div class="wrap">
+    <div class="head reveal"><h2>お取り寄せ・季節の便り</h2><p>いまが旬のものを中心に、お選びいただけます。（価格は税込・送料別）</p></div>
+    <div class="shop-grid">
+      <div class="product reveal">
+        <div class="pic p-rice"><img class="scene" src="img/nouka-rice.jpg" alt="炊きたてのつやつやな新米"><span class="tag">新米</span></div>
+        <div class="body">
+          <h3>特別栽培米 コシヒカリ 5kg</h3>
+          <p>○○の清流で育てた自慢の一品。冷めても甘い。</p>
+          <div class="price"><span class="yen">3,600<small>円</small></span><span class="buy">カートに入れる</span></div>
+        </div>
+      </div>
+      <div class="product reveal">
+        <div class="pic p-veg"><img class="scene" src="img/nouka-veg.jpg" alt="朝どれのトマトときゅうり"><span class="tag">旬</span></div>
+        <div class="body">
+          <h3>朝どれ野菜 おまかせBOX</h3>
+          <p>その日いちばん良い野菜を8〜10品目。何が届くかお楽しみ。</p>
+          <div class="price"><span class="yen">2,980<small>円</small></span><span class="buy">カートに入れる</span></div>
+        </div>
+      </div>
+      <div class="product reveal">
+        <div class="pic p-set"><img class="scene" src="img/nouka-gift.jpg" alt="米・野菜の詰め合わせギフト籠"><span class="tag">ギフト</span></div>
+        <div class="body">
+          <h3>米・野菜 詰め合わせギフト</h3>
+          <p>お世話になったあの人へ。のし・メッセージ対応。</p>
+          <div class="price"><span class="yen">4,800<small>円</small></span><span class="buy">カートに入れる</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 定期便 -->
+<section id="teiki" class="teiki">
+  <div class="wrap">
+    <div class="teiki-grid">
+      <div class="reveal">
+        <h2>毎月とどく、旬の野菜定期便。</h2>
+        <p>季節ごとに移り変わる、いちばんおいしい時期の野菜を、月に一度お届けします。買い物の手間なく、食卓が旬でいっぱいに。</p>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>その時いちばんの旬をおまかせで</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>いつでも休止・解約OK。しばりなし</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>畑のお便り・レシピ付き</li>
+        </ul>
+      </div>
+      <div class="teiki-box reveal">
+        <div class="big">3,300<small>円 / 月</small></div>
+        <div class="note">送料込み・野菜7〜9品目</div>
+        <a href="#contact" class="btn">定期便をはじめる</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 生産者 -->
+<section id="farmer">
+  <div class="wrap">
+    <div class="farmer reveal">
+      <div class="farmer-photo">
+        <img class="scene" src="img/nouka-farmer.jpg" alt="畑でトラクターに乗る生産者">
+      </div>
+      <div>
+        <div class="role">まるまる農園 三代目</div>
+        <h3>丸々 みのり</h3>
+        <p>祖父の代から続く田畑を継いで15年。「自分の家族に食べさせたいものを、そのままお客様へ」を合言葉に、手間を惜しまず育てています。会社勤めを辞めて就農した、遠回りしてきた農家です。畑のこと、なんでも聞いてください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="wrap">
+    <div class="head reveal"><h2>よくあるご質問</h2></div>
+    <div class="faq-list">
+      <div class="qa reveal"><div class="q"><b>Q</b>注文してから、どのくらいで届きますか？</div><p class="a">ご注文から通常2〜4日でお届けします。野菜は収穫のタイミングにより前後する場合があります。</p></div>
+      <div class="qa reveal"><div class="q"><b>Q</b>不在のときはどうなりますか？</div><p class="a">クール便でお送りし、不在時は再配達となります。日時のご指定も承ります。</p></div>
+      <div class="qa reveal"><div class="q"><b>Q</b>のし・ギフト包装はできますか？</div><p class="a">はい。ご注文時のメッセージ欄にご希望をお書きください。無料で対応いたします。</p></div>
+      <div class="qa reveal"><div class="q"><b>Q</b>定期便はいつでも解約できますか？</div><p class="a">しばりはありません。次回発送の5日前までにご連絡いただければ、休止・解約できます。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <h2>採れたての味を、ご自宅で。</h2>
+    <p>ご注文・ご相談はお気軽に。ギフトのご相談も承ります。</p>
+    <div class="btns">
+      <a href="#shop" class="btn sun">お取り寄せする</a>
+      <a href="tel:0120000000" class="btn ghost">電話で注文（0120-000-000）</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の農園・実在しません）。&nbsp;<a href="index.html" style="color:var(--green-d);font-weight:700">‹ サンプル一覧へ戻る</a>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 20c0-5 3-9 8-10-1 5-4 9-8 10zM12 20c0-5-3-9-8-10 1 5 4 9 8 10zM12 20V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      まるまる農園<small>○○県・農家直送</small>
+    </a>
+    <span class="copy">© 2026 Marumaru Farm — All Rights Reserved</span>
+  </div>
+</footer>
+
+<script>
+  (function(){var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.12});
+  els.forEach(function(e){io.observe(e)});})();
+</script>
+</body>
+</html>

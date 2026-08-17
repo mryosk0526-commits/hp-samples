@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>助成金かんたん診断</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --soft:#f4f1ea;
+    --ink:#22262b;
+    --ink-2:#5b616a;
+    --line:#ddd7ca;
+    --teal:#1c5057;
+    --teal-d:#123c42;
+    --teal-soft:#e2edeb;
+    --gold:#a8802f;
+    --gold-d:#8c6822;
+    --gold-soft:#f3e8cf;
+    --green:#2f7d55;
+    --amber:#b8791f;
+    --on-teal:#f4faf8;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#1b1f22;--soft:#22282b;--ink:#ece7dc;--ink-2:#a3a99f;--line:#333a38;
+      --teal:#5aa3a0;--teal-d:#74b8b4;--teal-soft:#182c2a;--gold:#cda255;--gold-d:#dcb56c;
+      --gold-soft:#332a1a;--green:#5fb183;--amber:#d8a34e;--on-teal:#0f1514;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;padding:26px 24px}
+  .w{max-width:520px;margin:0 auto}
+  .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .head .badge{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--gold-d);background:var(--gold-soft);padding:3px 10px;border-radius:4px}
+  .head .prog{margin-left:auto;font-family:var(--serif);font-size:12px;color:var(--ink-2)}
+  h1{font-family:var(--serif);font-size:20px;font-weight:900;margin:0 0 4px}
+  .sub{color:var(--ink-2);font-size:13px;margin:0 0 20px}
+  .rule{height:1px;background:var(--line);margin:16px 0 20px}
+
+  /* コース選択 */
+  .courses{display:grid;gap:12px}
+  .course{border:1.5px solid var(--line);background:var(--bg);text-align:left;padding:20px;cursor:pointer;transition:.15s;display:flex;gap:14px;align-items:flex-start;font-family:inherit;width:100%}
+  .course:hover{border-color:var(--teal);transform:translateY(-2px)}
+  .course .ic{flex:none;width:44px;height:44px;border:1.5px solid var(--teal);display:grid;place-items:center;color:var(--teal)}
+  .course b{font-family:var(--serif);font-size:16px;display:block;margin-bottom:3px}
+  .course small{color:var(--ink-2);font-size:12.5px}
+  .course .amt{display:block;margin-top:6px;font-size:12px;font-weight:800;color:var(--gold-d)}
+
+  /* 質問 */
+  .qtext{font-family:var(--serif);font-size:18px;font-weight:800;margin:0 0 18px;line-height:1.6}
+  .opts{display:grid;gap:10px}
+  .opt{border:1.5px solid var(--line);background:var(--bg);padding:15px 18px;cursor:pointer;font-size:15px;font-weight:700;text-align:left;transition:.15s;font-family:inherit;color:var(--ink);display:flex;align-items:center;gap:12px}
+  .opt:hover{border-color:var(--teal);background:var(--teal-soft)}
+  .opt .dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+  .opt:hover .dot{border-color:var(--teal)}
+  .back{margin-top:18px;background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;padding:6px 0}
+  .back:hover{color:var(--ink)}
+
+  /* 結果 */
+  .result .verdict{display:flex;align-items:center;gap:12px;padding:16px 18px;border:1.5px solid var(--line)}
+  .result .verdict .mk{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;color:#fff}
+  .result.high .verdict{border-color:var(--green);background:color-mix(in srgb,var(--green) 8%,transparent)}
+  .result.high .verdict .mk{background:var(--green)}
+  .result.maybe .verdict{border-color:var(--amber);background:color-mix(in srgb,var(--amber) 8%,transparent)}
+  .result.maybe .verdict .mk{background:var(--amber)}
+  .result.ng .verdict{border-color:var(--line);background:var(--soft)}
+  .result.ng .verdict .mk{background:var(--ink-2)}
+  .result .verdict b{font-family:var(--serif);font-size:17px}
+  .result .amount{font-family:var(--serif);font-size:15px;font-weight:800;color:var(--gold-d);margin:16px 0 4px}
+  .result .amount span{font-size:26px}
+  .result .desc{color:var(--ink-2);font-size:14px;margin:14px 0}
+  .result .note{font-size:12px;color:var(--ink-2);background:var(--soft);border-left:3px solid var(--gold);padding:12px 14px;margin:16px 0}
+  .cta{display:grid;gap:10px;margin-top:20px}
+  .cta .tel{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--teal);color:var(--on-teal);padding:15px;font-weight:800;font-size:16px;text-decoration:none;font-family:var(--serif)}
+  .cta .tel:hover{background:var(--teal-d)}
+  .cta .mail{text-align:center;color:var(--teal);font-size:13px;font-weight:700;text-decoration:none}
+  .cta .mail:hover{text-decoration:underline}
+  .retry{margin-top:8px;background:none;border:none;color:var(--ink-2);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;padding:8px}
+  .retry:hover{color:var(--ink)}
+
+  .disc{font-size:10.5px;color:var(--ink-2);margin-top:22px;padding-top:14px;border-top:1px solid var(--line);line-height:1.7}
+  @media (prefers-reduced-motion:no-preference){.fade{animation:fade .3s ease}}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="head">
+    <span class="badge">無料・かんたん助成金診断</span>
+    <span class="prog" id="prog"></span>
+  </div>
+  <div id="app"></div>
+  <p class="disc">
+    ※ これは目安を知るための「かんたん診断」です。実際の受給可否は、就業規則の具体的な内容や、
+    <b>事前のキャリアアップ計画の提出・実際の支給・運用期間</b>などの要件によって変わります。
+    正確な判定は、当事務所の無料相談で確認いたします。（金額は中小企業の場合の目安です）
+  </p>
+</div>
+
+<script>
+(function(){
+  var TEL = "0120-000-000";
+  var TEL_HREF = "tel:0120000000";
+  var MAIL = "mailto:info@example.com";
+
+  var COURSES = {
+    seishain:{
+      name:"正社員化コース",
+      sub:"キャリアアップ助成金",
+      amt:"一人あたり 最大 80万円",
+      questions:[
+        {id:"target", q:"契約社員・パート・アルバイトなど、正社員以外の従業員はいますか？",
+         opts:[{t:"いる",v:"yes"},{t:"いない",v:"no"}]},
+        {id:"tenkan", q:"その方を正社員に転換する制度（登用のルール）は、就業規則にありますか？",
+         opts:[{t:"ある",v:"yes"},{t:"ない・わからない",v:"no"}]},
+        {id:"shokyu", q:"正社員には、昇給の仕組みがありますか？",
+         opts:[{t:"ある",v:"yes"},{t:"ない",v:"no"}]},
+        {id:"reward", q:"賞与（ボーナス）または退職金の制度はありますか？",
+         opts:[{t:"ある",v:"yes"},{t:"ない",v:"no"}]}
+      ],
+      judge:function(a){
+        if(a.target==="no") return {level:"ng", title:"対象になりません",
+          desc:"正社員化の対象となる非正規の従業員がいないため、このコースの対象外となります。"};
+        if(a.tenkan==="yes" && a.shokyu==="yes" && a.reward==="yes")
+          return {level:"high", title:"対象になる可能性が高いです", amount:"一人あたり 最大 <span>80</span>万円",
+            desc:"正社員以外の方を正社員へ転換すると、キャリアアップ助成金（正社員化コース）の対象になり得ます。制度が整っている状態です。"};
+        return {level:"maybe", title:"整えれば、対象になり得ます",
+          desc:"対象となる従業員はいますが、正社員化助成金には「転換制度・昇給・賞与または退職金」がそろっている必要があります。足りない部分を就業規則で整えれば、対象になり得ます。"};
+      }
+    },
+    taishoku:{
+      name:"賞与・退職金制度導入コース",
+      sub:"キャリアアップ助成金",
+      amt:"最大 40万〜56.8万円",
+      questions:[
+        {id:"target", q:"契約社員・パートなど、正社員以外の従業員はいますか？",
+         opts:[{t:"いる",v:"yes"},{t:"いない",v:"no"}]},
+        {id:"bonus", q:"その方たち（有期・パート）向けの「賞与」の制度はありますか？",
+         opts:[{t:"ある",v:"yes"},{t:"ない",v:"no"}]},
+        {id:"taishoku", q:"その方たち向けの「退職金」の制度はありますか？",
+         opts:[{t:"ある",v:"yes"},{t:"ない",v:"no"}]}
+      ],
+      judge:function(a){
+        if(a.target==="no") return {level:"ng", title:"対象になりません",
+          desc:"制度を導入する対象（有期・パート等）の従業員がいないため、このコースの対象外となります。"};
+        if(a.bonus==="no" || a.taishoku==="no")
+          return {level:"high", title:"新設すれば、対象になり得ます", amount:"最大 <span>40</span>万〜<span>56.8</span>万円",
+            desc:"有期・パートの方向けに「賞与」または「退職金」の制度を新しく設けると、対象になり得ます。両方を同時に導入すると増額されます（1事業所1回限り）。"};
+        return {level:"maybe", title:"すでに制度があるようです",
+          desc:"すでに賞与・退職金の制度がある場合、このコースは「新たに導入する」ことが要件のため、対象外となる可能性があります。ただし対象範囲などにより変わるため、無料相談で確認をおすすめします。"};
+      }
+    }
+  };
+
+  var state = {course:null, step:0, answers:{}};
+  var app = document.getElementById("app");
+  var prog = document.getElementById("prog");
+
+  var lastH = 0;
+  function postHeight(){
+    if(window.parent===window) return;
+    // ★内容(.w)の高さ＋body上下paddingだけを測る（iframe自身の高さは含めない＝ループ防止）
+    var inner = document.querySelector(".w");
+    var h = (inner ? Math.ceil(inner.getBoundingClientRect().height) : document.body.scrollHeight) + 60;
+    if(Math.abs(h - lastH) <= 2) return;   // 変化がなければ送らない
+    lastH = h;
+    try{ window.parent.postMessage({t:"gw-h", h:h}, "*"); }catch(e){}
+  }
+  function render(){
+    app.className="";
+    if(!state.course){ renderStart(); }
+    else {
+      var c = COURSES[state.course];
+      if(state.step < c.questions.length){ renderQuestion(c); }
+      else { renderResult(c); }
+    }
+    requestAnimationFrame(postHeight);
+  }
+  window.addEventListener("resize", postHeight);
+
+  function renderStart(){
+    prog.textContent="";
+    app.innerHTML =
+      '<h1>どの助成金を診断しますか？</h1>'+
+      '<p class="sub">気になるものを選んでください。数問で目安がわかります。</p>'+
+      '<div class="courses fade">'+
+        courseCard("seishain","M4 20v-1a5 5 0 015-5h2M15 13l2 2 4-4M9 7a3 3 0 106 0 3 3 0 00-6 0z")+
+        courseCard("taishoku","M4 20h16M6 20V9l6-4 6 4v11M10 20v-6h4v6")+
+      '</div>';
+    Array.prototype.forEach.call(app.querySelectorAll(".course"),function(el){
+      el.addEventListener("click",function(){ state.course=el.dataset.k; state.step=0; state.answers={}; render(); });
+    });
+  }
+  function courseCard(key,path){
+    var c=COURSES[key];
+    return '<button class="course" data-k="'+key+'">'+
+      '<span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="'+path+'" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
+      '<span><b>'+c.name+'</b><small>'+c.sub+'</small><span class="amt">'+c.amt+'</span></span>'+
+      '</button>';
+  }
+
+  function renderQuestion(c){
+    var q = c.questions[state.step];
+    prog.textContent = "質問 "+(state.step+1)+" / "+c.questions.length;
+    var opts = q.opts.map(function(o){
+      return '<button class="opt" data-v="'+o.v+'"><span class="dot"></span>'+o.t+'</button>';
+    }).join("");
+    app.innerHTML =
+      '<h1>'+c.name+'</h1>'+
+      '<div class="rule"></div>'+
+      '<div class="fade"><p class="qtext">'+q.q+'</p><div class="opts">'+opts+'</div>'+
+      '<button class="back">‹ '+(state.step===0?"コース選択にもどる":"前の質問へ")+'</button></div>';
+    Array.prototype.forEach.call(app.querySelectorAll(".opt"),function(el){
+      el.addEventListener("click",function(){
+        state.answers[q.id]=el.dataset.v; state.step++; render();
+      });
+    });
+    app.querySelector(".back").addEventListener("click",function(){
+      if(state.step===0){ state.course=null; } else { state.step--; }
+      render();
+    });
+  }
+
+  function renderResult(c){
+    prog.textContent="診断結果";
+    var r = c.judge(state.answers);
+    var icon = r.level==="high"
+      ? '<path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+      : r.level==="maybe"
+      ? '<path d="M12 8v5M12 16h.01" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>'
+      : '<path d="M8 12h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>';
+    var amount = r.amount ? '<div class="amount">'+r.amount+'</div>' : '';
+    var cta = (r.level!=="ng")
+      ? '<div class="cta"><a class="tel" href="'+TEL_HREF+'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5c0 8 7 15 15 15l0-3-4-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-4-3 0z" stroke-width="1.6" stroke-linejoin="round"/></svg>無料で相談する（'+TEL+'）</a>'+
+        '<a class="mail" href="'+MAIL+'">診断結果を添えてメールで相談する ›</a></div>'
+      : '';
+    app.className = "result "+r.level;
+    app.innerHTML =
+      '<h1>'+c.name+'</h1>'+
+      '<div class="rule"></div>'+
+      '<div class="fade">'+
+        '<div class="verdict"><span class="mk"><svg width="20" height="20" viewBox="0 0 24 24">'+icon+'</svg></span><b>'+r.title+'</b></div>'+
+        amount+
+        '<p class="desc">'+r.desc+'</p>'+
+        (r.level!=="ng"?'<div class="note">この診断は目安です。実際の受給には、<b>制度を作る前のキャリアアップ計画の提出</b>など、就業規則だけでは分からない要件があります。当事務所が正確に確認し、申請までサポートします。</div>':'')+
+        cta+
+        '<button class="retry">↺ 別の助成金も診断する</button>'+
+      '</div>';
+    app.querySelector(".retry").addEventListener("click",function(){
+      state.course=null; state.step=0; state.answers={}; render();
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
