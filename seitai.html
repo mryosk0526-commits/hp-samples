@@ -80,9 +80,11 @@
   /* ===== Hero ===== */
   .hero{position:relative;overflow:hidden;padding:74px 0 84px}
   .hero::before{content:"";position:absolute;right:-160px;top:-120px;width:520px;height:520px;
-    background:radial-gradient(circle,var(--warm-soft),transparent 68%);z-index:0}
+    background:radial-gradient(circle,var(--warm-soft),transparent 68%);z-index:0;
+    transform:translateY(var(--pyA,0));will-change:transform}
   .hero::after{content:"";position:absolute;left:-140px;bottom:-160px;width:440px;height:440px;
-    background:radial-gradient(circle,var(--accent-soft),transparent 68%);z-index:0}
+    background:radial-gradient(circle,var(--accent-soft),transparent 68%);z-index:0;
+    transform:translateY(var(--pyB,0));will-change:transform}
   .hero .wrap{position:relative;z-index:1}
   .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
   @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:34px}}
@@ -197,6 +199,9 @@
   .info-table .v{padding:16px 20px;font-size:14.5px}
   .map-ph{position:relative;overflow:hidden;border-radius:var(--r);min-height:280px;background:var(--card-2);border:1px solid var(--line);box-shadow:var(--shadow)}
   .scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+  .map-ph iframe.scene{border:0}
+  .map-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10.5px;font-weight:800;color:#fff;
+    background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
 
   /* ===== CTA ===== */
   .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:var(--on-accent);text-align:center}
@@ -216,8 +221,12 @@
   .foot .copy{font-size:12px;color:var(--ink-2)}
 
   @media (prefers-reduced-motion:no-preference){
-    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal{opacity:0;transform:translateY(22px);
+      transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
     .reveal.in{opacity:1;transform:none}
+    /* 画像のゆっくり拡大（Ken Burns）。写真の要素に class="kenburns" を付けるだけ */
+    .kenburns{animation:kenburns 20s ease-in-out infinite alternate;transform-origin:center}
+    @keyframes kenburns{from{transform:scale(1.03)}to{transform:scale(1.12)}}
   }
 </style>
 </head>
@@ -263,7 +272,7 @@
         </div>
       </div>
       <div class="hero-visual reveal">
-        <img class="scene" src="img/seitai-hero.jpg" alt="笑顔で施術する女性施術者" style="object-position:center top">
+        <img class="scene kenburns" src="img/seitai-hero.jpg" alt="笑顔で施術する女性施術者" style="object-position:center top">
       </div>
     </div>
   </div>
@@ -369,7 +378,7 @@
   <div class="wrap">
     <div class="staff reveal">
       <div class="staff-photo">
-        <img class="scene" src="img/seitai-staff.jpg" alt="こもれび整体院 院長の笑顔">
+        <img class="scene kenburns" src="img/seitai-staff.jpg" alt="こもれび整体院 院長の笑顔">
       </div>
       <div class="staff-info">
         <div class="role">院長・柔道整復師</div>
@@ -430,25 +439,8 @@
         <div class="r"><div class="k">アクセス</div><div class="v">○○線「○○駅」東口より徒歩5分／提携駐車場あり</div></div>
       </div>
       <div class="map-ph">
-        <svg class="scene" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif">
-          <rect width="560" height="300" fill="#eef2ec"/>
-          <rect x="34" y="204" width="118" height="78" rx="8" fill="#d9e8d4"/>
-          <text x="93" y="248" font-size="12" fill="#7c9a72" text-anchor="middle">○○公園</text>
-          <g fill="#e3e7e0"><rect x="196" y="34" width="92" height="72" rx="6"/><rect x="332" y="38" width="92" height="60" rx="6"/><rect x="444" y="36" width="82" height="96" rx="6"/><rect x="330" y="186" width="74" height="76" rx="6"/><rect x="430" y="196" width="96" height="80" rx="6"/></g>
-          <rect x="0" y="130" width="560" height="34" fill="#ffffff"/>
-          <rect x="250" y="0" width="30" height="300" fill="#ffffff"/>
-          <line x1="0" y1="147" x2="560" y2="147" stroke="#e0a94b" stroke-width="2" stroke-dasharray="12 9"/>
-          <line x1="16" y1="16" x2="236" y2="122" stroke="#b8bfb4" stroke-width="11"/>
-          <line x1="16" y1="16" x2="236" y2="122" stroke="#ffffff" stroke-width="11" stroke-dasharray="3 11"/>
-          <rect x="150" y="60" width="64" height="26" rx="5" fill="#4a6b56"/>
-          <text x="182" y="78" font-size="12" fill="#fff" text-anchor="middle">○○駅</text>
-          <g transform="translate(300,150)">
-            <ellipse cx="0" cy="40" rx="17" ry="5" fill="#000" opacity="0.12"/>
-            <path d="M0 40 C-15 12 -18 5 -18 -8 A18 18 0 1 1 18 -8 C18 5 15 12 0 40 Z" fill="#5c8069"/>
-            <circle cx="0" cy="-8" r="7" fill="#fff"/>
-          </g>
-          <g><rect x="322" y="150" width="168" height="30" rx="7" fill="#fff" stroke="#cdd8c8"/><text x="336" y="170" font-size="13" fill="#33403a" font-weight="bold">こもれび整体院 2F</text></g>
-        </svg>
+        <iframe class="scene" src="https://maps.google.com/maps?q=%E7%9A%87%E5%B1%85&z=15&hl=ja&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
+        <span class="map-badge">デモ：皇居を表示（本番は自院の地図に差替え）</span>
       </div>
     </div>
   </div>
@@ -483,14 +475,33 @@
 
 <script>
   (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var els = document.querySelectorAll('.reveal');
-    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      els.forEach(function(e){e.classList.add('in')});return;
+    if(!('IntersectionObserver' in window) || reduce){
+      els.forEach(function(e){e.classList.add('in')});
+    } else {
+      var groups = new Map();
+      els.forEach(function(e){ var p=e.parentElement; var a=groups.get(p)||[]; a.push(e); groups.set(p,a); });
+      groups.forEach(function(a){ a.forEach(function(e,i){ e.style.transitionDelay = Math.min(i*90,450)+'ms'; }); });
+      var io = new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+      },{threshold:.12});
+      els.forEach(function(e){io.observe(e)});
     }
-    var io = new IntersectionObserver(function(ents){
-      ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
-    },{threshold:.12});
-    els.forEach(function(e){io.observe(e)});
+    if(!reduce){
+      var hero = document.querySelector('.hero');
+      if(hero){
+        var ticking=false;
+        function upd(){
+          var off = hero.getBoundingClientRect().top;
+          hero.style.setProperty('--pyA',(off*-0.06).toFixed(1)+'px');
+          hero.style.setProperty('--pyB',(off*0.05).toFixed(1)+'px');
+          ticking=false;
+        }
+        window.addEventListener('scroll',function(){ if(!ticking){requestAnimationFrame(upd);ticking=true;} },{passive:true});
+        upd();
+      }
+    }
   })();
 </script>
 </body>

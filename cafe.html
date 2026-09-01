@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>カフェマルテリア｜東京・千代田区の自家焙煎コーヒーとモーニング</title>
+<meta name="description" content="東京・千代田区のカフェ「カフェマルテリア」。自家焙煎コーヒーと、手づくりの厚切りトースト・モーニング。大きな窓と観葉植物に囲まれた、居心地のいい空間で。">
+<style>
+  :root{
+    --bg:#f7f2e9;        /* 生成りクリーム */
+    --card:#fffdf8;
+    --card-2:#efe6d6;    /* 淡いベージュ */
+    --ink:#3a3026;       /* エスプレッソ */
+    --ink-2:#7c7061;
+    --line:#e6dcc9;
+    --accent:#a75d38;    /* テラコッタ／焙煎銅 */
+    --accent-d:#8a4b2c;
+    --accent-soft:#f1e3d5;
+    --warm:#c58a4a;      /* キャラメル */
+    --warm-soft:#f4e6d2;
+    --on-accent:#fdf8f2;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1080px;--r:18px;
+    --shadow:0 6px 24px rgba(58,48,38,.08),0 1px 3px rgba(58,48,38,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#211c16;--card:#2a241d;--card-2:#332c23;--ink:#efe7d9;--ink-2:#b7ab98;--line:#3d352a;
+      --accent:#cf8a5e;--accent-d:#dc9e73;--accent-soft:#3a2f24;--warm:#d9a566;--warm-soft:#3a2f22;--on-accent:#1a1510;--shadow:0 6px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#211c16;--card:#2a241d;--card-2:#332c23;--ink:#efe7d9;--ink-2:#b7ab98;--line:#3d352a;
+    --accent:#cf8a5e;--accent-d:#dc9e73;--accent-soft:#3a2f24;--warm:#d9a566;--warm-soft:#3a2f22;--on-accent:#1a1510;--shadow:0 6px 24px rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:.02em}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);font-size:14px;letter-spacing:.18em;color:var(--accent);font-weight:700;display:inline-block;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;
+    background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);transition:.18s;box-shadow:var(--shadow);cursor:pointer}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2);transform:translateY(-2px)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:28px;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;white-space:nowrap;flex-shrink:0;font-family:var(--serif)}
+  .brand .leaf{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+  .brand small{display:block;font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.08em;white-space:nowrap;font-family:var(--sans)}
+  .nav-links{display:flex;gap:20px;font-size:14px;font-weight:700;flex-wrap:nowrap}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+  .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .nav-tel{text-align:right;line-height:1.25}
+  .nav-tel b{font-size:19px;font-weight:800;font-family:var(--serif)}
+  .nav-tel small{display:block;font-size:10px;color:var(--ink-2)}
+  @media(max-width:960px){.nav-links,.nav-tel{display:none}}
+
+  /* Hero（全幅バックグラウンド・自動スライド） */
+  .hero{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden}
+  .hero-slides,.hero-slides .slide{position:absolute;inset:0}
+  .hero-slides .slide{opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+  .hero-slides .slide.is-active{opacity:1;animation:heroZoom 9s ease-out both}
+  @keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+  .hero-slides .slide.s1{background-image:url(img/cafe-hero1.jpg)}
+  .hero-slides .slide.s2{background-image:url(img/cafe-sweets.jpg)}
+  .hero-slides .slide.s3{background-image:url(img/cafe-food1.jpg)}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 4%,color-mix(in srgb,var(--bg) 70%,transparent) 42%,transparent 78%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;max-width:none;margin:0;padding-right:22px;padding-left:max(22px,calc((100vw - 1080px)/4 + 22px))}
+  .hero-copy{max-width:540px;padding:48px 0;text-align:left}
+  .hero h1{font-size:clamp(30px,4.8vw,46px);line-height:1.4;font-weight:900;font-family:var(--serif);text-wrap:normal}
+  .hero h1 .mark{background:linear-gradient(transparent 62%,var(--warm-soft) 62%);padding:0 3px}
+  .hero .lead{color:var(--ink-2);font-size:clamp(15px,1.9vw,17px);margin:24px 0 30px;max-width:500px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:3}
+  .hero .dots i{width:9px;height:9px;border-radius:50%;background:var(--accent);opacity:.4;transition:.25s;cursor:pointer;box-shadow:0 0 0 1px color-mix(in srgb,var(--card) 55%,transparent)}
+  .hero .dots i:hover{opacity:.75}
+  .hero .dots i.on{opacity:1;width:22px;border-radius:6px}
+  .scrollcue{position:absolute;bottom:24px;right:26px;z-index:3;font-size:10px;letter-spacing:.22em;font-weight:800;color:var(--accent-d);writing-mode:vertical-rl}
+  @media(max-width:720px){.hero-scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 45%,transparent),var(--bg) 84%)}.scrollcue{display:none}}
+
+  section{padding:80px 0}
+  .head{text-align:center;margin-bottom:48px}
+  .head .eyebrow{margin-bottom:10px}
+  .head h2{font-size:clamp(24px,3.6vw,33px);font-weight:900;font-family:var(--serif)}
+  .head p{color:var(--ink-2);margin-top:14px;font-size:15px}
+
+  /* こだわり */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.feats{grid-template-columns:1fr}}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);text-align:center}
+  .feat .ic{margin:0 auto 16px;width:56px;height:56px;border-radius:16px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+  .feat h3{font-size:19px;margin-bottom:10px;font-family:var(--serif)}
+  .feat p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* メニュー */
+  .menu{background:var(--card-2)}
+  .menu-cat{margin-bottom:44px}
+  .menu-cat:last-child{margin-bottom:0}
+  .menu-cat .cat-h{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .menu-cat .cat-h .ic{width:40px;height:40px;border-radius:12px;background:var(--warm-soft);display:grid;place-items:center;color:var(--warm)}
+  .menu-cat .cat-h h3{font-family:var(--serif);font-size:21px}
+  .menu-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+  @media(max-width:760px){.menu-grid{grid-template-columns:1fr;gap:20px}}
+  .menu-grid.rev{direction:rtl}.menu-grid.rev>*{direction:ltr}
+  .menu-photo{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .menu-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .menu-list{list-style:none;padding:0;margin:0}
+  .menu-list li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .menu-list li:last-child{border-bottom:none}
+  .menu-list .nm{font-weight:800;font-size:16px}
+  .menu-list .nm small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;margin-top:2px}
+  .menu-list .pr{font-family:var(--serif);font-weight:700;font-size:18px;white-space:nowrap;color:var(--accent-d)}
+  .menu-list .pr span{font-size:12px;color:var(--ink-2)}
+
+  /* ギャラリー */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:820px){.gal{grid-template-columns:repeat(2,1fr)}}
+  .gal button{border:0;padding:0;margin:0;cursor:pointer;background:none;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:1;position:relative}
+  .gal button:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+  .gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .gal button:hover img{transform:scale(1.06)}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(30,24,18,.82);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .lightbox .x{position:absolute;top:18px;right:22px;color:#fff;font-size:30px;font-weight:300;line-height:1}
+
+  /* アクセス */
+  .access{background:var(--card-2)}
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+  @media(max-width:760px){.access-grid{grid-template-columns:1fr}}
+  .info-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .info-table .r{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line)}
+  .info-table .r:last-child{border-bottom:none}
+  .info-table .k{background:var(--card-2);padding:16px 18px;font-weight:800;font-size:13.5px;color:var(--accent-d);font-family:var(--serif)}
+  .info-table .v{padding:16px 20px;font-size:14.5px}
+  .access-visual{display:flex;flex-direction:column;gap:16px}
+  .access-photo{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);aspect-ratio:16/9}
+  .access-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .map-ph{position:relative;overflow:hidden;border-radius:var(--r);min-height:220px;flex:1;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .map-ph iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .map-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;gap:14px;align-items:center;font-weight:800;font-size:15.5px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-d);display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:14px}
+  .faq summary .mk{margin-left:auto;flex:none;color:var(--accent);font-size:20px;line-height:1;transition:transform .25s}
+  .faq details[open] summary .mk{transform:rotate(45deg)}
+  .faq .a{padding:2px 22px 20px 62px;color:var(--ink-2);font-size:14.5px}
+
+  /* CTA */
+  .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:var(--on-accent);text-align:center}
+  .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:900;font-family:var(--serif)}
+  .cta-band p{opacity:.92;margin:14px 0 8px;font-weight:500}
+  .cta-band .tel{font-family:var(--serif);font-size:clamp(30px,6vw,46px);font-weight:700;margin:18px 0 4px}
+  .cta-band .sub{font-size:12.5px;opacity:.85;margin-bottom:26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-band .btn{background:var(--on-accent);color:var(--accent-d);border-color:var(--on-accent)}
+  .cta-band .btn:hover{background:transparent;color:var(--on-accent);border-color:var(--on-accent)}
+
+  footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .copy{font-size:12px;color:var(--ink-2);font-family:var(--serif)}
+
+  /* スマホ固定CTA */
+  .mcta{display:none}
+  @media(max-width:720px){
+    .mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(58,48,38,.10)}
+    .mcta a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;font-size:11px;font-weight:800;color:var(--ink-2);border-right:1px solid var(--line)}
+    .mcta a:last-child{border-right:0}
+    .mcta a.p{background:var(--warm);color:#3a2410}
+    .mcta a svg{width:21px;height:21px}
+    body{padding-bottom:58px}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 10h13a4 4 0 010 8h-1M4 10v6a4 4 0 004 4h5a4 4 0 004-4M8 3v3M11.5 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      カフェマルテリア<small>東京・千代田区／自家焙煎コーヒー</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#feature">こだわり</a>
+      <a href="#menu">メニュー</a>
+      <a href="#gallery">店内</a>
+      <a href="#access">アクセス</a>
+      <a href="#faq">Q&amp;A</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel"><b>0120-000-000</b><small>OPEN 8:00〜19:00</small></div>
+      <a href="#access" class="btn">アクセス</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides" id="heroSlider">
+    <div class="slide s1 is-active"></div>
+    <div class="slide s2"></div>
+    <div class="slide s3"></div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">東京・千代田区のカフェ</span>
+      <h1 class="reveal">今日の一杯を、<br><span class="mark">ゆっくりと</span>。</h1>
+      <p class="lead reveal">店内で焙煎したコーヒーと、手づくりの厚切りトースト。大きな窓と観葉植物に囲まれて、あなたのペースで過ごせる一日のはじまりを。</p>
+      <div class="cta reveal">
+        <a href="#menu" class="btn">メニューを見る</a>
+        <a href="#access" class="btn ghost">アクセス・営業時間</a>
+      </div>
+    </div>
+  </div>
+  <div class="dots"><i class="on"></i><i></i><i></i></div>
+  <span class="scrollcue">SCROLL ↓</span>
+</section>
+
+<!-- こだわり -->
+<section id="feature">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Our Coffee</span>
+      <h2>3つの、ちいさなこだわり</h2>
+      <p>特別なことはありません。ただ、毎日をていねいに。</p>
+    </div>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 10h11a4 4 0 010 8H9a4 4 0 01-4-4v-4zM18 11h1a3 3 0 010 6M8 3c-.6 1 .6 2 0 3M11.5 3c-.6 1 .6 2 0 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>自家焙煎のコーヒー</h3>
+        <p>浅煎りから深煎りまで、店内の焙煎機で少量ずつ。淹れたての香りを、いちばんいい状態でお出しします。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 7V6a4 4 0 018 0v1M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>手づくりの朝ごはん</h3>
+        <p>厚切りトーストのオープンサンドや、たっぷり卵のモーニング。素朴だけど、ほっとする一皿を焼きたてで。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M3 21V10l9-6 9 6v11M9 21v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>居心地のいい時間</h3>
+        <p>大きな窓とソファ席、たくさんの観葉植物。読書も、仕事も、おしゃべりも。思い思いに過ごせる空間です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- メニュー -->
+<section id="menu" class="menu">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Menu</span>
+      <h2>おしながき</h2>
+      <p>コーヒーとともに、ゆっくりどうぞ。（表示は税込）</p>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-h"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 10h11a4 4 0 010 8H9a4 4 0 01-4-4v-4zM18 11h1a3 3 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>コーヒー & ドリンク</h3></div>
+      <div class="menu-grid">
+        <div class="menu-photo"><img src="img/cafe-sweets.jpg" alt="コーヒーとソフトクリーム" loading="lazy"></div>
+        <ul class="menu-list">
+          <li><span class="nm">自家焙煎ブレンド<small>いちばん人気・深煎りのバランス</small></span><span class="pr">500<span>円</span></span></li>
+          <li><span class="nm">本日のシングルオリジン<small>その日のおすすめ豆で</small></span><span class="pr">600<span>円</span></span></li>
+          <li><span class="nm">カフェラテ<small>ホット／アイス</small></span><span class="pr">580<span>円</span></span></li>
+          <li><span class="nm">水出しアイスコーヒー<small>じっくり8時間抽出</small></span><span class="pr">600<span>円</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-h"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="7" width="16" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 7V6a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><h3>フード & モーニング</h3></div>
+      <div class="menu-grid rev">
+        <div class="menu-photo"><img src="img/cafe-food1.jpg" alt="厚切りトーストのオープンサンド" loading="lazy"></div>
+        <ul class="menu-list">
+          <li><span class="nm">オープンサンド（2種）<small>たまごサラダ／ツナ・厚切りトースト</small></span><span class="pr">780<span>円</span></span></li>
+          <li><span class="nm">モーニングプレート<small>スクランブルエッグ・ソーセージ・トースト</small></span><span class="pr">680<span>円</span></span></li>
+          <li><span class="nm">本日のスープセット<small>パン付き・11時まで</small></span><span class="pr">900<span>円</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-h"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 10a6 6 0 0112 0l-6 10-6-10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><h3>スイーツ</h3></div>
+      <div class="menu-grid">
+        <div class="menu-photo"><img src="img/cafe-morning.jpg" alt="モーニングプレート" loading="lazy"></div>
+        <ul class="menu-list">
+          <li><span class="nm">昔ながらのコーヒーソフト<small>ほろ苦い、大人のソフトクリーム</small></span><span class="pr">550<span>円</span></span></li>
+          <li><span class="nm">ベイクドチーズケーキ<small>濃厚・自家製</small></span><span class="pr">520<span>円</span></span></li>
+          <li><span class="nm">なめらかプリン<small>ほろ苦カラメル</small></span><span class="pr">480<span>円</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ギャラリー -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Gallery</span>
+      <h2>お店のようす</h2>
+      <p>写真をタップすると大きく表示されます。</p>
+    </div>
+    <div class="gal reveal">
+      <button data-src="img/cafe-hero1.jpg"><img src="img/cafe-hero1.jpg" alt="明るい店内" loading="lazy"></button>
+      <button data-src="img/cafe-food1.jpg"><img src="img/cafe-food1.jpg" alt="オープンサンド" loading="lazy"></button>
+      <button data-src="img/cafe-sweets.jpg"><img src="img/cafe-sweets.jpg" alt="コーヒーとソフトクリーム" loading="lazy"></button>
+      <button data-src="img/cafe-morning.jpg"><img src="img/cafe-morning.jpg" alt="モーニングプレート" loading="lazy"></button>
+      <button data-src="img/cafe-street.jpg"><img src="img/cafe-street.jpg" alt="お店のある通り" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section id="access" class="access">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Access</span>
+      <h2>アクセス・営業時間</h2>
+      <p>駅からの通り沿い。テイクアウトもできます。</p>
+    </div>
+    <div class="access-grid reveal">
+      <div class="info-table">
+        <div class="r"><div class="k">店名</div><div class="v">カフェマルテリア</div></div>
+        <div class="r"><div class="k">住所</div><div class="v">〒100-0001<br>東京都千代田区（皇居ちかく）</div></div>
+        <div class="r"><div class="k">電話</div><div class="v">0120-000-000</div></div>
+        <div class="r"><div class="k">営業時間</div><div class="v">8:00〜19:00<br><small style="color:var(--ink-2)">モーニングは11:00まで</small></div></div>
+        <div class="r"><div class="k">定休日</div><div class="v">火曜日</div></div>
+        <div class="r"><div class="k">席数</div><div class="v">32席／全席禁煙・Wi-Fi・電源あり</div></div>
+      </div>
+      <div class="access-visual">
+        <div class="access-photo"><img src="img/cafe-street.jpg" alt="お店のある通りのようす" loading="lazy"></div>
+        <div class="map-ph">
+          <iframe src="https://maps.google.com/maps?q=%E7%9A%87%E5%B1%85&z=15&hl=ja&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
+          <span class="map-badge">デモ：皇居を表示（本番は自店の地図に差替え）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--card-2)">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Q &amp; A</span>
+      <h2>よくあるご質問</h2>
+    </div>
+    <div class="faq reveal">
+      <details open><summary><span class="q">Q</span>予約はできますか？<span class="mk">＋</span></summary><div class="a">お席のご予約はお電話で承ります（2名様〜）。混み合う土日の朝は、事前のご連絡がおすすめです。おひとり様のご来店も大歓迎です。</div></details>
+      <details><summary><span class="q">Q</span>Wi-Fiや電源はありますか？<span class="mk">＋</span></summary><div class="a">全席でWi-Fiと電源をご利用いただけます。お仕事や読書での長居も歓迎ですが、混雑時はお席の譲り合いにご協力ください。</div></details>
+      <details><summary><span class="q">Q</span>テイクアウトはできますか？<span class="mk">＋</span></summary><div class="a">コーヒー・ドリンク類、焼き菓子はテイクアウトできます。オープンサンドもお包みできますので、お気軽にお申し付けください。</div></details>
+      <details><summary><span class="q">Q</span>豆の販売はしていますか？<span class="mk">＋</span></summary><div class="a">自家焙煎の豆を100g単位で販売しています。ご希望の挽き方に合わせてお渡しします。ギフト用の包装も承ります。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>コーヒーの香りに、会いに来てください。</h2>
+    <p>「ちょっと一息」に、どうぞお気軽に。</p>
+    <div class="tel">0120-000-000</div>
+    <div class="sub">OPEN 8:00〜19:00 ／ 火曜定休</div>
+    <div class="btns">
+      <a href="tel:0120000000" class="btn">電話でお問い合わせ</a>
+      <a href="#access" class="btn">アクセスを見る</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。&nbsp;<a href="index.html" style="color:var(--accent);font-weight:700">‹ サンプル一覧へ戻る</a>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 10h13a4 4 0 010 8h-1M4 10v6a4 4 0 004 4h5a4 4 0 004-4M8 3v3M11.5 3v3M15 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      カフェマルテリア<small>東京・千代田区／自家焙煎コーヒー</small>
+    </a>
+    <span class="copy">© 2026 Cafe Marteria — All Rights Reserved</span>
+  </div>
+</footer>
+
+<!-- スマホ固定CTAバー -->
+<nav class="mcta">
+  <a href="tel:0120000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z"/></svg>電話する</a>
+  <a href="#menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>メニュー</a>
+  <a href="#access" class="p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a7 7 0 1114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>アクセス</a>
+</nav>
+
+<!-- ライトボックス -->
+<div class="lightbox" id="lightbox"><span class="x">×</span><img src="" alt=""></div>
+
+<script>
+  /* スライドショー（自動送り＋ドットのクリックで切替） */
+  (function(){
+    var wrap=document.getElementById('heroSlider'); if(!wrap) return;
+    var slides=wrap.querySelectorAll('.slide'), dots=document.querySelectorAll('.hero .dots i'), i=0, timer;
+    if(slides.length<2) return;
+    function go(n){
+      slides[i].classList.remove('is-active'); if(dots[i])dots[i].classList.remove('on');
+      i=(n+slides.length)%slides.length;
+      slides[i].classList.add('is-active'); if(dots[i])dots[i].classList.add('on');
+    }
+    function start(){ timer=setInterval(function(){ go(i+1); },4000); }
+    function reset(){ clearInterval(timer); start(); }
+    dots.forEach(function(d,idx){ d.addEventListener('click',function(){ go(idx); reset(); }); });
+    start();
+  })();
+
+  /* ギャラリー ライトボックス */
+  (function(){
+    var lb=document.getElementById('lightbox'); if(!lb) return;
+    var img=lb.querySelector('img');
+    document.querySelectorAll('.gal button').forEach(function(b){
+      b.addEventListener('click',function(){ img.src=b.getAttribute('data-src'); lb.classList.add('on'); });
+    });
+    lb.addEventListener('click',function(){ lb.classList.remove('on'); img.src=''; });
+  })();
+
+  /* スクロールで表示＋パララックス */
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)||reduce){ els.forEach(function(e){e.classList.add('in')}); return; }
+    var groups=new Map();
+    els.forEach(function(e){var p=e.parentElement;var a=groups.get(p)||[];a.push(e);groups.set(p,a);});
+    groups.forEach(function(a){a.forEach(function(e,i){e.style.transitionDelay=Math.min(i*90,450)+'ms';});});
+    var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  })();
+</script>
+</body>
+</html>

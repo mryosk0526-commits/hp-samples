@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>まるまる歯科クリニック｜○○市の歯医者・予防歯科／小児歯科</title>
+<meta name="description" content="○○市の歯科医院。痛みが少なく、なるべく削らない・抜かない治療。予防歯科・小児歯科・矯正・ホワイトニング。土曜も診療、キッズスペースあり。">
+<style>
+  :root{
+    /* 清潔・信頼・やさしい（明）＝歯科の"詐欺っぽさ"を避ける清潔系 */
+    --bg:#f4f8fb;        /* ごく淡いブルーの白 */
+    --card:#ffffff;
+    --card-2:#e9f1f6;    /* 淡いブルーグレー */
+    --ink:#22323d;       /* 深いブルーグレー */
+    --ink-2:#5f7686;     /* 補助テキスト */
+    --line:#dbe6ee;      /* 罫線 */
+    --accent:#2b8caa;    /* クリアなティールブルー（清潔・信頼） */
+    --accent-d:#22728b;  /* 濃いめ（hover） */
+    --accent-soft:#dceef4;/* アクセントの淡い面 */
+    --warm:#37b39a;      /* ミント（清涼・差し色） */
+    --warm-soft:#dcf1ea;
+    --on-accent:#f8fcfd;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1080px;
+    --r:18px;
+    --shadow:0 6px 24px rgba(34,50,61,.07),0 1px 3px rgba(34,50,61,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#16222a;--card:#1e2d37;--card-2:#243542;--ink:#eaf2f7;--ink-2:#a3b6c2;
+      --line:#31434f;--accent:#5bb4cf;--accent-d:#74c3da;--accent-soft:#253a45;
+      --warm:#54c9b1;--warm-soft:#233d38;--on-accent:#121c22;--shadow:0 6px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#16222a;--card:#1e2d37;--card-2:#243542;--ink:#eaf2f7;--ink-2:#a3b6c2;
+    --line:#31434f;--accent:#5bb4cf;--accent-d:#74c3da;--accent-soft:#253a45;
+    --warm:#54c9b1;--warm-soft:#233d38;--on-accent:#121c22;--shadow:0 6px 24px rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.9;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;text-wrap:balance;font-weight:800;letter-spacing:.02em}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);font-size:14px;letter-spacing:.18em;color:var(--accent);
+    font-weight:700;display:inline-block;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;
+    background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);
+    transition:.18s;box-shadow:var(--shadow);cursor:pointer}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .btn.web{background:var(--warm);border-color:var(--warm);color:#08322a}
+  .btn.web:hover{filter:brightness(1.06)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2);transform:translateY(-2px)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:28px;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;white-space:nowrap;flex-shrink:0}
+  .brand .leaf{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .brand small{display:block;font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.08em;white-space:nowrap}
+  .nav-links{display:flex;gap:20px;font-size:14px;font-weight:700;flex-wrap:nowrap}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+  .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .nav-tel{text-align:right;line-height:1.25}
+  .nav-tel b{font-size:19px;font-weight:800;letter-spacing:.02em}
+  .nav-tel small{display:block;font-size:10px;color:var(--ink-2)}
+  @media(max-width:940px){.nav-links,.nav-tel{display:none}}
+
+  /* ===== Hero（全幅バックグラウンド・自動スライド）===== */
+  .hero{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden}
+  .hero-slides,.hero-slides .slide{position:absolute;inset:0}
+  .hero-slides .slide{opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+  .hero-slides .slide.is-active{opacity:1;animation:heroZoom 9s ease-out both}
+  @keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+  .hero-slides .slide.s1{background-image:url(img/shika-hero1.jpg);background-position:center}
+  .hero-slides .slide.s2{background-image:url(img/shika-hero2.jpg);background-position:right center}
+  .hero-slides .slide.s3{background-image:url(img/shika-hero3.jpg);background-position:center top}
+  .hero-slides .slabel{position:absolute;top:16px;right:16px;font-size:11px;font-weight:800;color:var(--accent-d);
+    background:color-mix(in srgb,var(--card) 82%,transparent);padding:5px 11px;border-radius:999px}
+  .hero-scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(90deg,var(--bg) 4%,color-mix(in srgb,var(--bg) 72%,transparent) 42%,transparent 76%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;max-width:none;margin:0;
+    padding-right:22px;padding-left:max(22px,calc((100vw - 1080px)/4 + 22px))}
+  .hero-copy{max-width:560px;padding:48px 0;text-align:left}
+  .hero h1{font-size:clamp(29px,4.6vw,44px);line-height:1.36;font-weight:900;text-wrap:normal}
+  .hero h1 .mark{background:linear-gradient(transparent 62%,var(--warm-soft) 62%);padding:0 3px}
+  .hero .lead{color:var(--ink-2);font-size:clamp(15px,1.9vw,17px);margin:24px 0 30px;max-width:520px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:3}
+  .hero .dots i{width:9px;height:9px;border-radius:50%;background:var(--accent);opacity:.4;transition:.25s;cursor:pointer;
+    box-shadow:0 0 0 1px color-mix(in srgb,var(--card) 55%,transparent)}
+  .hero .dots i:hover{opacity:.75}
+  .hero .dots i.on{opacity:1;width:22px;border-radius:6px}
+  .scrollcue{position:absolute;bottom:24px;right:26px;z-index:3;font-size:10px;letter-spacing:.22em;font-weight:800;
+    color:var(--accent-d);writing-mode:vertical-rl}
+  @media(max-width:720px){
+    .hero-scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 45%,transparent),var(--bg) 84%)}
+    .scrollcue{display:none}
+  }
+  .trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px}
+  .trust div{line-height:1.3}
+  .trust b{display:block;font-size:24px;font-weight:900;color:var(--accent)}
+  .trust span{font-size:12px;color:var(--ink-2)}
+
+  /* ===== 共通セクション ===== */
+  section{padding:80px 0}
+  .head{text-align:center;margin-bottom:48px}
+  .head h2{font-size:clamp(24px,3.6vw,33px);font-weight:900}
+  .head p{color:var(--ink-2);margin-top:14px;font-size:15px}
+
+  /* ===== お悩み ===== */
+  .worry{background:var(--card-2)}
+  .worry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:760px){.worry-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.worry-grid{grid-template-columns:1fr}}
+  .worry-item{background:var(--card);border-radius:var(--r);padding:24px 22px;
+    box-shadow:var(--shadow);display:flex;gap:14px;align-items:flex-start}
+  .worry-item .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .worry-item p{margin:0;font-weight:700;font-size:15.5px}
+  .worry-item small{display:block;font-weight:500;color:var(--ink-2);font-size:13px;margin-top:4px}
+
+  /* ===== 特徴 ===== */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.feats{grid-template-columns:1fr}}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:32px 28px;box-shadow:var(--shadow)}
+  .feat .no{font-family:var(--serif);font-size:13px;letter-spacing:.14em;color:var(--warm);font-weight:700}
+  .feat .ic{margin:14px 0 16px;width:52px;height:52px;border-radius:15px;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent)}
+  .feat h3{font-size:19px;margin-bottom:10px}
+  .feat p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* ===== 診療案内 ===== */
+  .menu{background:var(--card-2)}
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.menu-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.menu-grid{grid-template-columns:1fr}}
+  .mitem{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:26px 24px;box-shadow:var(--shadow)}
+  .mitem .ic{width:46px;height:46px;border-radius:13px;background:var(--warm-soft);
+    display:grid;place-items:center;color:var(--warm);margin-bottom:14px}
+  .mitem h3{font-size:17px;margin-bottom:8px}
+  .mitem p{color:var(--ink-2);font-size:13.5px;margin:0}
+
+  /* ===== 初診の流れ ===== */
+  .flow{background:var(--accent-soft)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:420px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border-radius:var(--r);padding:26px 22px;position:relative;box-shadow:var(--shadow)}
+  .step .n{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--on-accent);
+    display:grid;place-items:center;font-weight:900;font-size:16px;margin-bottom:14px}
+  .step h3{font-size:16px;margin-bottom:8px}
+  .step p{color:var(--ink-2);font-size:13.5px;margin:0}
+
+  /* ===== 料金 ===== */
+  .price-wrap{max-width:720px;margin:0 auto}
+  .price-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;box-shadow:var(--shadow)}
+  .price-row{display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:22px 28px;border-bottom:1px solid var(--line)}
+  .price-row:last-child{border-bottom:none}
+  .price-row .name{font-weight:800;font-size:16px}
+  .price-row .name small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;margin-top:3px}
+  .price-row .yen{font-family:var(--serif);font-weight:700;font-size:22px;white-space:nowrap}
+  .price-row .yen span{font-size:13px;color:var(--ink-2)}
+  .price-row.hl{background:var(--warm-soft)}
+  .price-row.hl .badge{display:inline-block;background:var(--warm);color:#08322a;font-size:11px;
+    font-weight:800;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+  .price-note{text-align:center;color:var(--ink-2);font-size:13px;margin-top:18px}
+
+  /* ===== 医師紹介 ===== */
+  .staff{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:26px;padding:40px;box-shadow:var(--shadow)}
+  @media(max-width:760px){.staff{grid-template-columns:1fr;padding:30px;gap:26px;text-align:center}}
+  .staff-photo{aspect-ratio:1;border-radius:22px;background:linear-gradient(160deg,var(--accent-soft),var(--warm-soft));
+    display:grid;place-items:center;color:var(--accent);position:relative;overflow:hidden}
+  .staff-photo .cap{position:absolute;bottom:12px;left:0;right:0;text-align:center;
+    font-size:11px;color:var(--ink-2);font-family:var(--serif)}
+  .staff-info .role{font-family:var(--serif);color:var(--warm);font-weight:700;font-size:14px;letter-spacing:.06em}
+  .staff-info h3{font-size:26px;margin:6px 0 4px}
+  .staff-info .name-en{color:var(--ink-2);font-size:13px;letter-spacing:.1em;margin-bottom:18px}
+  .staff-info p{color:var(--ink-2);font-size:14.5px;margin:0 0 14px}
+  .staff-info .lic{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+  @media(max-width:760px){.staff-info .lic{justify-content:center}}
+  .staff-info .lic span{background:var(--accent-soft);color:var(--accent-d);font-size:12.5px;
+    font-weight:700;padding:6px 14px;border-radius:999px}
+
+  /* ===== 声 ===== */
+  .voice{background:var(--card-2)}
+  .voices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.voices{grid-template-columns:1fr}}
+  .vcard{background:var(--card);border-radius:var(--r);padding:28px 26px;box-shadow:var(--shadow)}
+  .vcard .stars{color:var(--warm);font-size:16px;letter-spacing:2px;margin-bottom:12px}
+  .vcard p{font-size:14.5px;margin:0 0 18px}
+  .vcard .who{display:flex;align-items:center;gap:12px}
+  .vcard .who .av{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);
+    display:grid;place-items:center;color:var(--accent);font-weight:800;font-size:15px}
+  .vcard .who b{font-size:13.5px}
+  .vcard .who small{display:block;color:var(--ink-2);font-size:12px;font-weight:500}
+
+  /* ===== アクセス ===== */
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+  @media(max-width:760px){.access-grid{grid-template-columns:1fr}}
+  .info-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .info-table .r{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line)}
+  .info-table .r:last-child{border-bottom:none}
+  .info-table .k{background:var(--card-2);padding:16px 18px;font-weight:800;font-size:13.5px;color:var(--accent-d)}
+  .info-table .v{padding:16px 20px;font-size:14.5px}
+  .map-ph{position:relative;overflow:hidden;border-radius:var(--r);min-height:280px;background:var(--card-2);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .scene{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+  .map-ph iframe.scene{border:0}
+  .map-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10.5px;font-weight:800;color:#fff;
+    background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+
+  /* ===== CTA ===== */
+  .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:var(--on-accent);text-align:center}
+  .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:900}
+  .cta-band p{opacity:.92;margin:14px 0 8px;font-weight:500}
+  .cta-band .tel{font-family:var(--serif);font-size:clamp(30px,6vw,46px);font-weight:700;margin:18px 0 4px}
+  .cta-band .sub{font-size:12.5px;opacity:.85;margin-bottom:26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-band .btn{background:var(--on-accent);color:var(--accent-d);border-color:var(--on-accent)}
+  .cta-band .btn:hover{background:transparent;color:var(--on-accent);border-color:var(--on-accent)}
+  .cta-band .btn.web{background:var(--warm);border-color:var(--warm);color:#08322a}
+
+  /* ===== Footer ===== */
+  footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .brand small{color:var(--ink-2)}
+  .foot .copy{font-size:12px;color:var(--ink-2)}
+
+  /* ===== FAQ（アコーディオン・JS不要のdetails） ===== */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;gap:14px;align-items:center;font-weight:800;font-size:15.5px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-d);display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:14px}
+  .faq summary .mk{margin-left:auto;flex:none;color:var(--accent);font-size:20px;line-height:1;transition:transform .25s}
+  .faq details[open] summary .mk{transform:rotate(45deg)}
+  .faq .a{padding:2px 22px 20px 62px;color:var(--ink-2);font-size:14.5px}
+
+  /* ===== Before / After（ドラッグ比較） ===== */
+  .ba-wrap{max-width:620px;margin:0 auto}
+  .ba{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+    border:1px solid var(--line);user-select:none;touch-action:none;--split:50%}
+  .ba .layer{position:absolute;inset:0;display:grid;place-items:center}
+  .ba .layer svg{width:42%;height:auto}
+  .ba .before{background:linear-gradient(160deg,#efe6cf,#e0cfa4)}
+  .ba .after{background:linear-gradient(160deg,var(--accent-soft),#ffffff);clip-path:inset(0 0 0 var(--split))}
+  .ba .tag{position:absolute;top:12px;font-size:11px;font-weight:800;color:#fff;background:rgba(0,0,0,.45);padding:4px 11px;border-radius:999px;z-index:2}
+  .ba .tag.b{left:12px}.ba .tag.a{right:12px}
+  .ba .handle{position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12);z-index:3}
+  .ba .handle::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;box-shadow:var(--shadow);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%232b8caa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6 4 12l5 6M15 6l5 6-5 6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+  .ba-hint{text-align:center;color:var(--ink-2);font-size:12.5px;margin-top:14px}
+
+  /* ===== スマホ固定CTAバー ===== */
+  .mcta{display:none}
+  @media(max-width:720px){
+    .mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
+      background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(8px);
+      border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(34,50,61,.10)}
+    .mcta a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;
+      font-size:11px;font-weight:800;color:var(--ink-2);border-right:1px solid var(--line)}
+    .mcta a:last-child{border-right:0}
+    .mcta a.p{background:var(--warm);color:#08322a}
+    .mcta a svg{width:21px;height:21px}
+    body{padding-bottom:58px}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(22px);
+      transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+    /* 画像のゆっくり拡大（Ken Burns）。写真を入れた要素に class="kenburns" を付けるだけ */
+    .kenburns{animation:kenburns 20s ease-in-out infinite alternate;transform-origin:center}
+    @keyframes kenburns{from{transform:scale(1.03)}to{transform:scale(1.12)}}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 4.2c-1.1-.9-2.3-1.3-3.6-1.3C6 2.9 4.4 4.6 4.4 7c0 1.2.3 2 .5 3.4.3 2.3.6 5.4 1.7 7.7.5 1 1.6 1 2 0 .5-1.2.7-3.1 1.4-3.1s.9 1.9 1.4 3.1c.4 1 1.5 1 2 0 1.1-2.3 1.4-5.4 1.7-7.7.2-1.4.5-2.2.5-3.4 0-2.4-1.6-4.1-4-4.1-1.3 0-2.5.4-3.6 1.3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+      まるまる歯科クリニック<small>○○市・予防歯科／小児歯科／矯正</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#worry">お悩み</a>
+      <a href="#feature">特徴</a>
+      <a href="#menu">診療案内</a>
+      <a href="#flow">初診の流れ</a>
+      <a href="#price">料金</a>
+      <a href="#access">アクセス</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel"><b>0120-000-000</b><small>受付 9:00〜18:30</small></div>
+      <a href="#contact" class="btn web">WEB予約</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides" id="heroSlider">
+    <div class="slide s1 is-active"></div>
+    <div class="slide s2"></div>
+    <div class="slide s3"></div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">○○市の歯医者さん</span>
+      <h1 class="reveal">痛みが少なく、<br>なるべく<span class="mark">削らない・抜かない</span>。</h1>
+      <p class="lead reveal">「歯医者は苦手」という方こそ。表面麻酔と丁寧な説明で、こわくない治療を。むし歯を治すだけでなく、二度とくり返さない予防まで、おひとりずつ寄り添います。</p>
+      <div class="cta reveal">
+        <a href="#contact" class="btn web">WEBで予約する</a>
+        <a href="#menu" class="btn ghost">診療案内を見る</a>
+      </div>
+      <div class="trust reveal">
+        <div><b>土曜</b><span>も診療しています</span></div>
+        <div><b>4.8</b><span>口コミ評価</span></div>
+        <div><b>キッズ</b><span>スペースあり</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="dots"><i class="on"></i><i></i><i></i></div>
+  <span class="scrollcue">SCROLL ↓</span>
+</section>
+
+<!-- お悩み -->
+<section id="worry" class="worry">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>こんなお悩み、ありませんか？</h2>
+      <p>ひとつでも当てはまれば、お早めのご相談がおすすめです。</p>
+    </div>
+    <div class="worry-grid">
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><p>歯がしみる・痛む<small>冷たいものや甘いものでズキッとする</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8 15c1-1.2 2.4-2 4-2s3 .8 4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><p>銀歯が気になる<small>笑ったときの見た目を白くしたい</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><p>歯ぐきから出血<small>歯みがきのたびに血がにじむ</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 20c0-3.3 2.7-5 6-5m6-9a3 3 0 010 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><p>子どもの虫歯予防<small>フッ素や仕上げみがきを相談したい</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 9h12M6 15h12M9 5v14M15 5v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><p>歯並び・かみ合わせ<small>矯正を始めるか迷っている</small></p></div>
+      <div class="worry-item reveal"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M21 12h-3M6 12H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/></svg></span><p>口臭・ネバつき<small>朝起きたときの口の中が気になる</small></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 特徴 -->
+<section id="feature">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>まるまる歯科が選ばれる理由</h2>
+      <p>「こわい・痛い・また来たくない」を、変えていくために。</p>
+    </div>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="no">POINT 01</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h3>できるだけ削らない・抜かない</h3>
+        <p>健康な歯は一度削ると戻りません。本当に必要な範囲を見極め、ご自身の歯を長く残すことを最優先に考えます。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="no">POINT 02</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21s-6-3.8-6-9a3.6 3.6 0 016-2.4A3.6 3.6 0 0118 12c0 5.2-6 9-6 9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <h3>痛みへの配慮</h3>
+        <p>表面麻酔→細い針→ゆっくり注入で、麻酔のチクッも最小限に。「痛かったら合図してください」を徹底しています。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="no">POINT 03</div>
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h3>説明してから、治療する</h3>
+        <p>今どんな状態で、どんな選択肢があるか。画像を見ながらご説明し、納得いただいてから進めます。勝手に増やしません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 診療案内 -->
+<section id="menu" class="menu">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>診療案内</h2>
+      <p>お子さまから大人まで、幅広く対応しています。</p>
+    </div>
+    <div class="menu-grid">
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4.2c-1-.9-2.1-1.3-3.4-1.3C6.2 2.9 4.7 4.5 4.7 6.8c0 1.1.3 1.9.5 3.2.3 2.2.6 5 1.6 7.2.4 1 1.5 1 1.9 0 .5-1.1.7-2.9 1.3-2.9s.8 1.8 1.3 2.9c.4 1 1.5 1 1.9 0 1-2.2 1.3-5 1.6-7.2.2-1.3.5-2.1.5-3.2 0-2.3-1.5-3.9-3.9-3.9-1.3 0-2.4.4-3.4 1.3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><h3>一般歯科</h3><p>むし歯・歯の痛み・詰め物のやり直しなど、基本の治療。まずはここから。</p></div>
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 13c.8 1 2 1.6 3.5 1.6S14.7 14 15.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 9.2h.01M15 9.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>小児歯科</h3><p>こわがりのお子さまも、慣れることから。仕上げみがき・フッ素の相談も。</p></div>
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 11l2 2 3.5-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>予防歯科・クリーニング</h3><p>治すより、防ぐ。定期検診とプロのクリーニングで、削らない口へ。</p></div>
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9h12M6 15h12M9 5v14M15 5v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h3>矯正歯科</h3><p>ワイヤー／マウスピース。無料相談で、費用と期間の見通しからお伝えします。</p></div>
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 4.6L19 8.3l-3.5 3.4.8 4.8L12 14.2 7.7 16.5l.8-4.8L5 8.3l4.8-.7L12 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><h3>ホワイトニング</h3><p>結婚式や写真の前に。しみにくい薬剤で、自然な白さを目指します。</p></div>
+      <div class="mitem reveal"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3c3.3 0 6 2.5 6 5.5 0 2.2-1.3 3.6-2.6 4.8-.9.8-1.4 1.4-1.4 3.2v2.5H10v-2.5c0-1.8-.5-2.4-1.4-3.2C7.3 12.1 6 10.7 6 8.5 6 5.5 8.7 3 12 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><h3>インプラント</h3><p>抜けた歯を、自分の歯のように。CT診断のうえ、無理のない計画で。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 初診の流れ -->
+<section id="flow" class="flow">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>はじめての方へ・初診の流れ</h2>
+      <p>初回は問診・検査・ご説明が中心です。WEB予約だけでOKです。</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>ご予約・受付</h3><p>WEBまたはお電話で。保険証（お子さまは医療証も）をお持ちください。</p></div>
+      <div class="step reveal"><div class="n">2</div><h3>問診・お口の検査</h3><p>気になる所と、レントゲン・お口全体の状態を確認します。</p></div>
+      <div class="step reveal"><div class="n">3</div><h3>画像を見て説明</h3><p>今の状態と治療の選択肢・費用の目安を、納得いくまでご説明。</p></div>
+      <div class="step reveal"><div class="n">4</div><h3>治療・予防プラン</h3><p>その日にできる処置と、今後の通院・予防の目安をお伝えします。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section id="price">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>自由診療 料金のご案内</h2>
+      <p>むし歯・歯周病などの基本治療は保険診療で対応。以下は自由診療の目安（税込）です。</p>
+    </div>
+    <div class="price-wrap reveal">
+      <div class="price-card">
+        <div class="price-row hl">
+          <div class="name"><span class="badge">まずはこちら</span>矯正・インプラント 無料相談<small>費用と期間の見通しをお伝え（約30分）</small></div>
+          <div class="yen">0<span>円</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">オフィスホワイトニング<small>院内で施術・1回</small></div>
+          <div class="yen">16,500<span>円</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">マウスピース矯正<small>軽度〜中等度・片顎の目安</small></div>
+          <div class="yen">330,000<span>円〜</span></div>
+        </div>
+        <div class="price-row">
+          <div class="name">インプラント<small>1本・上部構造ふくむ</small></div>
+          <div class="yen">400,000<span>円〜</span></div>
+        </div>
+      </div>
+      <p class="price-note">※ 保険が使える治療も多くあります。まずは検査のうえ、保険・自由診療の両方をご説明します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Before / After -->
+<section id="case" style="background:var(--card-2)">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>ホワイトニング Before / After</h2>
+      <p>中央のつまみを左右にドラッグして、変化をお確かめください。</p>
+    </div>
+    <div class="ba-wrap reveal">
+      <div class="ba" id="ba">
+        <div class="layer before"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4.2c-1.1-.9-2.3-1.3-3.6-1.3C6 2.9 4.4 4.6 4.4 7c0 1.2.3 2 .5 3.4.3 2.3.6 5.4 1.7 7.7.5 1 1.6 1 2 0 .5-1.2.7-3.1 1.4-3.1s.9 1.9 1.4 3.1c.4 1 1.5 1 2 0 1.1-2.3 1.4-5.4 1.7-7.7.2-1.4.5-2.2.5-3.4 0-2.4-1.6-4.1-4-4.1-1.3 0-2.5.4-3.6 1.3Z" fill="#cbb173" stroke="#a8924f" stroke-width="1" stroke-linejoin="round"/></svg></div>
+        <div class="layer after"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4.2c-1.1-.9-2.3-1.3-3.6-1.3C6 2.9 4.4 4.6 4.4 7c0 1.2.3 2 .5 3.4.3 2.3.6 5.4 1.7 7.7.5 1 1.6 1 2 0 .5-1.2.7-3.1 1.4-3.1s.9 1.9 1.4 3.1c.4 1 1.5 1 2 0 1.1-2.3 1.4-5.4 1.7-7.7.2-1.4.5-2.2.5-3.4 0-2.4-1.6-4.1-4-4.1-1.3 0-2.5.4-3.6 1.3Z" fill="#ffffff" stroke="#bcd4dd" stroke-width="1" stroke-linejoin="round"/></svg></div>
+        <span class="tag b">Before</span>
+        <span class="tag a">After</span>
+        <div class="handle"></div>
+      </div>
+      <p class="ba-hint">※ イメージ画像です。実際の症例写真に差し替えできます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 医師紹介 -->
+<section id="staff">
+  <div class="wrap">
+    <div class="staff reveal">
+      <div class="staff-photo">
+        <svg width="66" height="66" viewBox="0 0 24 24" fill="none" style="opacity:.5"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <span class="cap">［ 写真：院長の笑顔 ］</span>
+      </div>
+      <div class="staff-info">
+        <div class="role">院長・歯科医師</div>
+        <h3>丸々 誠</h3>
+        <div class="name-en">MAKOTO MARUMARU</div>
+        <p>「痛くなってから」ではなく「痛くならない」お口づくりを。大学病院と地域の歯科で研鑽を積み、地元○○市で開業しました。こわがりの方、小さなお子さま連れの方も、どうぞ安心してお越しください。</p>
+        <div class="lic">
+          <span>歯科医師（歯学博士）</span>
+          <span>日本小児歯科学会</span>
+          <span>予防歯科</span>
+          <span>インプラント研修修了</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--accent-soft)">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>よくあるご質問</h2>
+      <p>ご来院前の「これ大丈夫？」に、あらかじめお答えします。</p>
+    </div>
+    <div class="faq reveal">
+      <details open><summary><span class="q">Q</span>予約は必要ですか？<span class="mk">＋</span></summary><div class="a">お待たせしないよう予約制です。WEB・お電話で承ります。急な痛みや腫れの場合は、その旨お電話でお伝えください。できる限り当日調整します。</div></details>
+      <details><summary><span class="q">Q</span>麻酔や治療は痛くないですか？<span class="mk">＋</span></summary><div class="a">表面麻酔→細い針→ゆっくり注入で、チクッを最小限にしています。治療中も「痛かったら左手を上げてください」とお伝えし、無理には進めません。</div></details>
+      <details><summary><span class="q">Q</span>子ども連れでも通えますか？<span class="mk">＋</span></summary><div class="a">キッズスペースがあり、ベビーカーのまま診療室に入れます。お子さまの診療中に保護者の方が一緒に入っていただくことも可能です。</div></details>
+      <details><summary><span class="q">Q</span>保険は使えますか？費用の目安は？<span class="mk">＋</span></summary><div class="a">むし歯・歯周病などの基本治療は保険診療で対応します。ホワイトニング・矯正・インプラント等は自由診療です。検査のうえ、保険・自費の両方をご説明してから進めます。</div></details>
+      <details><summary><span class="q">Q</span>支払いにカードは使えますか？<span class="mk">＋</span></summary><div class="a">自由診療は各種クレジットカード・電子マネーに対応しています。矯正・インプラントはデンタルローン（分割）もご相談いただけます。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 声 -->
+<section class="voice">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>患者さまの声</h2>
+      <p>実際に通ってくださっている方から届いた声です。</p>
+    </div>
+    <div class="voices">
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「歯医者が本当に苦手でしたが、毎回『今から○○しますね』と声をかけてくれるので落ち着けました。麻酔もほとんど痛くなかったです。」</p>
+        <div class="who"><span class="av">Ａ</span><div><b>Ａ.Ｓ さん</b><small>30代・女性</small></div></div>
+      </div>
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「子どもの仕上げみがきを教えてもらえて助かりました。泣かずに通えるようになり、フッ素も嫌がりません。キッズスペースも◎。」</p>
+        <div class="who"><span class="av">Ｍ</span><div><b>Ｍ.Ｎ さん</b><small>40代・女性／育児中</small></div></div>
+      </div>
+      <div class="vcard reveal">
+        <div class="stars">★★★★★</div>
+        <p>「銀歯を白くしたくて相談。保険と自費の違いを絵で説明してくれて、押し売りもなし。納得して選べました。」</p>
+        <div class="who"><span class="av">Ｔ</span><div><b>Ｔ.Ｋ さん</b><small>50代・男性</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section id="access">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>アクセス・診療時間</h2>
+      <p>○○駅から徒歩3分。駐車場4台・ベビーカーのまま入れます。</p>
+    </div>
+    <div class="access-grid reveal">
+      <div class="info-table">
+        <div class="r"><div class="k">住所</div><div class="v">〒000-0000<br>○○県○○市○○町1-2-3 まるまるビル1F</div></div>
+        <div class="r"><div class="k">電話</div><div class="v">0120-000-000</div></div>
+        <div class="r"><div class="k">診療時間</div><div class="v">9:00〜13:00／14:30〜18:30<br><small style="color:var(--ink-2)">土曜は17:00まで</small></div></div>
+        <div class="r"><div class="k">休診日</div><div class="v">木曜・日曜・祝日</div></div>
+        <div class="r"><div class="k">アクセス</div><div class="v">○○線「○○駅」より徒歩3分／駐車場4台</div></div>
+      </div>
+      <div class="map-ph">
+        <iframe class="scene" src="https://maps.google.com/maps?q=%E7%9A%87%E5%B1%85&z=15&hl=ja&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
+        <span class="map-badge">デモ：皇居を表示（本番は自院の地図に差替え）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-band">
+  <div class="wrap">
+    <h2>まずは、お気軽にご相談ください。</h2>
+    <p>「これって治療が必要？」だけのご相談も歓迎です。</p>
+    <div class="tel">0120-000-000</div>
+    <div class="sub">受付 9:00〜18:30 ／ 木・日・祝休</div>
+    <div class="btns">
+      <a href="#" class="btn web">WEBで予約する</a>
+      <a href="tel:0120000000" class="btn">電話でかける</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の医院・実在しません）。&nbsp;<a href="index.html" style="color:var(--accent);font-weight:700">‹ サンプル一覧へ戻る</a>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="leaf"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4.2c-1.1-.9-2.3-1.3-3.6-1.3C6 2.9 4.4 4.6 4.4 7c0 1.2.3 2 .5 3.4.3 2.3.6 5.4 1.7 7.7.5 1 1.6 1 2 0 .5-1.2.7-3.1 1.4-3.1s.9 1.9 1.4 3.1c.4 1 1.5 1 2 0 1.1-2.3 1.4-5.4 1.7-7.7.2-1.4.5-2.2.5-3.4 0-2.4-1.6-4.1-4-4.1-1.3 0-2.5.4-3.6 1.3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+      まるまる歯科クリニック<small>○○市・予防歯科／小児歯科／矯正</small>
+    </a>
+    <span class="copy">© 2026 Marumaru Dental Clinic — All Rights Reserved</span>
+  </div>
+</footer>
+
+<!-- スマホ固定CTAバー -->
+<nav class="mcta">
+  <a href="tel:0120000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z"/></svg>電話する</a>
+  <a href="#access"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a7 7 0 1114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>アクセス</a>
+  <a href="#contact" class="p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v3M16 3v3"/></svg>WEB予約</a>
+</nav>
+
+<script>
+  /* Before/After ドラッグ比較 */
+  (function(){
+    var ba=document.getElementById('ba'); if(!ba) return;
+    function setFromX(x){var r=ba.getBoundingClientRect();var p=Math.max(4,Math.min(96,(x-r.left)/r.width*100));ba.style.setProperty('--split',p+'%');}
+    var down=false;
+    ba.addEventListener('pointerdown',function(e){down=true;try{ba.setPointerCapture(e.pointerId);}catch(_){ }setFromX(e.clientX);});
+    ba.addEventListener('pointermove',function(e){if(down)setFromX(e.clientX);});
+    window.addEventListener('pointerup',function(){down=false;});
+  })();
+</script>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window) || reduce){
+      els.forEach(function(e){e.classList.add('in')});
+    } else {
+      /* 同じ親のなかで順番にふわっと出す（スタガー） */
+      var groups = new Map();
+      els.forEach(function(e){ var p=e.parentElement; var a=groups.get(p)||[]; a.push(e); groups.set(p,a); });
+      groups.forEach(function(a){ a.forEach(function(e,i){ e.style.transitionDelay = Math.min(i*90,450)+'ms'; }); });
+      var io = new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+      },{threshold:.12});
+      els.forEach(function(e){io.observe(e)});
+    }
+    /* TOPスライドショー：自動送り＋ドットのクリックで切替 */
+    (function(){
+      var wrap=document.getElementById('heroSlider'); if(!wrap) return;
+      var slides=wrap.querySelectorAll('.slide'), dots=document.querySelectorAll('.hero .dots i'), i=0, timer;
+      if(slides.length<2) return;
+      function go(n){
+        slides[i].classList.remove('is-active'); if(dots[i])dots[i].classList.remove('on');
+        i=(n+slides.length)%slides.length;
+        slides[i].classList.add('is-active'); if(dots[i])dots[i].classList.add('on');
+      }
+      function start(){ timer=setInterval(function(){ go(i+1); },3500); }
+      function reset(){ clearInterval(timer); start(); }
+      dots.forEach(function(d,idx){ d.addEventListener('click',function(){ go(idx); reset(); }); });
+      start();
+    })();
+
+    /* ヒーロー背景のパララックス（スクロールでゆっくりずれる） */
+    if(!reduce){
+      var hero = document.querySelector('.hero');
+      if(hero){
+        var ticking=false;
+        function upd(){
+          var off = hero.getBoundingClientRect().top;
+          hero.style.setProperty('--pyA',(off*-0.06).toFixed(1)+'px');
+          hero.style.setProperty('--pyB',(off*0.05).toFixed(1)+'px');
+          ticking=false;
+        }
+        window.addEventListener('scroll',function(){ if(!ticking){requestAnimationFrame(upd);ticking=true;} },{passive:true});
+        upd();
+      }
+    }
+  })();
+</script>
+</body>
+</html>

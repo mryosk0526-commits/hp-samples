@@ -193,6 +193,33 @@
   .foot-note a{color:var(--teal);font-weight:700}
   .foot-copy{font-size:12px;color:var(--ink-2);text-align:center;font-family:var(--serif)}
 
+  /* ===== 問い合わせフォーム ===== */
+  .cform{border-top:1.5px solid var(--ink);margin-top:8px;text-align:left}
+  .cform .row{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line);align-items:center}
+  @media(max-width:560px){.cform .row{grid-template-columns:1fr;padding:14px 0}}
+  .cform .lbl{font-family:var(--serif);font-weight:700;font-size:14.5px;color:var(--teal);padding:16px 0}
+  .cform .lbl .req{color:var(--gold-d);font-size:11px;margin-left:6px;font-family:var(--sans);font-weight:700}
+  .cform .fld{padding:10px 0}
+  @media(max-width:560px){.cform .lbl{padding:0 0 2px}.cform .fld{padding:0 0 4px}}
+  .cform input,.cform textarea{width:100%;background:var(--panel);border:1px solid var(--line);
+    color:var(--ink);font:inherit;font-size:15px;padding:11px 13px;border-radius:4px;transition:.15s}
+  .cform input:focus,.cform textarea:focus{outline:none;border-color:var(--teal);background:var(--paper)}
+  .cform textarea{min-height:120px;resize:vertical}
+  .cform .zip-line{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .cform .zip-line input{max-width:170px}
+  .cform .zip-hint{font-size:12px;color:var(--ink-2)}
+  .cform .zip-hint.on{color:var(--teal);font-weight:700}
+  .cform .submit{padding:24px 0 0;text-align:center}
+  .cform .note{font-size:12px;color:var(--ink-2);margin:16px 0 0;line-height:1.7}
+  .form-done{display:none;border:1.5px solid var(--teal);background:var(--panel);padding:24px 26px;margin-top:10px;text-align:left}
+  .form-done.on{display:block}
+  .form-done b{font-family:var(--serif);color:var(--teal);font-size:18px}
+  .form-done p{margin:8px 0 0;font-size:13.5px;color:var(--ink-2)}
+  /* 地図（本物の埋め込み）＋注記 */
+  .map-ph iframe{display:block;width:100%;height:340px;border:0}
+  .map-demo-note{font-size:12px;color:var(--ink-2);margin:10px 0 0;display:flex;gap:8px;align-items:baseline}
+  .map-demo-note b{color:var(--gold-d);font-family:var(--serif);flex:none}
+
   @media (prefers-reduced-motion:no-preference){.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}}
 </style>
 </head>
@@ -335,24 +362,9 @@
             <div class="r"><div class="k">アクセス</div><div>○○線「○○駅」東口 徒歩3分／オンライン相談可</div></div>
           </div>
           <div class="map-ph">
-            <svg class="scene" viewBox="0 0 560 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif">
-              <rect width="560" height="300" fill="#eef1ec"/>
-              <g fill="#e2e6dd"><rect x="196" y="34" width="92" height="72"/><rect x="332" y="38" width="92" height="60"/><rect x="444" y="36" width="82" height="96"/><rect x="34" y="196" width="118" height="84"/><rect x="330" y="186" width="74" height="76"/><rect x="430" y="196" width="96" height="80"/></g>
-              <rect x="0" y="130" width="560" height="34" fill="#ffffff"/>
-              <rect x="250" y="0" width="30" height="300" fill="#ffffff"/>
-              <line x1="0" y1="147" x2="560" y2="147" stroke="#a8802f" stroke-width="2" stroke-dasharray="12 9"/>
-              <line x1="16" y1="16" x2="236" y2="122" stroke="#b7beb2" stroke-width="11"/>
-              <line x1="16" y1="16" x2="236" y2="122" stroke="#ffffff" stroke-width="11" stroke-dasharray="3 11"/>
-              <rect x="150" y="60" width="64" height="26" fill="#123c42"/>
-              <text x="182" y="78" font-size="12" fill="#fff" text-anchor="middle">○○駅</text>
-              <g transform="translate(300,150)">
-                <ellipse cx="0" cy="40" rx="17" ry="5" fill="#000" opacity="0.12"/>
-                <path d="M0 40 C-15 12 -18 5 -18 -8 A18 18 0 1 1 18 -8 C18 5 15 12 0 40 Z" fill="#1c5057"/>
-                <circle cx="0" cy="-8" r="7" fill="#fff"/>
-              </g>
-              <g><rect x="322" y="150" width="200" height="30" fill="#fff" stroke="#cdd4c9"/><text x="334" y="170" font-size="13" fill="#22262b" font-weight="bold">丸々社会保険労務士事務所 4F</text></g>
-            </svg>
+            <iframe src="https://maps.google.com/maps?q=%E7%9A%87%E5%B1%85&z=15&hl=ja&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
           </div>
+          <p class="map-demo-note"><b>デモ</b><span>実際の所在地ではなく、サンプルとして「皇居」を表示しています（Google マップ埋め込み・APIキー不要）。本番ではご自身の事務所の埋め込みコードに差し替えるだけです。</span></p>
         </div>
       </div>
     </section>
@@ -366,7 +378,26 @@
         <div class="sub">平日 9:00〜18:00 ／ メールは24時間受付</div>
         <div class="cta">
           <a href="tel:0120000000" class="btn">電話で相談する</a>
-          <a href="mailto:info@example.com" class="btn line">メールで問い合わせる</a>
+          <a href="#contactForm" class="btn line">フォームで問い合わせる</a>
+        </div>
+
+        <h3 style="font-family:var(--serif);font-size:20px;margin:52px 0 4px">お問い合わせフォーム</h3>
+        <p style="color:var(--ink-2);font-size:13.5px;margin:0 0 20px">下記フォームからもご相談いただけます。郵便番号を入れると住所が自動で入ります。</p>
+
+        <form class="cform reveal" id="contactForm" novalidate>
+          <div class="row"><div class="lbl">会社名</div><div class="fld"><input type="text" name="company" placeholder="例）まるまる商事株式会社"></div></div>
+          <div class="row"><div class="lbl">お名前<span class="req">必須</span></div><div class="fld"><input type="text" name="name" required placeholder="例）山田 太郎"></div></div>
+          <div class="row"><div class="lbl">メール<span class="req">必須</span></div><div class="fld"><input type="email" name="email" required placeholder="例）you@example.com"></div></div>
+          <div class="row"><div class="lbl">電話番号</div><div class="fld"><input type="tel" name="tel" placeholder="例）090-0000-0000"></div></div>
+          <div class="row"><div class="lbl">郵便番号</div><div class="fld"><div class="zip-line"><input type="text" name="zip" id="zip" inputmode="numeric" maxlength="8" placeholder="1000001"><span class="zip-hint" id="zipHint">7桁を入力すると住所が自動で入ります</span></div></div></div>
+          <div class="row"><div class="lbl">住所</div><div class="fld"><input type="text" name="address" id="address" placeholder="郵便番号から自動入力（番地は手入力）"></div></div>
+          <div class="row"><div class="lbl">ご相談内容<span class="req">必須</span></div><div class="fld"><textarea name="message" required placeholder="例）就業規則の見直しについて相談したい"></textarea></div></div>
+          <div class="submit"><button type="submit" class="btn gold">この内容で送信する</button></div>
+          <p class="note">※ これは<b>デモフォーム</b>です。送信してもメールは飛びません（動作確認用）。<br>　郵便番号 → 住所 の自動入力は、本物の無料API（zipcloud）で実際に動きます。</p>
+        </form>
+        <div class="form-done" id="formDone">
+          <b>送信しました（デモ）</b>
+          <p>ありがとうございます。※このサンプルは実際にはメールを送信しません。本番では、入力内容が事務所のメール宛てに届く設定にできます。</p>
         </div>
       </div>
     </section>
@@ -382,10 +413,48 @@
 </div>
 
 <script>
+  /* スクロールで順に表示 */
   (function(){var els=document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(function(e){e.classList.add('in')});return;}
   var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.12});
   els.forEach(function(e){io.observe(e)});})();
+
+  /* 郵便番号 → 住所 自動入力（zipcloud・キー不要／JSONPでCORS回避） */
+  (function(){
+    var zip=document.getElementById('zip'), addr=document.getElementById('address'), hint=document.getElementById('zipHint');
+    if(!zip) return;
+    function lookup(z){
+      var cb='__zip_'+Date.now(), s=document.createElement('script'), done=false;
+      var timer=setTimeout(function(){finish(null);},6000);
+      function finish(text){ if(done)return; done=true; clearTimeout(timer);
+        try{delete window[cb];}catch(e){window[cb]=undefined;} if(s.parentNode)s.parentNode.removeChild(s);
+        if(text){ addr.value=text; hint.textContent='✓ 住所を自動入力しました（番地は続けてご記入ください）'; hint.className='zip-hint on'; }
+        else { hint.textContent='住所が見つかりませんでした。手入力してください'; hint.className='zip-hint'; }
+      }
+      window[cb]=function(res){ if(res&&res.results&&res.results[0]){var r=res.results[0];finish(r.address1+r.address2+r.address3);} else finish(null); };
+      s.onerror=function(){finish(null);};
+      hint.textContent='住所を検索中…'; hint.className='zip-hint on';
+      s.src='https://zipcloud.ibsnet.co.jp/api/search?zipcode='+z+'&callback='+cb;
+      document.body.appendChild(s);
+    }
+    zip.addEventListener('input',function(){
+      var z=zip.value.replace(/[^0-9]/g,'');
+      if(z.length===7){ lookup(z); }
+      else { hint.textContent='7桁を入力すると住所が自動で入ります'; hint.className='zip-hint'; }
+    });
+  })();
+
+  /* 送信＝デモ（実際には送りません） */
+  (function(){
+    var form=document.getElementById('contactForm'), done=document.getElementById('formDone');
+    if(!form) return;
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!form.checkValidity()){ form.reportValidity(); return; }
+      form.style.display='none'; done.classList.add('on');
+      done.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  })();
 </script>
 </body>
 </html>
