@@ -138,6 +138,27 @@
   .shot.shindan h3 .u{color:#256f49;background:linear-gradient(transparent 60%,#f6ecd3 60%);padding:0 2px}
   .shot.shindan .pill{display:inline-block;margin-top:14px;background:#2f8f5f;color:#f4fbf6;font-size:11px;font-weight:800;padding:7px 18px;border-radius:999px}
 
+  /* カフェプレビュー（クリーム×テラコッタ） */
+  .shot.cafe{background:linear-gradient(150deg,#f1e3d5,#f4e6d2)}
+  .shot.cafe .eb{color:#a75d38;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:10px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+  .shot.cafe h3{color:#3a3026;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:25px;font-weight:900;line-height:1.4;margin:0}
+  .shot.cafe h3 .mk{background:linear-gradient(transparent 62%,#eabf7a 62%);padding:0 3px}
+  .shot.cafe .pill{display:inline-block;margin-top:14px;background:#37b39a;color:#08322a;font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+
+  /* 美容室プレビュー（グレージュ×真鍮ゴールド・明朝） */
+  .shot.salon{background:linear-gradient(150deg,#ece4d7,#f0e6d5)}
+  .shot.salon .eb{color:#96774b;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:10px;font-weight:700;letter-spacing:.2em;margin-bottom:8px}
+  .shot.salon h3{color:#2c2723;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:23px;font-weight:700;line-height:1.5;margin:0;letter-spacing:.04em}
+  .shot.salon h3 .t{color:#96774b}
+  .shot.salon .pill{display:inline-block;margin-top:14px;background:#2c2723;color:#f6f2eb;font-size:11px;font-weight:800;padding:6px 16px;border-radius:2px;width:fit-content}
+
+  /* 歯科プレビュー（白×ティール） */
+  .shot.shika{background:linear-gradient(150deg,#dceef4,#dcf1ea)}
+  .shot.shika .eb{color:#22728b;font-size:10px;font-weight:800;letter-spacing:.1em;margin-bottom:8px}
+  .shot.shika h3{color:#22323d;font-size:24px;font-weight:900;line-height:1.32;margin:0}
+  .shot.shika h3 .mk{background:linear-gradient(transparent 62%,#b8e6d8 62%);padding:0 3px}
+  .shot.shika .pill{display:inline-block;margin-top:14px;background:#37b39a;color:#08322a;font-size:11px;font-weight:800;padding:6px 14px;border-radius:999px;width:fit-content}
+
   .meta{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}
   .tag{align-self:flex-start;font-size:11.5px;font-weight:800;letter-spacing:.06em;
     color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:999px;margin-bottom:12px}
@@ -183,6 +204,63 @@
 <section class="gallery">
   <div class="wrap">
     <div class="grid">
+
+      <!-- カフェ -->
+      <article class="item">
+        <a href="cafe.html" class="frame" aria-label="カフェマルテリアのサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">cafe-marteria.example.com</span></div>
+          <div class="shot cafe">
+            <div class="eb">東京・千代田区のカフェ</div>
+            <h3>今日の一杯を、<br><span class="mk">ゆっくりと</span>。</h3>
+            <span class="pill">メニューを見る</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">飲食・カフェ</span>
+          <h2>カフェマルテリア</h2>
+          <p class="lead">温かいクリーム系。全幅の自動スライド・メニュー・写真のタップ拡大で、"美味しそう"を主役に。</p>
+          <p class="made">指示：「自家焙煎カフェ。温かい雰囲気で、料理写真とメニューを主役に」</p>
+          <a href="cafe.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 美容室 -->
+      <article class="item">
+        <a href="salon.html" class="frame" aria-label="circle のサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">circle-hair.example.com</span></div>
+          <div class="shot salon">
+            <div class="eb">HAIR SALON CIRCLE</div>
+            <h3>なりたい&ldquo;わたし&rdquo;に、<br><span class="t">出会う</span>場所。</h3>
+            <span class="pill">ご予約</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">美容室・サロン</span>
+          <h2>circle（ヘアサロン）</h2>
+          <p class="lead">おしゃれ・上品な明朝系。スタイル写真のタップ拡大・予約導線・スタッフ紹介まで。</p>
+          <p class="made">指示：「ヘアサロン。おしゃれで上品に。スタイル写真と予約を目立たせて」</p>
+          <a href="salon.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
+
+      <!-- 歯科 -->
+      <article class="item">
+        <a href="shika.html" class="frame" aria-label="まるまる歯科クリニックのサンプルを開く">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="url">marumaru-dc.example.com</span></div>
+          <div class="shot shika">
+            <div class="eb">○○市の歯医者さん</div>
+            <h3>痛みが少なく、<br>なるべく<span class="mk">削らない</span>。</h3>
+            <span class="pill">WEB予約</span>
+          </div>
+        </a>
+        <div class="meta">
+          <span class="tag">歯科・クリニック</span>
+          <h2>まるまる歯科クリニック</h2>
+          <p class="lead">清潔な白×ブルー。全幅スライド・Before/After比較・FAQ・スマホ固定バーの"全部入り"。</p>
+          <p class="made">指示：「歯医者。清潔感のある白×ブルーで、痛みへの配慮と予防を」</p>
+          <a href="shika.html" class="open">サンプルを見る →</a>
+        </div>
+      </article>
 
       <!-- 建設 -->
       <article class="item">
