@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIT BASE（フィットベース）｜続けられる場所を、あなたに。</title>
+<meta name="description" content="フィットネスジム FIT BASE（フィットベース）。フリーウェイト・マシン・有酸素、そしてパーソナル。「続けられる場所を、あなたに。」初回体験、受付中。">
+<style>
+  :root{
+    --bg:#f8f9fb;        /* ごく薄いグレー */
+    --card:#ffffff;
+    --card-2:#f1f3f6;    /* セクション区切り */
+    --ink:#23272e;       /* 濃いグレー */
+    --ink-2:#767c85;     /* 中間グレー */
+    --line:#e6e9ee;
+    --accent:#23272e;    /* モノトーン：主役は濃インク */
+    --accent-d:#12151a;
+    --accent-soft:#eef0f3;
+    --cta:#e23b30;       /* CVボタン専用の差し色レッド */
+    --cta-d:#c62d23;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --max:1080px;--r:12px;
+    --shadow:0 6px 24px rgba(20,24,28,.06),0 1px 2px rgba(20,24,28,.04);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.85;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:700;letter-spacing:.01em}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:11.5px;letter-spacing:.3em;color:var(--ink-2);font-weight:700;display:inline-block;margin-bottom:16px;text-transform:uppercase}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 30px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.05em;
+    background:var(--accent);color:#fff;border:1px solid var(--accent);transition:.2s;cursor:pointer}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  .btn.red{background:var(--cta);border-color:var(--cta);color:#fff;box-shadow:0 8px 22px rgba(226,59,48,.28)}
+  .btn.red:hover{background:var(--cta-d);border-color:var(--cta-d)}
+  .btn.lg{padding:17px 38px;font-size:15px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:28px;height:74px}
+  .brand{display:flex;flex-direction:column;line-height:1;white-space:nowrap;flex-shrink:0}
+  .brand b{font-size:24px;font-weight:800;letter-spacing:.14em}
+  .brand b i{font-style:normal;color:var(--ink-2)}
+  .brand small{font-size:9.5px;font-weight:700;color:var(--ink-2);letter-spacing:.26em;margin-top:6px;text-transform:uppercase}
+  .nav-links{display:flex;gap:20px;font-size:13px;font-weight:700;letter-spacing:.04em;flex-wrap:nowrap}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+  .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:16px;flex-shrink:0}
+  .nav-tel{text-align:right;line-height:1.3}
+  .nav-tel b{font-size:17px;font-weight:800}
+  .nav-tel small{display:block;font-size:9.5px;color:var(--ink-2);letter-spacing:.08em}
+  @media(max-width:980px){.nav-links,.nav-tel{display:none}}
+
+  /* Hero */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+  .hero-slides,.hero-slides .slide{position:absolute;inset:0}
+  .hero-slides .slide{opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center}
+  .hero-slides .slide.is-active{opacity:1;animation:heroZoom 10s ease-out both}
+  @keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+  .hero-slides .slide.s1{background-image:url(img/gym-3.jpg)}
+  .hero-slides .slide.s2{background-image:url(img/gym-1.jpg)}
+  .hero-slides .slide.s3{background-image:url(img/gym-2.jpg);background-position:center 22%}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 8%,color-mix(in srgb,var(--bg) 84%,transparent) 46%,color-mix(in srgb,var(--bg) 18%,transparent) 88%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;max-width:none;margin:0;padding-right:24px;padding-left:max(24px,calc((100vw - 1080px)/4 + 24px))}
+  .hero-copy{max-width:560px;padding:48px 0}
+  .hero h1{font-size:clamp(32px,5.2vw,54px);line-height:1.34;font-weight:800;letter-spacing:.01em}
+  .hero h1 .mark{color:var(--ink)}
+  .hero .lead{color:var(--ink-2);font-size:clamp(14px,1.7vw,16.5px);margin:24px 0 32px;max-width:460px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .dots{position:absolute;bottom:30px;left:0;right:0;display:flex;gap:9px;justify-content:center;z-index:3}
+  .hero .dots i{width:9px;height:9px;border-radius:50%;background:var(--ink);opacity:.28;transition:.25s;cursor:pointer}
+  .hero .dots i:hover{opacity:.55}
+  .hero .dots i.on{opacity:1;width:24px;border-radius:6px;background:var(--ink)}
+  .scrollcue{position:absolute;bottom:28px;right:28px;z-index:3;font-size:10px;letter-spacing:.24em;font-weight:700;color:var(--ink-2);writing-mode:vertical-rl}
+  @media(max-width:720px){.hero-scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent),var(--bg) 90%)}.scrollcue{display:none}}
+
+  section{padding:104px 0}
+  .head{text-align:center;margin-bottom:62px}
+  .head h2{font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:.02em}
+  .head p{color:var(--ink-2);margin-top:16px;font-size:14.5px}
+
+  /* コンセプト */
+  .concept{text-align:center;background:var(--card-2)}
+  .concept .cwrap{max-width:700px;margin:0 auto}
+  .concept .big{font-size:clamp(21px,3.2vw,30px);line-height:1.8;font-weight:800;letter-spacing:.02em}
+  .concept .big em{font-style:normal;color:var(--ink)}
+  .concept p{color:var(--ink-2);font-size:14.5px;margin-top:22px}
+  .concept .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+  @media(max-width:760px){.concept .three{grid-template-columns:1fr;gap:16px}}
+  .concept .three div{padding:32px 26px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);text-align:left}
+  .concept .three .n{font-size:13px;letter-spacing:.2em;color:var(--ink-2);font-weight:700}
+  .concept .three h3{font-size:18px;margin:12px 0 10px;font-weight:700}
+  .concept .three p{font-size:13.5px;margin:0;color:var(--ink-2);line-height:1.85}
+
+  /* トレーニング */
+  .menu-cat{margin-bottom:40px}
+  .menu-cat:last-child{margin-bottom:0}
+  .menu-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:760px){.menu-grid{grid-template-columns:1fr;gap:22px}}
+  .menu-grid.rev{direction:rtl}.menu-grid.rev>*{direction:ltr}
+  .menu-photo{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .menu-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .menu-cat h3.ct{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:baseline;gap:12px;letter-spacing:.02em}
+  .menu-cat h3.ct .en{font-size:11px;letter-spacing:.2em;color:var(--ink-2);font-weight:700}
+  .menu-cat .lede{color:var(--ink-2);font-size:14px;margin:0 0 18px}
+  .menu-list{list-style:none;padding:0;margin:0}
+  .menu-list li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .menu-list li:last-child{border-bottom:none}
+  .menu-list li::before{content:"";flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;background:var(--ink-2)}
+  .menu-list b{font-weight:800}
+  .menu-list small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;margin-top:2px}
+
+  /* 料金プラン */
+  .price-sec{background:var(--card-2)}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
+  @media(max-width:820px){.plans{grid-template-columns:1fr;max-width:420px}}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:36px 28px 32px;text-align:center;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column}
+  .plan.feat{border-color:var(--ink);box-shadow:0 12px 34px rgba(20,24,28,.1)}
+  .plan .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:800;padding:5px 15px;border-radius:999px;letter-spacing:.1em;white-space:nowrap}
+  .plan .pname{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--ink-2);text-transform:uppercase}
+  .plan .pjp{font-size:19px;font-weight:800;margin:7px 0 0}
+  .plan .price{font-size:36px;font-weight:800;margin:18px 0 0;letter-spacing:.01em;line-height:1}
+  .plan .price small{font-size:14px;font-weight:700;color:var(--ink-2);margin-left:2px}
+  .plan .tax{font-size:11.5px;color:var(--ink-2);margin-top:6px}
+  .plan .desc{color:var(--ink-2);font-size:13.5px;margin:20px 0 22px;padding-top:20px;border-top:1px solid var(--line)}
+  .plan ul{list-style:none;padding:0;margin:0 0 26px;text-align:left;flex:1}
+  .plan ul li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;padding:7px 0}
+  .plan ul li svg{flex:none;width:16px;height:16px;margin-top:4px;color:var(--ink)}
+  .plan .btn{width:100%}
+  .price-note{text-align:center;color:var(--ink-2);font-size:12.5px;margin-top:32px;line-height:1.9}
+
+  /* ギャラリー */
+  .gal-sec{background:var(--bg)}
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:820px){.gal{grid-template-columns:repeat(2,1fr)}}
+  .gal button{border:0;padding:0;margin:0;cursor:pointer;background:none;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:1;position:relative;border-radius:4px}
+  .gal button:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+  .gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+  .gal button:hover img{transform:scale(1.06)}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:92vw;max-height:88vh;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lightbox .x{position:absolute;top:18px;right:24px;color:#fff;font-size:30px;font-weight:300}
+
+  /* トレーナー */
+  .staff{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center;max-width:900px;margin:0 auto}
+  @media(max-width:720px){.staff{grid-template-columns:1fr;gap:26px;text-align:center}}
+  .staff-photo{aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .staff-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .staff .role{color:var(--ink-2);font-size:13px;letter-spacing:.1em;font-weight:700}
+  .staff h3{font-size:27px;margin:8px 0 4px;font-weight:800}
+  .staff .en{color:var(--ink-2);font-size:11px;letter-spacing:.16em;margin-bottom:18px}
+  .staff p{color:var(--ink-2);font-size:14.5px;margin:0 0 16px}
+  .staff .tags{display:flex;gap:9px;flex-wrap:wrap}
+  @media(max-width:720px){.staff .tags{justify-content:center}}
+  .staff .tags span{background:var(--accent-soft);color:var(--ink);font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;border:1px solid var(--line)}
+
+  /* FAQ */
+  .faq-sec{background:var(--card-2)}
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;gap:14px;align-items:center;font-weight:700;font-size:15px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:none;width:26px;height:26px;border-radius:6px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+  .faq summary .mk{margin-left:auto;flex:none;color:var(--ink-2);font-size:20px;line-height:1;transition:transform .25s}
+  .faq details[open] summary .mk{transform:rotate(45deg)}
+  .faq .a{padding:2px 22px 20px 62px;color:var(--ink-2);font-size:14px}
+
+  /* CTA */
+  .cta-band{position:relative;text-align:center;overflow:hidden;background:var(--card-2);border-top:1px solid var(--line)}
+  .cta-band .bg{display:none}
+  .cta-band .wrap{position:relative;z-index:2}
+  .cta-band .eyebrow{color:var(--ink-2)}
+  .cta-band h2{font-size:clamp(24px,3.8vw,38px);font-weight:800;letter-spacing:.02em}
+  .cta-band p{color:var(--ink-2);margin:14px 0 8px}
+  .cta-band .tel{font-size:clamp(28px,6vw,44px);font-weight:800;margin:18px 0 4px;letter-spacing:.02em}
+  .cta-band .tel a{color:var(--ink)}
+  .cta-band .sub{font-size:12px;color:var(--ink-2);margin-bottom:26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-band .btn.ghost{color:var(--ink);border-color:var(--line)}
+  .cta-band .btn.ghost:hover{border-color:var(--ink)}
+
+  footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .copy{font-size:12px;color:var(--ink-2);letter-spacing:.06em}
+
+  /* スマホ固定CTA */
+  .mcta{display:none}
+  @media(max-width:720px){
+    .mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:color-mix(in srgb,var(--card) 96%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(0,0,0,.5)}
+    .mcta a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;font-size:11px;font-weight:800;color:var(--ink-2);border-right:1px solid var(--line)}
+    .mcta a:last-child{border-right:0}
+    .mcta a.p{background:var(--cta);color:#fff}
+    .mcta a svg{width:21px;height:21px}
+    body{padding-bottom:58px}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand"><b>FIT<i>·</i>BASE</b><small>Fitness Gym</small></a>
+    <nav class="nav-links">
+      <a href="#concept">コンセプト</a>
+      <a href="#training">トレーニング</a>
+      <a href="#price">料金</a>
+      <a href="#gallery">施設</a>
+      <a href="#trainer">トレーナー</a>
+      <a href="#faq">よくある質問</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel"><b>03-1234-5678</b><small>体験・お問い合わせ</small></div>
+      <a href="#trial" class="btn red">体験予約</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides" id="heroSlider">
+    <div class="slide s1 is-active"></div>
+    <div class="slide s2"></div>
+    <div class="slide s3"></div>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">FIT BASE — fitness gym</span>
+      <h1 class="reveal">完璧じゃなくていい。<br><span class="mark">続けられる私へ。</span></h1>
+      <p class="lead reveal">頑張りすぎなくて大丈夫。あなたのペースで通えるように、通いやすさとサポートにこだわりました。今日の小さな一歩が、続けられる自分をつくります。</p>
+      <div class="cta reveal">
+        <a href="#trial" class="btn red lg">まずは体験予約</a>
+        <a href="#training" class="btn ghost">トレーニングを見る</a>
+      </div>
+    </div>
+  </div>
+  <div class="dots"><i class="on"></i><i></i><i></i></div>
+  <span class="scrollcue">SCROLL ↓</span>
+</section>
+
+<!-- コンセプト -->
+<section id="concept" class="concept">
+  <div class="wrap">
+    <div class="cwrap reveal">
+      <span class="eyebrow">Concept</span>
+      <p class="big">きつさより、<em>続けやすさ</em>を。<br>変わるのは、通い続けた人だけ。</p>
+      <p>三日坊主で終わるのは、意志が弱いからではありません。続く仕組みがなかっただけ。FIT BASE は「また来たい」と思える環境づくりを、いちばん大切にしています。</p>
+    </div>
+    <div class="three">
+      <div class="reveal"><div class="n">01</div><h3>通いやすい設計</h3><p>ムリなく続けられる立地と広々とした空間。混雑を避けて、自分のペースでトレーニングできます。</p></div>
+      <div class="reveal"><div class="n">02</div><h3>初心者にやさしい</h3><p>マシンの使い方からフォームまで、スタッフがていねいにサポート。はじめての一歩を全力で支えます。</p></div>
+      <div class="reveal"><div class="n">03</div><h3>本格派も満足の設備</h3><p>フリーウェイトから最新マシン、有酸素まで。目的とレベルに合わせて、しっかり追い込めます。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- トレーニング -->
+<section id="training">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Training</span>
+      <h2>トレーニング</h2>
+      <p>目的に合わせて選べる、3つのエリア。</p>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="menu-grid">
+        <div class="menu-photo"><img src="img/gym-1.jpg" alt="フリーウェイトエリアのダンベル" loading="lazy"></div>
+        <div>
+          <h3 class="ct"><span class="en">01</span>フリーウェイト</h3>
+          <p class="lede">本格的に鍛えたい人のための、充実のフリーウェイトエリア。</p>
+          <ul class="menu-list">
+            <li><span><b>豊富なダンベル・バーベル</b><small>軽量から高重量まで幅広くそろえています</small></span></li>
+            <li><span><b>パワーラック／ベンチ</b><small>スクワット・デッドリフトも安心して</small></span></li>
+            <li><span><b>広めのスペース</b><small>順番待ちのストレスを減らす配置に</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="menu-grid rev">
+        <div class="menu-photo"><img src="img/gym-3.jpg" alt="マシン・有酸素エリアでのトレーニング" loading="lazy"></div>
+        <div>
+          <h3 class="ct"><span class="en">02</span>マシン &amp; 有酸素</h3>
+          <p class="lede">はじめてでも扱いやすい、安全設計のマシンをそろえました。</p>
+          <ul class="menu-list">
+            <li><span><b>各部位のウェイトマシン</b><small>正しいフォームを保ちやすく、初心者も安心</small></span></li>
+            <li><span><b>ランニング／ローイング</b><small>脂肪燃焼・体力づくりの有酸素マシン</small></span></li>
+            <li><span><b>目的別に組み合わせ自由</b><small>ダイエットも筋力アップも1か所で</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="menu-grid">
+        <div class="menu-photo"><img src="img/gym-2.jpg" alt="パーソナルトレーニングのようす" loading="lazy"></div>
+        <div>
+          <h3 class="ct"><span class="en">03</span>パーソナル</h3>
+          <p class="lede">マンツーマンで、あなただけのメニューを。（オプション）</p>
+          <ul class="menu-list">
+            <li><span><b>専属トレーナーが伴走</b><small>目標・体力に合わせたプログラムを設計</small></span></li>
+            <li><span><b>フォーム改善</b><small>ケガを防ぎ、効かせたい部位に効かせる</small></span></li>
+            <li><span><b>食事・習慣のアドバイス</b><small>トレーニング以外の続け方まで</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 料金プラン -->
+<section id="price" class="price-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Price</span>
+      <h2>料金プラン</h2>
+      <p>入会金・月額はすべて税込。まずは体験からどうぞ。</p>
+    </div>
+    <div class="plans reveal">
+      <div class="plan">
+        <div class="pname">Daytime</div>
+        <div class="pjp">デイタイム</div>
+        <div class="price">6,600<small>円/月</small></div>
+        <div class="tax">平日日中に通える方に</div>
+        <p class="desc">平日10:00〜18:00に通える、お得な日中プラン。</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>平日 10:00〜18:00 使い放題</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>マシン・フリーウェイト</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>更衣室・ロッカー完備</li>
+        </ul>
+      </div>
+      <div class="plan feat">
+        <span class="badge">人気No.1</span>
+        <div class="pname">Regular</div>
+        <div class="pjp">レギュラー</div>
+        <div class="price">9,900<small>円/月</small></div>
+        <div class="tax">いちばん自由に通えるプラン</div>
+        <p class="desc">営業時間内いつでも通い放題の、基本プラン。</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>営業時間内いつでも使い放題</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>マシン・フリーウェイト</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>更衣室・ロッカー完備</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>はじめ方の相談サポート</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <div class="pname">Student</div>
+        <div class="pjp">学割</div>
+        <div class="price">6,900<small>円/月</small></div>
+        <div class="tax">25歳以下・学生証の提示で</div>
+        <p class="desc">レギュラーと同じ内容を、学生ならこの価格で。</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>営業時間内いつでも使い放題</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>レギュラーと同じ内容</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>ご入会時に学生証の提示が必要</li>
+        </ul>
+      </div>
+    </div>
+    <p class="price-note reveal">※ 表示はデモ用のダミー料金です。別途、入会金 5,500円・事務手数料 3,300円（いずれも税込）。<br>学割は在学期間中のみ適用され、卒業後はレギュラープランへ自動切り替えとなります。</p>
+    <div class="reveal" style="text-align:center;margin-top:12px">
+      <a href="#trial" class="btn red lg">まずは体験予約</a>
+    </div>
+  </div>
+</section>
+
+<!-- ギャラリー -->
+<section id="gallery" class="gal-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Facility</span>
+      <h2>施設ギャラリー</h2>
+      <p>写真をタップすると大きく表示されます。</p>
+    </div>
+    <div class="gal reveal">
+      <button data-src="img/gym-1.jpg"><img src="img/gym-1.jpg" alt="フリーウェイトエリア" loading="lazy"></button>
+      <button data-src="img/gym-4.png"><img src="img/gym-4.png" alt="有酸素マシンエリア" loading="lazy"></button>
+      <button data-src="img/gym-5.png"><img src="img/gym-5.png" alt="マシンエリア" loading="lazy"></button>
+      <button data-src="img/gym-3.jpg"><img src="img/gym-3.jpg" alt="トレーニングのようす" loading="lazy"></button>
+      <button data-src="img/gym-6.png"><img src="img/gym-6.png" alt="更衣室・ロッカールーム" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<!-- トレーナー -->
+<section id="trainer">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Trainer</span>
+      <h2>トレーナー紹介</h2>
+    </div>
+    <div class="staff reveal">
+      <div class="staff-photo"><img src="img/gym-2.jpg" alt="ヘッドトレーナー" loading="lazy"></div>
+      <div>
+        <div class="role">ヘッドトレーナー</div>
+        <h3>丸山 剛</h3>
+        <div class="en">TSUYOSHI MARUYAMA</div>
+        <p>「続けられれば、身体は必ず応えてくれます。だから僕らは、追い込むより“通い続けられること”を一緒に考えます。」一人ひとりの目標とペースに寄り添い、はじめの一歩から結果が出るまで伴走します。</p>
+        <div class="tags">
+          <span>ボディメイク</span>
+          <span>ダイエット</span>
+          <span>フォーム指導</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq-sec">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Q &amp; A</span><h2>よくあるご質問</h2></div>
+    <div class="faq reveal">
+      <details open><summary><span class="q">Q</span>まったくの初心者でも大丈夫ですか？<span class="mk">＋</span></summary><div class="a">大歓迎です。会員の多くがジム未経験からのスタートです。マシンの使い方やフォームは、スタッフがていねいにご案内しますのでご安心ください。</div></details>
+      <details><summary><span class="q">Q</span>体験はできますか？<span class="mk">＋</span></summary><div class="a">はい、初回体験を受け付けています。動きやすい服装であれば手ぶらでOK。まずは「体験予約」ボタン、またはお電話からお気軽にどうぞ。</div></details>
+      <details><summary><span class="q">Q</span>持ち物は何が必要ですか？<span class="mk">＋</span></summary><div class="a">トレーニングウェア・室内シューズ・タオル・お飲み物があると快適です。更衣室・ロッカーもご利用いただけます。</div></details>
+      <details><summary><span class="q">Q</span>パーソナルトレーニングもお願いできますか？<span class="mk">＋</span></summary><div class="a">はい、オプションで専属トレーナーによるマンツーマン指導をご用意しています。目標や体力に合わせたメニューを組みますので、まずはご相談ください。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="trial" class="cta-band">
+  <div class="bg"></div>
+  <div class="wrap">
+    <span class="eyebrow">Trial</span>
+    <h2>まずは、一度きてみてください。</h2>
+    <p>初回体験、受付中。あなたの「続けられる場所」がここにあります。</p>
+    <div class="tel"><a href="tel:0312345678">03-1234-5678</a></div>
+    <div class="sub">体験のご予約・お問い合わせはお電話でも承ります</div>
+    <div class="btns">
+      <a href="#trial" class="btn red lg">体験を予約する</a>
+      <a href="tel:0312345678" class="btn ghost">電話でお問い合わせ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand"><b>FIT<i>·</i>BASE</b><small>Fitness Gym</small></a>
+    <span class="copy">© 2026 FIT BASE — All Rights Reserved</span>
+  </div>
+</footer>
+
+<!-- スマホ固定CTAバー -->
+<nav class="mcta">
+  <a href="tel:0312345678"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z"/></svg>電話</a>
+  <a href="#gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15l5-4 4 3 3-2 6 5"/><circle cx="8.5" cy="9" r="1.3"/></svg>施設</a>
+  <a href="#trial" class="p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3M16 2v3M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg>体験予約</a>
+</nav>
+
+<!-- ライトボックス -->
+<div class="lightbox" id="lightbox"><span class="x">×</span><img src="" alt=""></div>
+
+<script>
+  /* スライドショー（自動＋ドットクリック） */
+  (function(){
+    var wrap=document.getElementById('heroSlider'); if(!wrap) return;
+    var slides=wrap.querySelectorAll('.slide'), dots=document.querySelectorAll('.hero .dots i'), i=0, timer;
+    if(slides.length<2) return;
+    function go(n){ slides[i].classList.remove('is-active'); if(dots[i])dots[i].classList.remove('on');
+      i=(n+slides.length)%slides.length; slides[i].classList.add('is-active'); if(dots[i])dots[i].classList.add('on'); }
+    function start(){ timer=setInterval(function(){ go(i+1); },4500); }
+    function reset(){ clearInterval(timer); start(); }
+    dots.forEach(function(d,idx){ d.addEventListener('click',function(){ go(idx); reset(); }); });
+    start();
+  })();
+
+  /* ギャラリー ライトボックス */
+  (function(){
+    var lb=document.getElementById('lightbox'); if(!lb) return; var img=lb.querySelector('img');
+    document.querySelectorAll('.gal button').forEach(function(b){
+      b.addEventListener('click',function(){ img.src=b.getAttribute('data-src'); lb.classList.add('on'); });
+    });
+    lb.addEventListener('click',function(){ lb.classList.remove('on'); img.src=''; });
+  })();
+
+  /* スクロールで表示 */
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)||reduce){ els.forEach(function(e){e.classList.add('in')}); return; }
+    var groups=new Map();
+    els.forEach(function(e){var p=e.parentElement;var a=groups.get(p)||[];a.push(e);groups.set(p,a);});
+    groups.forEach(function(a){a.forEach(function(e,i){e.style.transitionDelay=Math.min(i*90,450)+'ms';});});
+    var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  })();
+</script>
+</body>
+</html>
