@@ -3,8 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>circle｜東京のヘアサロン｜カット・カラー・ヘアセット</title>
-<meta name="description" content="東京のヘアサロン「circle（サークル）」。カット・カラー・パーマから、特別な日のヘアセット・着付けまで。心地よい空間で、あなたの“なりたい”をかたちに。">
+<!-- ▼ SEO：検索とSNSに、お店のことを正しく伝える -->
+<!-- ① タイトルと説明文：検索結果に出る文。「店名｜地域＋業種｜できること」の順 -->
+<title>circle（サークル）｜千代田区の美容室｜カット・カラー・ヘアセット</title>
+<meta name="description" content="東京都千代田区の美容室「circle（サークル）」。カット4,000円、カラー6,000円〜。ヘアセット・着付けも承ります。10:00〜20:00、火曜・第2水曜定休。ネット予約は24時間受付。">
+<link rel="canonical" href="https://mryosk0526-commits.github.io/hp-samples/salon-modern.html">
+<!-- ② SNSで貼ったときの見え方（OGP）：LINEやXにURLを貼ると、この写真とタイトルが出る -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="circle（サークル）">
+<meta property="og:title" content="circle（サークル）｜千代田区の美容室｜カット・カラー・ヘアセット">
+<meta property="og:description" content="東京都千代田区の美容室「circle（サークル）」。カット4,000円、カラー6,000円〜。ヘアセット・着付けも承ります。10:00〜20:00、火曜・第2水曜定休。ネット予約は24時間受付。">
+<meta property="og:url" content="https://mryosk0526-commits.github.io/hp-samples/salon-modern.html">
+<meta property="og:image" content="https://mryosk0526-commits.github.io/hp-samples/img/salon-ogp.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- ③ 構造化データ：店名・住所・電話・営業時間を、Googleが読める形で書く。shop-data.js と同じ内容にそろえる -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "circle（サークル）",
+  "description": "東京都千代田区の美容室「circle（サークル）」。カット4,000円、カラー6,000円〜。ヘアセット・着付けも承ります。10:00〜20:00、火曜・第2水曜定休。ネット予約は24時間受付。",
+  "url": "https://mryosk0526-commits.github.io/hp-samples/salon-modern.html",
+  "image": [
+    "https://mryosk0526-commits.github.io/hp-samples/img/salon-ogp.jpg"
+  ],
+  "telephone": "0120-000-000",
+  "priceRange": "¥1,000〜¥12,000",
+  "address": {
+    "@type": "PostalAddress",
+    "postalCode": "100-0001",
+    "addressRegion": "東京都",
+    "addressLocality": "千代田区",
+    "addressCountry": "JP"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "10:00",
+      "closes": "20:00"
+    }
+  ]
+}
+</script>
+<!-- 最初に見える写真を、先に読み込む（表示を速くする） -->
+<link rel="preload" as="image" href="img/salon-hero1.webp" fetchpriority="high">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2396774b' stroke-width='3'/%3E%3C/svg%3E">
+<!-- ▲ SEO ここまで -->
 <style>
   :root{
     --bg:#f6f2eb;        /* 温かいグレージュ */
