@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>すし まる｜東京・千代田区の江戸前寿司</title>
+<meta name="description" content="東京・千代田区の江戸前寿司「すし まる」。毎朝の目利きで選ぶ旬の魚と、赤酢のシャリ。本日のおすすめ、営業日、ご予約はこちらから。">
+<style>
+  :root{
+    --bg:#f6f2ea; --paper:#fffdf8; --ink:#1f1b16; --sub:#6b6258; --line:#ddd4c4;
+    --ai:#1f3a5f; --shu:#a3312b; --kin:#b08d4f;
+    --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    --gothic:"Yu Gothic UI","Hiragino Sans","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mincho);line-height:1.9;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  /* ---- 上の帯 ---- */
+  header{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:14px 26px;color:#fff;transition:background .3s,color .3s,box-shadow .3s}
+  header.solid{background:rgba(255,253,248,.96);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .brand{font-size:20px;letter-spacing:.3em;text-decoration:none}
+  nav{display:flex;gap:26px;align-items:center;font-size:14px;letter-spacing:.12em}
+  nav a{text-decoration:none;opacity:.92}
+  nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px}
+  .nav-res{border:1px solid currentColor;padding:7px 18px;border-radius:2px}
+
+  /* ---- 主役：全画面の写真と、縦書きの店名 ---- */
+  .hero{position:relative;height:100vh;min-height:560px;color:#fff;overflow:hidden;background:#17120d}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;animation:slow 18s ease-out both}
+  @keyframes slow{from{transform:scale(1.08)}to{transform:scale(1)}}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,10,6,.55),rgba(15,10,6,.08) 55%,rgba(15,10,6,.35))}
+  .tate{position:absolute;z-index:2;top:50%;right:12%;transform:translateY(-50%);display:flex;flex-direction:row-reverse;align-items:flex-start;gap:26px;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+  .tate>div{writing-mode:vertical-rl;white-space:nowrap}
+  .tate .shop{font-size:clamp(46px,7vw,84px);letter-spacing:.32em;line-height:1}
+  .tate .lead{font-size:clamp(15px,1.7vw,19px);letter-spacing:.34em;line-height:2.3;padding-top:.6em}
+  .tate .since{font-size:13px;letter-spacing:.4em;opacity:.85;padding-top:1.2em}
+  .scroll{position:absolute;z-index:2;left:50%;bottom:26px;transform:translateX(-50%);font-family:var(--gothic);font-size:11px;letter-spacing:.3em;opacity:.8}
+
+  section{padding:92px 0}
+  .ttl{display:flex;align-items:baseline;gap:18px;margin:0 0 34px}
+  .ttl h2{font-size:30px;font-weight:500;letter-spacing:.28em;margin:0}
+  .ttl span{font-family:var(--gothic);font-size:12px;letter-spacing:.24em;color:var(--kin)}
+  .ttl::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---- 本日 ---- */
+  .today{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:stretch}
+  .card{background:var(--paper);border:1px solid var(--line);padding:34px 36px}
+  .state{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;font-family:var(--gothic)}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:#fff}
+  .chip i{width:9px;height:9px;border-radius:50%;background:#b9b1a4}
+  .chip.on i{background:#3d8b55}.chip.on{border-color:#bcd9c4}
+  .chip.note{border-color:#e6c9c5;color:var(--shu)}.chip.note i{background:var(--shu)}
+  .osusume h3{font-size:19px;font-weight:500;letter-spacing:.2em;margin:0 0 4px}
+  .osusume .day{font-family:var(--gothic);font-size:12px;color:var(--sub);letter-spacing:.1em}
+  .shina{list-style:none;margin:18px 0 0;padding:0}
+  .shina li{display:flex;align-items:baseline;gap:10px;padding:11px 0;border-bottom:1px dotted #cfc5b3;font-size:18px}
+  .shina .from{font-family:var(--gothic);font-size:12px;color:var(--sub)}
+  .shina .dots{flex:1}
+  .shina .yen{font-size:16px;white-space:nowrap}
+  .small{font-family:var(--gothic);font-size:12px;color:var(--sub);margin:14px 0 0}
+  .monthly{padding:0;display:flex;flex-direction:column}
+  .monthly .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:#eee}
+  .monthly .ph img{width:100%;height:100%;object-fit:cover}
+  .monthly .tag{position:absolute;top:0;left:22px;writing-mode:vertical-rl;background:var(--ai);color:#fff;font-size:14px;letter-spacing:.3em;padding:14px 9px 16px}
+  .monthly .tx{padding:24px 30px 30px}
+  .monthly h3{font-size:24px;font-weight:500;letter-spacing:.2em;margin:0 0 8px}
+  .monthly p{margin:0;font-size:15px;color:#3b352d}
+
+  /* ---- こだわり ---- */
+  .craft{background:var(--paper);border-block:1px solid var(--line)}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+  .three h3{font-size:20px;font-weight:500;letter-spacing:.16em;margin:0 0 10px;padding-left:14px;border-left:3px solid var(--shu)}
+  .three p{margin:0;font-size:15px;color:#3b352d}
+
+  /* ---- お品書き ---- */
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .menu .pic{position:sticky;top:90px}
+  .menu .pic img{aspect-ratio:4/5;object-fit:cover;width:100%}
+  .mgroup{margin-bottom:22px}
+  .mgroup h3{display:inline-block;font-size:14px;font-weight:500;letter-spacing:.3em;color:#fff;background:var(--ink);padding:3px 14px;margin:0 0 6px}
+  .more{display:inline-block;margin-top:8px;font-size:15px;letter-spacing:.14em;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+  /* ---- お持ち帰り ---- */
+  .tk{display:grid;grid-template-columns:1.05fr 1fr;gap:0;background:var(--paper);border:1px solid var(--line)}
+  .tk .ph{min-height:360px;background:#eee}
+  .tk .ph img{width:100%;height:100%;object-fit:cover}
+  .tk .tx{padding:40px 42px;display:flex;flex-direction:column;justify-content:center}
+  .tk h3{font-size:21px;font-weight:500;letter-spacing:.1em;margin:0 0 12px;text-wrap:balance}
+  .tk p{margin:0 0 6px;font-size:15px;color:#3b352d}
+  .tk .hrs{font-family:var(--gothic);font-size:13px;color:var(--sub);margin-top:14px}
+  .tk .more{align-self:flex-start;margin-top:18px}
+  .shopph{margin:0 0 28px;position:relative;overflow:hidden;aspect-ratio:21/8;background:#221a12}
+  .shopph img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+
+  /* ---- 営業日とお知らせ ---- */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .cal h3,.news h3{font-size:18px;font-weight:500;letter-spacing:.22em;margin:0 0 16px}
+  table.c{width:100%;border-collapse:collapse;font-family:var(--gothic);table-layout:fixed}
+  table.c th{font-size:12px;font-weight:600;color:var(--sub);padding:6px 0;border-bottom:1px solid var(--line)}
+  table.c td{height:56px;vertical-align:top;text-align:center;font-size:14px;padding:6px 2px 0;border-bottom:1px solid #eee6d8}
+  table.c td small{display:block;font-size:10.5px;line-height:1.25;margin-top:2px}
+  td.off{background:#f1ebe0;color:#9a9082}td.off small{color:var(--shu)}
+  td.pv small{color:var(--ai)}td.sh small{color:#8a6a1f}
+  td.now span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--gothic);font-size:12px;color:var(--sub);margin-top:12px}
+  .legend b{font-weight:600}
+  .news ul{list-style:none;margin:0;padding:0}
+  .news li{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #eee6d8;font-size:15px}
+  .news time{font-family:var(--gothic);font-size:13px;color:var(--sub);padding-top:3px}
+
+  /* ---- 店舗情報 ---- */
+  .info{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  dl{margin:0;display:grid;grid-template-columns:104px 1fr;row-gap:14px;font-size:15px}
+  dt{font-family:var(--gothic);font-size:13px;color:var(--sub);padding-top:3px}
+  dd{margin:0}
+  .pay{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--gothic);font-size:13px}
+  .pay span{padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:#fff}
+  .pay .ng{color:#a59c8e;text-decoration:line-through}
+  .map{border:1px solid var(--line);background:#fff;min-height:340px}
+  .map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+
+  /* ---- つなぐ ---- */
+  .cta{background:var(--ink);color:#fff;text-align:center;padding:84px 0}
+  .cta h2{font-size:26px;font-weight:500;letter-spacing:.26em;margin:0 0 8px}
+  .cta p{margin:0 0 30px;opacity:.8;font-size:15px}
+  .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;font-family:var(--gothic)}
+  .btn{display:inline-flex;align-items:center;gap:10px;min-width:230px;justify-content:center;padding:15px 26px;text-decoration:none;font-size:15px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.55)}
+  .btn.main{background:#fff;color:var(--ink);border-color:#fff}
+  .btn:hover{background:rgba(255,255,255,.12)}.btn.main:hover{background:#f1ebe0}
+  footer{padding:30px 0 96px;text-align:center;font-family:var(--gothic);font-size:12px;color:var(--sub)}
+
+  /* スマホだけ：下に電話のボタン（PCには出さない） */
+  .telbar{display:none}
+
+  .rise{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+  .rise.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.hero img{animation:none}}
+
+  @media (max-width:820px){
+    nav a:not(.nav-res){display:none}
+    header{padding:12px 16px}
+    .tate{right:9%;gap:16px}
+    section{padding:64px 0}
+    .ttl h2{font-size:24px}
+    .today,.three,.menu,.two,.info,.tk{grid-template-columns:1fr}
+    .tk .ph{min-height:0;aspect-ratio:16/10}.tk .tx{padding:28px 22px}
+    .shopph{aspect-ratio:16/9}
+    .menu .pic{position:static}
+    .card{padding:26px 22px}
+    .three{gap:26px}
+    .news li{grid-template-columns:1fr;gap:2px}
+    dl{grid-template-columns:86px 1fr}
+    .btn{min-width:0;width:100%}
+    .telbar{display:flex;position:fixed;inset:auto 0 0 0;z-index:40;background:var(--paper);border-top:1px solid var(--line);font-family:var(--gothic)}
+    .telbar a{flex:1;text-align:center;padding:13px 6px;text-decoration:none;font-size:14px;font-weight:600}
+    .telbar a+a{border-left:1px solid var(--line)}
+    .telbar .t{background:var(--ink);color:#fff}
+  }
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <a class="brand" href="#top">すし まる</a>
+  <nav>
+    <a href="#today">本日</a><a href="#menu">お品書き</a><a href="#takeout">お持ち帰り</a><a href="#days">営業日</a><a href="#access">店舗情報</a>
+    <a class="nav-res" data-link="reserve" href="#">ご予約</a>
+  </nav>
+</header>
+
+<div class="hero" id="top">
+  <img src="img/sushi-7.jpg" alt="カウンターで寿司を握る手もと">
+  <div class="tate">
+    <div class="shop" data-t="name"></div>
+    <div class="lead">一貫に、代々の手しごとを。</div>
+    <div class="since" data-t="since"></div>
+  </div>
+  <div class="scroll">SCROLL</div>
+</div>
+
+<section id="today">
+  <div class="wrap">
+    <div class="ttl rise"><h2>本日</h2><span>TODAY</span></div>
+    <div class="today">
+      <div class="card osusume rise">
+        <div class="state" id="state"></div>
+        <h3 id="todayTitle">本日のおすすめ</h3>
+        <div class="day" id="todayDate"></div>
+        <ul class="shina" id="todayItems"></ul>
+        <p class="small" id="todayNote"></p>
+      </div>
+      <div class="card monthly rise">
+        <div class="ph"><img id="mPhoto" alt=""><div class="tag" id="mTag"></div></div>
+        <div class="tx"><h3 id="mName"></h3><p id="mText"></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="craft">
+  <div class="wrap">
+    <div class="ttl rise"><h2>こだわり</h2><span>OUR CRAFT</span></div>
+    <div class="three">
+      <div class="rise"><h3>毎朝の目利き</h3><p>その日に届く旬の魚を、店主が自分の目で選びます。良いものを、良い時季に。お出しするネタは、仕入れで変わります。</p></div>
+      <div class="rise"><h3>赤酢のシャリ</h3><p>江戸前のやり方にならい、熟成させた赤酢と塩で。人肌に近い温もりのシャリが、ネタの旨みを引き立てます。</p></div>
+      <div class="rise"><h3>握りたてを、一貫ずつ</h3><p>握った寿司は、いちばん美味しい一瞬に。カウンター越しに、間合いを見ながらお出しします。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="ttl rise"><h2>お品書き</h2><span>MENU</span></div>
+    <div class="menu">
+      <div class="pic rise"><img src="img/sushi-2.jpg" alt="握りの盛り合わせ"></div>
+      <div class="rise">
+        <div id="menuList"></div>
+        <p class="small" id="menuNote"></p>
+        <a class="more" href="#access">ご予約・お問い合わせ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="takeout" style="padding-top:0">
+  <div class="wrap">
+    <div class="ttl rise"><h2>お持ち帰り</h2><span>TAKE OUT</span></div>
+    <div class="tk rise">
+      <div class="ph"><img id="tkPhoto" alt="お持ち帰りの桶盛り"></div>
+      <div class="tx">
+        <h3 id="tkLead"></h3>
+        <p id="tkText"></p>
+        <ul class="shina" id="tkItems"></ul>
+        <div class="hrs" id="tkHours"></div>
+        <a class="more" data-link="takeout" href="#">お持ち帰りを予約する →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="days" class="craft">
+  <div class="wrap">
+    <div class="ttl rise"><h2>営業日</h2><span>CALENDAR</span></div>
+    <div class="two">
+      <div class="card cal rise">
+        <h3 id="calTitle"></h3>
+        <table class="c" id="cal"></table>
+        <div class="legend"><span><b style="color:#a3312b">休</b> お休み</span><span><b style="color:#1f3a5f">貸切</b> 夜は貸切</span><span><b style="color:#8a6a1f">短縮</b> 時間が変わります</span></div>
+      </div>
+      <div class="card news rise">
+        <h3>お知らせ</h3>
+        <ul id="news"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="access">
+  <div class="wrap">
+    <div class="ttl rise"><h2>店舗情報</h2><span>ACCESS</span></div>
+    <div class="shopph rise"><img id="shopPhoto" alt="お店ののれん"></div>
+    <div class="info">
+      <div class="card rise"><dl id="info"></dl></div>
+      <div class="map rise"><iframe id="map" loading="lazy" title="地図"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>今日の一貫に、会いにいらしてください</h2>
+    <p>カウンターは8席です。夜は、ご予約がおすすめです。</p>
+    <div class="btns" id="btns"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">※ このページはAIで制作した試作です（架空のお店）。住所・電話・料金・予定は、すべて仮のものです。<br>© すし まる</div>
+</footer>
+
+<div class="telbar" id="telbar"></div>
+
+<script src="shop-data-sushi.js"></script>
+<script>
+(function () {
+  var S = window.SHOP, $ = function (id) { return document.getElementById(id); };
+  var W = ["日", "月", "火", "水", "木", "金", "土"];
+  var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+  var ymd = function (d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); };
+  var yen = function (n) { return n.toLocaleString("ja-JP") + "円"; };
+  var now = new Date();
+
+  document.querySelectorAll("[data-t]").forEach(function (e) { e.textContent = S[e.dataset.t]; });
+  document.querySelectorAll("[data-link]").forEach(function (e) { e.href = S.links[e.dataset.link].href; });
+
+  // その日がどういう日か（休み・貸切・短縮）を、1か所で決める
+  function dayInfo(d) {
+    var key = ymd(d), sp = S.days.filter(function (x) { return x.date === key; })[0];
+    if (sp) return sp;
+    if (S.holidays.indexOf(key) >= 0) return { type: "closed", text: "祝日のためお休み" };
+    if (S.closedWeekdays.indexOf(d.getDay()) >= 0) return { type: "closed", text: "定休日" };
+    return null;
+  }
+  function openNow(slots) {
+    var m = now.getHours() * 60 + now.getMinutes();
+    return slots.some(function (s) {
+      var a = s[0].split(":"), b = s[1].split(":");
+      return m >= a[0] * 60 + +a[1] && m < b[0] * 60 + +b[1];
+    });
+  }
+
+  // ---- 本日：いま開いているか（店内／お持ち帰り）
+  var info = dayInfo(now), st = "";
+  if (info && info.type === "closed") {
+    st = '<span class="chip note"><i></i>本日はお休みです（' + info.text + '）</span>';
+  } else {
+    ["eatin", "takeout"].forEach(function (k) {
+      var h = S.hours[k], on = openNow(h.slots);
+      st += '<span class="chip' + (on ? " on" : "") + '"><i></i>' + h.label + "：" + (on ? "ただいま営業中" : "準備中") + "</span>";
+    });
+    if (info) st += '<span class="chip note"><i></i>' + info.text + "</span>";
+  }
+  $("state").innerHTML = st;
+
+  // ---- 本日のおすすめ
+  var t = S.today, td = new Date(t.date + "T00:00:00");
+  // 書いてある日付が今日でなければ、「本日の」とは言わない（休みの日や、書き換え前の朝）
+  $("todayTitle").textContent = t.date === ymd(now) ? "本日のおすすめ" : "おすすめ";
+  $("todayDate").textContent = (td.getMonth() + 1) + "月" + td.getDate() + "日（" + W[td.getDay()] + "）の入荷";
+  $("todayItems").innerHTML = t.items.map(function (x) {
+    return "<li><span>" + x.name + '</span><span class="from">' + x.from + '</span><span class="dots"></span><span class="yen">一貫 ' + yen(x.price) + "</span></li>";
+  }).join("");
+  $("todayNote").textContent = t.note;
+
+  // ---- 今月の一貫
+  var m = S.monthly;
+  $("mPhoto").src = m.photo; $("mPhoto").alt = m.name;
+  $("mTag").textContent = m.month + "の一貫"; $("mName").textContent = m.name; $("mText").textContent = m.text;
+
+  // ---- お品書き（昼・夜・持ち帰り）
+  var groups = [];
+  S.menu.forEach(function (x) { if (groups.indexOf(x.when) < 0) groups.push(x.when); });
+  $("menuList").innerHTML = groups.map(function (g) {
+    return '<div class="mgroup"><h3>' + g + '</h3><ul class="shina">' + S.menu.filter(function (x) { return x.when === g; }).map(function (x) {
+      return "<li><span>" + x.name + '</span><span class="dots"></span><span class="yen">' + yen(x.price) + (x.from ? "〜" : "") + "</span></li>";
+    }).join("") + "</ul></div>";
+  }).join("");
+  $("menuNote").textContent = S.menuNote;
+
+  // ---- お持ち帰り
+  var tk = S.takeoutInfo, th = S.hours.takeout;
+  $("tkPhoto").src = tk.photo; $("tkLead").textContent = tk.lead; $("tkText").textContent = tk.text;
+  $("tkItems").innerHTML = tk.items.map(function (x) {
+    return "<li><span>" + x.name + '</span><span class="dots"></span><span class="yen">' + yen(x.price) + (x.from ? "〜" : "") + "</span></li>";
+  }).join("");
+  $("tkHours").textContent = "お渡し " + th.slots.map(function (s) { return s[0] + "〜" + s[1]; }).join("、") + (th.note ? "（" + th.note + "）" : "");
+  $("shopPhoto").src = S.shopPhoto;
+
+  // ---- 営業日カレンダー（今月）
+  var y = now.getFullYear(), mo = now.getMonth(), first = new Date(y, mo, 1), last = new Date(y, mo + 1, 0).getDate();
+  $("calTitle").textContent = y + "年 " + (mo + 1) + "月";
+  var html = "<tr>" + W.map(function (w) { return "<th>" + w + "</th>"; }).join("") + "</tr><tr>";
+  for (var i = 0; i < first.getDay(); i++) html += "<td></td>";
+  for (var d = 1; d <= last; d++) {
+    var dt = new Date(y, mo, d), di = dayInfo(dt), cls = [], lab = "";
+    if (di) {
+      if (di.type === "closed") { cls.push("off"); lab = "休"; }
+      if (di.type === "private") { cls.push("pv"); lab = "貸切"; }
+      if (di.type === "short") { cls.push("sh"); lab = "短縮"; }
+    }
+    if (d === now.getDate()) cls.push("now");
+    html += '<td class="' + cls.join(" ") + '"' + (di ? ' title="' + di.text + '"' : "") + "><span>" + d + "</span>" + (lab ? "<small>" + lab + "</small>" : "") + "</td>";
+    if (dt.getDay() === 6 && d < last) html += "</tr><tr>";
+  }
+  $("cal").innerHTML = html + "</tr>";
+
+  // ---- お知らせ（新しい順に3件）
+  $("news").innerHTML = S.news.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; }).slice(0, 3).map(function (n) {
+    return "<li><time>" + n.date.replace(/-/g, ".") + "</time><span>" + n.text + "</span></li>";
+  }).join("");
+
+  // ---- 店舗情報
+  var a = S.access, hrs = ["eatin", "takeout"].map(function (k) {
+    var h = S.hours[k];
+    return "<b>" + h.label + "</b>　" + h.slots.map(function (s) { return s[0] + "〜" + s[1]; }).join("、") + (h.note ? "<br><small>（" + h.note + "）</small>" : "");
+  }).join("<br>");
+  $("info").innerHTML =
+    "<dt>住所</dt><dd>" + a.zip + "<br>" + a.address + "</dd>" +
+    "<dt>最寄り駅</dt><dd>" + a.stations.join("<br>") + "</dd>" +
+    "<dt>電話</dt><dd><a href=\"tel:" + S.tel.replace(/-/g, "") + "\">" + S.tel + "</a></dd>" +
+    "<dt>営業時間</dt><dd>" + hrs + "</dd>" +
+    "<dt>定休日</dt><dd>" + S.closedWeekdays.map(function (w) { return W[w] + "曜"; }).join("・") + "、祝日<br><small>（臨時のお休みは、営業日カレンダーをご覧ください）</small></dd>" +
+    "<dt>お席</dt><dd>" + a.seats + "</dd>" +
+    '<dt>お支払い</dt><dd><div class="pay">' + S.pay.map(function (p) { return '<span class="' + (p.ok ? "" : "ng") + '">' + p.name + "</span>"; }).join("") + "</div></dd>";
+  $("map").src = a.mapEmbed;
+
+  // ---- つなぐ（予約・電話・お持ち帰り・地図・SNS）
+  var L = S.links, tel = "tel:" + S.tel.replace(/-/g, "");
+  $("btns").innerHTML =
+    '<a class="btn main" href="' + L.reserve.href + '">' + L.reserve.label + "</a>" +
+    '<a class="btn" href="' + tel + '">電話で予約　' + S.tel + "</a>" +
+    '<a class="btn" href="' + L.takeout.href + '">' + L.takeout.label + "</a>" +
+    '<a class="btn" href="' + L.map.href + '" target="_blank" rel="noopener">' + L.map.label + "</a>" +
+    '<a class="btn" href="' + L.instagram.href + '">' + L.instagram.label + "</a>";
+  $("telbar").innerHTML = '<a class="t" href="' + tel + '">電話する</a><a href="' + L.reserve.href + '">ネット予約</a><a href="#days">営業日</a>';
+
+  // ---- 動き（控えめ）
+  var hd = $("hd"), onS = function () { hd.classList.toggle("solid", window.scrollY > window.innerHeight * 0.7); };
+  window.addEventListener("scroll", onS, { passive: true }); onS();
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  document.querySelectorAll(".rise").forEach(function (e) { io.observe(e); });
+})();
+</script>
+</body>
+</html>
