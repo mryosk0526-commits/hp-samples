@@ -30,15 +30,19 @@
 
   /* ---- 主役：全画面の写真と、縦書きの店名 ---- */
   .hero{position:relative;height:100vh;min-height:560px;color:#fff;overflow:hidden;background:#17120d}
-  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;animation:slow 18s ease-out both}
-  @keyframes slow{from{transform:scale(1.08)}to{transform:scale(1)}}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;animation:slow 9s ease-out both}
+  @keyframes slow{from{transform:scale(1.025)}to{transform:scale(1)}}   /* ごくわずかに引くだけ */
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,10,6,.55),rgba(15,10,6,.08) 55%,rgba(15,10,6,.35))}
   .tate{position:absolute;z-index:2;top:50%;right:12%;transform:translateY(-50%);display:flex;flex-direction:row-reverse;align-items:flex-start;gap:26px;text-shadow:0 2px 18px rgba(0,0,0,.45)}
   .tate>div{writing-mode:vertical-rl;white-space:nowrap}
   .tate .shop{font-size:clamp(46px,7vw,84px);letter-spacing:.32em;line-height:1}
   .tate .lead{font-size:clamp(15px,1.7vw,19px);letter-spacing:.34em;line-height:2.3;padding-top:.6em}
   .tate .since{font-size:13px;letter-spacing:.4em;opacity:.85;padding-top:1.2em}
-  .scroll{position:absolute;z-index:2;left:50%;bottom:26px;transform:translateX(-50%);font-family:var(--gothic);font-size:11px;letter-spacing:.3em;opacity:.8}
+  .scroll{position:absolute;z-index:2;left:50%;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 22px 0;color:#fff;text-decoration:none;font-family:var(--gothic);font-size:11px;letter-spacing:.3em;opacity:.85}
+  .scroll:hover{opacity:1}
+  .scroll i{display:block;width:1px;height:46px;background:rgba(255,255,255,.35);position:relative;overflow:hidden}
+  .scroll i::after{content:"";position:absolute;left:0;top:-46px;width:1px;height:46px;background:#fff;animation:drop 2.4s ease-in-out infinite}
+  @keyframes drop{0%{top:-46px}60%,100%{top:46px}}
 
   section{padding:92px 0}
   .ttl{display:flex;align-items:baseline;gap:18px;margin:0 0 34px}
@@ -138,7 +142,7 @@
 
   .rise{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
   .rise.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.hero img{animation:none}}
+  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.hero img,.scroll i::after{animation:none}}
 
   @media (max-width:820px){
     nav a:not(.nav-res){display:none}
@@ -179,7 +183,7 @@
     <div class="lead">一貫に、代々の手しごとを。</div>
     <div class="since" data-t="since"></div>
   </div>
-  <div class="scroll">SCROLL</div>
+  <a class="scroll" href="#today" aria-label="本日のおすすめへ進む">本日のおすすめ<i></i></a>
 </div>
 
 <section id="today">
