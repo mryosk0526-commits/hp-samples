@@ -7,6 +7,14 @@ window.SHOP = {
   since: "創業 昭和二十七年",
   tel: "03-1234-5678",
 
+  // いちばん上の写真。上から順に、ゆっくり入れ替わる。足す・減らす・並べ替えは、ここだけ
+  heroPhotos: [
+    { src: "img/sushi-7.jpg", alt: "カウンターで寿司を握る手もと" },
+    { src: "img/sushi-aji.jpg", alt: "鯵の握り", pos: "40% 50%" },
+    { src: "img/sushi-2.jpg", alt: "握りの盛り合わせ", pos: "50% 60%" },
+    { src: "img/sushi-noren.jpg", alt: "お店ののれん", pos: "30% 45%" },
+  ],
+
   // つなぐ先。行き先は、いったん見本のページ。自分のお店のURLに替える
   links: {
     reserve: { label: "ネット予約（ホットペッパーグルメ）", href: "mihon.html?to=reserve" },
