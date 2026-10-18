@@ -50,6 +50,10 @@ window.SHOP = {
     ],
   },
 
+  // 暖簾。ページを開いたときに、店の入口の暖簾をめくって入る演出。show を false にすると出ない
+  //   chars＝1枚に1文字ずつ（枚数は文字の数で決まる）／sub＝右はしの布の下に入れる小さな文字
+  noren: { show: true, chars: ["家", "系", "丸", "屋"], sub: "らーめん" },
+
   // ───────── ③ ときどき ─────────
 
   // 品書きと値段。ここを直すと、ヒーローの食券・券売機・お品書きの3か所が、全部そろって変わる
@@ -121,7 +125,7 @@ window.SHOP = {
 
   shop: "家系ラーメン 丸屋",
   shopFull: "家系ラーメン 丸屋（まるや）",
-  theme: { accent: "#a5322b", accentDark: "#822420", accentSoft: "#f0e0d6", action: "#a5322b" },
+  theme: { accent: "#d9433a", accentDark: "#b5302a", accentSoft: "#3a2523", action: "#d9433a" },
   contact: { tel: "03-0000-0000" },
   // 出前のボタンの行き先。使っているデリバリーサービスの、自分のお店のページのURLに替える
   links: { delivery: { label: "出前を注文（外部サイト）", href: "mihon.html?to=delivery" } },

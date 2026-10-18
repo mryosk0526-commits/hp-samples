@@ -488,9 +488,86 @@
   }
   .hero-switch{font-size:12px;color:var(--ink-2);text-align:center;margin-top:10px}
   .hero-switch a{color:var(--accent);font-weight:700;border-bottom:1px solid var(--line);margin:0 6px}
+
+  /* =========================================================
+     墨（すみ）の色合いに着せ替え：黒に近い灰色の地＋白い文字＋朱を少しだけ
+     英字の見出しを大きく、日本語は小さく添える。余白を多めに
+     ========================================================= */
+  :root,:root:not([data-theme="x"]){
+    --bg:#1f1f1f; --card:#282828; --card-2:#242424; --ink:#f3f1ee; --ink-2:#a9a49d; --line:#3a3a3a;
+    --accent:#d9433a; --accent-d:#e8604f; --accent-soft:#3a2523; --warm:#c9a45c; --warm-soft:#2e2a23; --on-accent:#fff;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --en:Futura,"Century Gothic","Trebuchet MS","Avenir Next",sans-serif;
+  }
+  body{letter-spacing:.03em}
+  section{padding:104px 0}
+  header{background:rgba(24,24,24,.92);border-bottom:1px solid #2e2e2e}
+  .head{margin-bottom:56px}
+  .head .eyebrow{display:block;font-family:var(--en);font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+  .head h2{font-size:14px;font-weight:700;letter-spacing:.32em;color:var(--ink);padding-bottom:0}
+  .head h2::after{display:none}
+  .head p{font-size:14px;letter-spacing:.06em}
+  .menu,.yoshu,.access,#faq{background:var(--card-2)!important}
+  .feat{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;padding:32px 10px 0}
+  .feat .ic{background:transparent;border:1px solid var(--line);border-radius:50%}
+  .menu-photo,.access-photo,.map-ph,.info-table,.faq details,.gal button{border-radius:2px;box-shadow:none}
+  .menu-list li{border-bottom-color:var(--line)}
+  .menu-list .pr{color:var(--ink)}
+  .menu-cat .cat-h .ic{background:transparent;border:1px solid var(--line);color:var(--warm)}
+  .info-table .k{color:var(--ink-2);font-family:var(--sans)}
+  .btn{border-radius:2px;box-shadow:none}
+  .btn.ghost{color:var(--ink);border-color:#555}
+  .news{border-radius:2px}
+  .pay-strip{border-radius:2px}
+  .pay-chips .ok{color:#7fd6a2}
+  /* 形①：品書きの切り替え */
+  .stage{background:#161616;border-bottom:1px solid #2e2e2e}
+  .fig{box-shadow:none;border-radius:2px}
+  .tab{background:#262626;color:#eee;border-bottom:3px solid #3a3a3a;border-radius:2px}
+  .tab small{color:var(--warm)}
+  .tab.on{background:var(--accent);border-bottom-color:#8e231d}
+  /* 今日の箱（部品の色を、黒い地に合わせる） */
+  #today-box .tb-t{border-radius:2px}
+  #today-box .tb-status{background:#141414;color:#fff;border:1px solid #333}
+  #today-box .tb-notice,#today-box .tb-slots li.cur{color:var(--ink)}
+  /* CTA */
+  .cta-band{background:#141414;border-top:1px solid #2e2e2e}
+  .cta-band h2{font-family:var(--serif);font-weight:700;letter-spacing:.12em}
+  .cta-band .btn{background:transparent;color:#fff;border-color:#666}
+  .cta-band .btn:hover{background:#fff;color:#141414;border-color:#fff}
+  footer{background:#161616}
+
+  /* =========================================================
+     暖簾（のれん）：開いたとき、店の入口の暖簾を手でめくって入る
+     shop-data の noren で、出す・出さない／文字を決める
+     ========================================================= */
+  .noren{position:fixed;inset:0;z-index:200;pointer-events:auto;perspective:1100px;cursor:pointer}
+  .noren .rod{position:absolute;left:4%;right:4%;top:0;height:16px;background:linear-gradient(#5a4632,#2e2318);border-radius:0 0 4px 4px;box-shadow:0 4px 10px rgba(0,0,0,.5);z-index:2}
+  .noren .rod::before,.noren .rod::after{content:"";position:absolute;top:-2px;width:22px;height:20px;background:#1a140e;border-radius:3px}
+  .noren .rod::before{left:-10px}.noren .rod::after{right:-10px}
+  .noren .cloths{position:absolute;left:5%;right:5%;top:8px;height:min(70vh,620px);display:flex;gap:7px;perspective:900px;perspective-origin:62% 0}
+  .noren .cl{flex:1;position:relative;transform-origin:50% 0;border-radius:0 0 3px 3px;
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 5px),linear-gradient(180deg,#b5302a,#9b2620 70%,#8a211c);
+    box-shadow:inset 0 -24px 30px rgba(0,0,0,.18),0 18px 40px rgba(0,0,0,.45);display:grid;place-items:center}
+  .noren .cl::before{content:"";position:absolute;left:0;right:0;top:0;height:18px;background:rgba(0,0,0,.25)}
+  .noren .cl b{font-family:var(--serif);font-weight:900;color:#fff;font-size:clamp(54px,11vw,150px);line-height:1;text-shadow:0 2px 0 rgba(0,0,0,.15)}
+  .noren .cl small{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:700 12px var(--sans);letter-spacing:.3em;color:rgba(255,255,255,.75)}
+  .noren .skip{position:absolute;right:16px;bottom:16px;font:700 12px var(--sans);letter-spacing:.1em;color:#fff;background:rgba(0,0,0,.45);border-radius:999px;padding:6px 14px}
+  @media(max-width:720px){.noren .cloths{left:3%;right:3%;gap:5px;height:62vh}.noren .rod{left:2%;right:2%}}
+  /* ゆれる → 真ん中から手でかき分ける → 上へ */
+  .noren .cl{animation:sway 1.6s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.35s)}
+  @keyframes sway{from{transform:rotate(.8deg)}to{transform:rotate(-.8deg)}}
+  /* 右手で、下から押し上げてくぐる：手が当たった布（真ん中より少し右）から順に、裾が奥へ・上へ持ち上がる */
+  .noren.part .cl{animation:none;transition:transform .75s cubic-bezier(.35,.05,.25,1),filter .75s;transition-delay:var(--dl);
+    transform:rotateX(var(--a)) rotateZ(var(--z));filter:brightness(.7)}
+  .noren.lift .cloths,.noren.lift .rod{transition:transform .8s cubic-bezier(.6,0,.4,1),opacity .8s;transform:translateY(-105%);opacity:0}
+  .noren.done{opacity:0;pointer-events:none;transition:opacity .3s}
 </style>
 </head>
 <body>
+
+<!-- 暖簾（中身は shop-data の noren から。押すか、少し待つとめくれる） -->
+<div class="noren" id="noren" hidden aria-hidden="true"><div class="rod"></div><div class="cloths"></div><span class="skip">タップで入る</span></div>
 
 <header>
   <div class="wrap nav">
@@ -704,7 +781,7 @@
 <footer>
   <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
     ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。&nbsp;<a href="index.html" style="color:var(--accent);font-weight:700">‹ サンプル一覧へ戻る</a>
-    <p class="hero-switch">ヒーローの形を見くらべる：<a href="?hero=stage">品書きの切り替え</a><a href="?hero=anime">湯気＋大きな一言</a></p>
+    <p class="hero-switch">ヒーローの形を見くらべる：<a href="?hero=stage">品書きの切り替え</a><a href="?hero=anime">湯気＋大きな一言</a>（暖簾なしで見る：<a href="?noren=0">こちら</a>）</p>
   </div>
   <div class="wrap foot">
     <a href="#" class="brand">
@@ -727,6 +804,44 @@
 
 <script src="shop-data-ramen2.js"></script>
 <script src="unyou.js"></script>
+<script>
+  /* 暖簾：ゆれて → 右手で下から押し上げる（手の近い布ほど早く・大きく）→ 上へ。終わったら消す（動きを減らす設定のときは出さない） */
+  (function(){
+    var N=(window.SHOP||{}).noren, box=document.getElementById('noren');
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var q=new URLSearchParams(location.search).get('noren');
+    if(!N||!N.show||reduce||q==='0'){ box.remove(); return; }
+    var cl=box.querySelector('.cloths'), n=N.chars.length;
+    var hand=(n-1)*.62;                 /* 手が当たる位置＝真ん中より少し右（右手） */
+    N.chars.forEach(function(ch,i){
+      var c=document.createElement('div'); c.className='cl';
+      var dist=Math.abs(i-hand);
+      c.style.setProperty('--i',i);
+      c.style.setProperty('--a',(-82+dist*16).toFixed(0)+'deg');                 /* 手に近いほど、大きく持ち上がる */
+      c.style.setProperty('--z',((i>=hand?-1:1)*(4+dist*2)).toFixed(1)+'deg');   /* 手の左右に、少し押し分けられる */
+      c.style.setProperty('--dl',(dist*.14).toFixed(2)+'s');                      /* 手に近い布から順に */
+      var b=document.createElement('b'); b.textContent=ch; c.appendChild(b);
+      if(N.sub && i===n-1){ var s=document.createElement('small'); s.textContent=N.sub; c.appendChild(s); }
+      cl.appendChild(c);
+    });
+    box.hidden=false;
+    window.NOREN_WAIT=true;            /* ヒーローの文字は、暖簾が消えてから出す（noren:done の合図を待つ） */
+    var t1,t2,t3,opened=false;
+    function open(fast){
+      if(opened) return; opened=true;
+      clearTimeout(t1);
+      box.classList.add('part');
+      t2=setTimeout(function(){ box.classList.add('lift'); },fast?350:950);
+      t3=setTimeout(function(){
+        box.classList.add('done');
+        setTimeout(function(){ box.remove(); window.NOREN_WAIT=false; window.dispatchEvent(new Event('noren:done')); },300);
+      },fast?900:1650);
+    }
+    t1=setTimeout(function(){ open(false); },1000);
+    box.addEventListener('click',function(){ open(true); });
+    window.addEventListener('wheel',function(){ open(true); },{passive:true,once:true});
+  })();
+</script>
 <script>
   /* ===== shop-data を読んで、ページの中身を入れる ===== */
   (function(){
@@ -890,11 +1005,15 @@
     var rest=[rh.querySelector('.rh-eye'),rh.querySelector('.rh-copy'),rh.querySelector('.rh-now'),rh.querySelector('.rh-btns')];
     if(reduce){ rh.classList.remove('wait'); }
     else {
-      var t=500;
-      chars.forEach(function(c){ setTimeout(function(){ c.classList.add('hit'); rh.classList.remove('thud'); void rh.offsetWidth; rh.classList.add('thud'); },t); t+=330; });
-      setTimeout(function(){ hanko.classList.add('hit'); },t+150);
-      rest.forEach(function(e,k){ setTimeout(function(){ e.classList.add('fin'); },t+600+k*180); });
-      setTimeout(function(){ rh.classList.remove('wait'); },t+1600);
+      var play=function(){
+        var t=350;
+        chars.forEach(function(c){ setTimeout(function(){ c.classList.add('hit'); rh.classList.remove('thud'); void rh.offsetWidth; rh.classList.add('thud'); },t); t+=330; });
+        setTimeout(function(){ hanko.classList.add('hit'); },t+150);
+        rest.forEach(function(e,k){ setTimeout(function(){ e.classList.add('fin'); },t+600+k*180); });
+        setTimeout(function(){ rh.classList.remove('wait'); },t+1600);
+      };
+      /* 暖簾があるときは、暖簾が消えた合図（noren:done）を待ってから、判を押しはじめる */
+      if(window.NOREN_WAIT) window.addEventListener('noren:done',play,{once:true}); else play();
     }
     /* 湯気：やわらかい白い粒が、ゆらぎながら上へ。広がって消える */
     var cv=rh.querySelector('canvas'), ctx=cv.getContext('2d'), W=0, H=0, dpr=Math.min(2,window.devicePixelRatio||1), puffs=[];
