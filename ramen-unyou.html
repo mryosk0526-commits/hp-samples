@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- タイトルと説明文は、検索結果に出る文なので HTML に直接書く（年に1回くらい見直す）。店の情報の構造化データは shop-data-ramen2.js から自動で作る -->
+<title>家系ラーメン 丸屋｜千代田区の家系ラーメン｜濃厚豚骨醤油・深夜1時まで</title>
+<meta name="description" content="東京・千代田区の家系ラーメン「丸屋」。濃厚豚骨醤油に自家製の極太麺。ラーメン850円〜、11:00〜翌1:00・年中無休。券売機の予習もできます。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23be2f27'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23fff' font-family='serif'%3E丸%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f4efe4;        /* 生成りクリーム */
+    --card:#fbf8f1;
+    --card-2:#e9e0d0;    /* 淡い木肌ベージュ */
+    --ink:#241d18;       /* 墨・炭 */
+    --ink-2:#6f6355;
+    --line:#ddd2bf;
+    --accent:#a5322b;    /* 深い朱・弁柄 */
+    --accent-d:#822420;
+    --accent-soft:#f0e0d6;
+    --warm:#8a6a3f;      /* 醤油・木目 */
+    --warm-soft:#ece0cc;
+    --on-accent:#fbf5ec;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1080px;--r:16px;
+    --shadow:0 6px 24px rgba(36,29,24,.10),0 1px 3px rgba(36,29,24,.06);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#1a1613;--card:#221c17;--card-2:#2b241d;--ink:#efe6d7;--ink-2:#b3a693;--line:#3a3128;
+      --accent:#d05348;--accent-d:#e0685c;--accent-soft:#3a241f;--warm:#c39a5f;--warm-soft:#382d20;--on-accent:#17110d;--shadow:0 6px 24px rgba(0,0,0,.34);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1a1613;--card:#221c17;--card-2:#2b241d;--ink:#efe6d7;--ink-2:#b3a693;--line:#3a3128;
+    --accent:#d05348;--accent-d:#e0685c;--accent-soft:#3a241f;--warm:#c39a5f;--warm-soft:#382d20;--on-accent:#17110d;--shadow:0 6px 24px rgba(0,0,0,.34);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;font-weight:500;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:.02em}
+  img{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);font-size:14px;letter-spacing:.2em;color:var(--accent);font-weight:700;display:inline-block;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 30px;border-radius:6px;font-weight:800;font-size:15px;
+    background:var(--accent);color:var(--on-accent);border:2px solid var(--accent);transition:.18s;box-shadow:var(--shadow);cursor:pointer}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2);transform:translateY(-2px)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:28px;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;white-space:nowrap;flex-shrink:0;font-family:var(--serif)}
+  .brand .leaf{width:40px;height:40px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--on-accent);font-family:var(--serif);font-weight:800;font-size:20px;letter-spacing:0}
+  .brand small{display:block;font-size:10.5px;font-weight:600;color:var(--ink-2);letter-spacing:.08em;white-space:nowrap;font-family:var(--sans)}
+  .nav-links{display:flex;gap:20px;font-size:14px;font-weight:700;flex-wrap:nowrap}
+  .nav-links a{color:var(--ink-2);padding-bottom:2px;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+  .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+  .nav-cta{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .nav-tel{text-align:right;line-height:1.25}
+  .nav-tel b{font-size:19px;font-weight:800;font-family:var(--serif)}
+  .nav-tel small{display:block;font-size:10px;color:var(--ink-2)}
+  @media(max-width:960px){.nav-links,.nav-tel{display:none}}
+
+  /* Hero */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
+  .hero-slides,.hero-slides .slide{position:absolute;inset:0}
+  .hero-slides .slide{opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center}
+  .hero-slides .slide.is-active{opacity:1;animation:heroZoom 9s ease-out both}
+  @keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+  .hero-slides .slide.s1{background-image:url(img/ramen-5.jpg)}
+  .hero-slides .slide.s2{background-image:url(img/ramen-1.jpg)}
+  .hero-slides .slide.s3{background-image:url(img/ramen-2.jpg)}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 6%,color-mix(in srgb,var(--bg) 72%,transparent) 44%,transparent 80%)}
+  .hero .wrap{position:relative;z-index:2;width:100%;max-width:none;margin:0;padding-right:22px;padding-left:max(22px,calc((100vw - 1080px)/4 + 22px))}
+  .hero-copy{max-width:560px;padding:48px 0;text-align:left}
+  .hero h1{font-size:clamp(32px,5.2vw,52px);line-height:1.35;font-weight:900;font-family:var(--serif);text-wrap:normal}
+  .hero h1 .mark{color:var(--accent)}
+  .hero .lead{color:var(--ink-2);font-size:clamp(15px,1.9vw,17px);margin:24px 0 30px;max-width:500px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero .dots{position:absolute;bottom:26px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:3}
+  .hero .dots i{width:9px;height:9px;border-radius:50%;background:var(--accent);opacity:.4;transition:.25s;cursor:pointer;box-shadow:0 0 0 1px color-mix(in srgb,var(--card) 55%,transparent)}
+  .hero .dots i:hover{opacity:.75}
+  .hero .dots i.on{opacity:1;width:22px;border-radius:6px}
+  .scrollcue{position:absolute;bottom:24px;right:26px;z-index:3;font-size:10px;letter-spacing:.22em;font-weight:800;color:var(--accent-d);writing-mode:vertical-rl}
+  @media(max-width:720px){.hero-scrim{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 42%,transparent),var(--bg) 86%)}.scrollcue{display:none}}
+
+  section{padding:80px 0}
+  .head{text-align:center;margin-bottom:48px}
+  .head .eyebrow{margin-bottom:10px}
+  .head h2{font-size:clamp(24px,3.6vw,34px);font-weight:900;font-family:var(--serif)}
+  .head p{color:var(--ink-2);margin-top:14px;font-size:15px}
+
+  /* こだわり */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.feats{grid-template-columns:1fr}}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);text-align:center}
+  .feat .ic{margin:0 auto 16px;width:56px;height:56px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+  .feat h3{font-size:19px;margin-bottom:10px;font-family:var(--serif)}
+  .feat p{color:var(--ink-2);font-size:14.5px;margin:0}
+
+  /* メニュー */
+  .menu{background:var(--card-2)}
+  .menu-cat{margin-bottom:44px}
+  .menu-cat:last-child{margin-bottom:0}
+  .menu-cat .cat-h{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .menu-cat .cat-h .ic{width:40px;height:40px;border-radius:10px;background:var(--warm-soft);display:grid;place-items:center;color:var(--warm)}
+  .menu-cat .cat-h h3{font-family:var(--serif);font-size:21px}
+  .menu-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+  @media(max-width:760px){.menu-grid{grid-template-columns:1fr;gap:20px}}
+  .menu-grid.rev{direction:rtl}.menu-grid.rev>*{direction:ltr}
+  .menu-photo{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .menu-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .menu-list{list-style:none;padding:0;margin:0}
+  .menu-list li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .menu-list li:last-child{border-bottom:none}
+  .menu-list .nm{font-weight:800;font-size:16px}
+  .menu-list .nm small{display:block;font-weight:500;color:var(--ink-2);font-size:12.5px;margin-top:2px}
+  .menu-list .pr{font-family:var(--serif);font-weight:700;font-size:18px;white-space:nowrap;color:var(--accent-d)}
+  .menu-list .pr span{font-size:12px;color:var(--ink-2)}
+  .menu-note{margin-top:32px;text-align:center;font-size:13px;color:var(--ink-2)}
+
+  /* ギャラリー */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:820px){.gal{grid-template-columns:repeat(2,1fr)}}
+  .gal button{border:0;padding:0;margin:0;cursor:pointer;background:none;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:1;position:relative}
+  .gal button:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+  .gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+  .gal button:hover img{transform:scale(1.06)}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(20,15,12,.86);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .lightbox .x{position:absolute;top:18px;right:22px;color:#fff;font-size:30px;font-weight:300;line-height:1}
+
+  /* アクセス */
+  .access{background:var(--card-2)}
+  .access-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch}
+  @media(max-width:760px){.access-grid{grid-template-columns:1fr}}
+  .info-table{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+  .info-table .r{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line)}
+  .info-table .r:last-child{border-bottom:none}
+  .info-table .k{background:var(--card-2);padding:16px 18px;font-weight:800;font-size:13.5px;color:var(--accent-d);font-family:var(--serif)}
+  .info-table .v{padding:16px 20px;font-size:14.5px}
+  .access-visual{display:flex;flex-direction:column;gap:16px}
+  .access-photo{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);aspect-ratio:16/9}
+  .access-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .map-ph{position:relative;overflow:hidden;border-radius:var(--r);min-height:220px;flex:1;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .map-ph iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .map-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;gap:14px;align-items:center;font-weight:800;font-size:15.5px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-d);display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:14px}
+  .faq summary .mk{margin-left:auto;flex:none;color:var(--accent);font-size:20px;line-height:1;transition:transform .25s}
+  .faq details[open] summary .mk{transform:rotate(45deg)}
+  .faq .a{padding:2px 22px 20px 62px;color:var(--ink-2);font-size:14.5px}
+
+  /* CTA */
+  .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:var(--on-accent);text-align:center}
+  .cta-band h2{font-size:clamp(24px,4vw,36px);font-weight:900;font-family:var(--serif)}
+  .cta-band p{opacity:.92;margin:14px 0 8px;font-weight:500}
+  .cta-band .tel{font-family:var(--serif);font-size:clamp(30px,6vw,46px);font-weight:700;margin:18px 0 4px}
+  .cta-band .sub{font-size:12.5px;opacity:.85;margin-bottom:26px}
+  .cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-band .btn{background:var(--on-accent);color:var(--accent-d);border-color:var(--on-accent)}
+  .cta-band .btn:hover{background:transparent;color:var(--on-accent);border-color:var(--on-accent)}
+
+  footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot .copy{font-size:12px;color:var(--ink-2);font-family:var(--serif)}
+
+  /* スマホ固定CTA */
+  .mcta{display:none}
+  @media(max-width:720px){
+    .mcta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 20px rgba(36,29,24,.12)}
+    .mcta a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;font-size:11px;font-weight:800;color:var(--ink-2);border-right:1px solid var(--line)}
+    .mcta a:last-child{border-right:0}
+    .mcta a.p{background:var(--accent);color:var(--on-accent)}
+    .mcta a svg{width:21px;height:21px}
+    body{padding-bottom:58px}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+  }
+  /* ===== 家系ラーメンに寄せる（育てフェーズの調整） ===== */
+  :root{
+    --accent:#be2f27;      /* 朱をよりビビッドに */
+    --accent-d:#9a251f;
+    --warm:#a87c30;        /* 醤油→金寄りへ */
+  }
+  /* ヘッダー：黒地×白抜きで無骨に */
+  header{background:#1c1611;border-bottom:1px solid #3a2f26}
+  header .brand{color:#f4efe4}
+  header .brand small{color:#bdae97}
+  header .nav-links a{color:#cabda7}
+  header .nav-links a:hover{color:#fff;border-color:var(--accent)}
+  header .nav-tel b{color:#f4efe4}
+  header .nav-tel small{color:#bdae97}
+  /* ヒーロー：濃い丼写真に黒グラデ＋白抜き見出し＝力強く */
+  .hero-scrim{background:linear-gradient(90deg,rgba(18,13,10,.92) 4%,rgba(18,13,10,.6) 46%,rgba(18,13,10,.12) 82%)}
+  .hero h1{color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+  .hero h1 .mark{color:#ff6f5f}
+  .hero .eyebrow{color:#f2b134;letter-spacing:.24em}   /* 金 */
+  .hero .lead{color:#ece1d2}
+  .hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.55)}
+  .hero .btn.ghost:hover{background:rgba(255,255,255,.12)}
+  @media(max-width:720px){.hero-scrim{background:linear-gradient(180deg,rgba(18,13,10,.5),rgba(18,13,10,.9) 82%)}}
+  /* 見出し下に朱のあしらい＝ラーメン店の勢い */
+  .head h2{position:relative;display:inline-block;padding-bottom:14px}
+  .head h2::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:52px;height:4px;border-radius:2px;background:var(--accent)}
+  /* ボタンを角ばらせて無骨に */
+  .btn{border-radius:4px}
+  /* 品書きの切り替え（ラーメン屋版）：まっすぐな線・黒と朱のまま・すぱっと切り替わる */
+  .stage{background:#1d1714;color:#f6efe2;padding:56px 0 44px;position:relative;overflow:hidden;border-bottom:6px solid var(--accent)}
+  .stage-grid{display:grid;grid-template-columns:1fr 1.05fr auto;gap:44px;align-items:center;max-width:1200px}
+  .stage-copy{display:grid}
+  .panel{grid-area:1/1;align-self:center;opacity:0;visibility:hidden}
+  .panel.on{opacity:1;visibility:visible;animation:panelIn .28s ease-out}
+  @keyframes panelIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+  .s-eye{font-family:var(--serif);font-size:14px;letter-spacing:.2em;font-weight:700;color:#e4a295}
+  .stage h1,.stage .s-ttl{font-family:var(--serif);font-size:clamp(30px,4.3vw,52px);line-height:1.35;font-weight:900;margin-top:12px}
+  .stage h1 .mark{color:#e0685c}
+  .s-lead{font-size:15.5px;margin:20px 0 0;max-width:460px;color:#d8cdbb}
+  .plist{list-style:none;padding:0;margin:20px 0 0;max-width:420px}
+  .plist li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-bottom:1px dashed rgba(246,239,226,.3);font-size:16.5px;font-weight:800}
+  .plist b{font-family:var(--serif);font-size:21px;font-weight:800;white-space:nowrap;color:#f3c9a0}
+  .s-note{font-size:13.5px;margin:16px 0 0;color:#c9bca8}
+  .s-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .sbtn{display:inline-flex;align-items:center;padding:15px 28px;border-radius:4px;background:var(--accent);color:#fff;border:2px solid var(--accent);font-weight:800;font-size:15px;transition:.15s}
+  .sbtn:hover{background:#c0392f;border-color:#c0392f}
+  .sbtn.line{background:transparent;border-color:rgba(246,239,226,.45)}
+  .sbtn.line:hover{background:rgba(246,239,226,.1);border-color:#f6efe2}
+  .fig{position:relative;aspect-ratio:4/3;background:#2b241d;box-shadow:14px 14px 0 var(--accent)}
+  .fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+  .fig img.on{opacity:1;animation:figIn .35s cubic-bezier(.2,.8,.2,1)}
+  @keyframes figIn{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0)}}
+  .tate{writing-mode:vertical-rl;font-family:var(--serif);font-weight:900;font-size:clamp(20px,2.2vw,30px);letter-spacing:.4em;color:rgba(246,239,226,.2);align-self:stretch;text-align:center}
+  /* 食券のボタン */
+  .stage-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:44px}
+  .tab{appearance:none;cursor:pointer;text-align:left;padding:14px 16px;border-radius:4px;background:#f6efe2;color:#241d18;border:0;border-bottom:5px solid #b9ab94;
+    font:800 15.5px/1.4 var(--sans);display:flex;flex-direction:column;gap:2px;transition:transform .08s}
+  .tab small{font:800 13px/1.3 var(--serif);color:var(--accent-d)}
+  .tab:active{transform:translateY(3px)}
+  .tab.on{background:var(--accent);color:#fff;border-bottom-color:#6b1b17}
+  .tab.on small{color:#f8d9c8}
+  @media(max-width:900px){
+    .stage{padding:36px 0 32px}
+    .stage-grid{grid-template-columns:1fr;gap:26px}
+    .stage-copy{min-height:300px}
+    .panel{align-self:start}
+    .fig{box-shadow:8px 8px 0 var(--accent);margin-right:8px}
+    .tate{display:none}
+    .stage{display:flex;flex-direction:column}
+    .stage>.wrap{width:100%}
+    .stage>.wrap:last-child{order:-1}
+    .stage-tabs{grid-template-columns:repeat(2,1fr);margin:0 0 28px}
+    .tab{font-size:14px;padding:12px 12px}
+  }
+  @media (prefers-reduced-motion:reduce){.panel.on,.fig img.on{animation:none}}
+
+  /* 今日の丸屋：箱の角を立てて、店の雰囲気に合わせる（部品の見た目だけ上書き） */
+  .today{padding:64px 0 72px}
+  .today .head{margin-bottom:32px}
+  #today-box .tb-t{border-radius:6px}
+  #today-box .tb-btn{border-radius:4px}
+  #today-box .tb-day,#today-box .tb-slots li{border-radius:4px}
+  #today-box .tb-status{background:#1d1714;color:#f6efe2}
+  @media(max-width:480px){.brand small{display:none}.nav{gap:10px}.brand{font-size:16px}.nav-cta .btn{padding:10px 14px;font-size:13px}}
+  /* 湯気：どんぶりの写真の上に、ゆっくり立ちのぼる */
+  .steam{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .6s}
+  .fig.steaming .steam{opacity:1}
+  .steam i{position:absolute;top:8%;width:16%;aspect-ratio:1/2;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.75),rgba(255,255,255,0));filter:blur(14px);opacity:0;animation:steam 6s ease-in infinite}
+  .steam i:nth-child(1){left:50%}
+  .steam i:nth-child(2){left:60%;animation-delay:2s;animation-duration:7s}
+  .steam i:nth-child(3){left:68%;animation-delay:4s}
+  @keyframes steam{0%{transform:translate(0,30%) scale(.7);opacity:0}25%{opacity:.55}100%{transform:translate(12%,-130%) scale(1.7);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.steam{display:none}}
+
+  /* 支払い方法 */
+  .pay-strip{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:6px;font-size:14px}
+  .pay-strip b{font-family:var(--serif);font-size:15px}
+  .pay-strip small{color:var(--ink-2);font-size:12.5px;margin-left:auto}
+  .pay-chips{display:flex;gap:8px;flex-wrap:wrap}
+  .pay-chips span{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:4px;font-size:13px;font-weight:800;border:1px solid currentColor}
+  .pay-chips .ok{color:#1f7a4d}
+  .pay-chips .ng{color:var(--ink-2);border-style:dashed}
+
+  /* 注文の予習 */
+  .yoshu{background:var(--card-2)}
+  .yo{display:grid;grid-template-columns:1.45fr 1fr;gap:28px;align-items:start;background:#1d1714;color:#f6efe2;padding:30px;border-radius:8px;border-bottom:6px solid var(--accent);box-shadow:var(--shadow)}
+  .yo-step{margin-bottom:26px}
+  .yo-step:last-child{margin-bottom:0}
+  .yo-step h3{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:18px;margin-bottom:12px}
+  .yo-step h3 b{display:grid;place-items:center;width:28px;height:28px;background:var(--accent);color:#fff;border-radius:4px;font-size:15px}
+  .yo-step h3 span{font:700 12px var(--sans);color:#c9bca8;border:1px solid rgba(246,239,226,.3);padding:1px 8px;border-radius:3px}
+  .yo-btns{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+  .yb{appearance:none;cursor:pointer;text-align:left;padding:11px 13px;border-radius:4px;background:#f6efe2;color:#241d18;border:0;border-bottom:4px solid #b9ab94;
+    font:800 14.5px/1.4 var(--sans);display:flex;flex-direction:column;gap:1px;transition:transform .08s}
+  .yb small{font:800 13px/1.3 var(--serif);color:var(--accent-d)}
+  .yb:active{transform:translateY(3px)}
+  .yb.on{background:var(--accent);color:#fff;border-bottom-color:#6b1b17}
+  .yb.on small{color:#f8d9c8}
+  .yo-seg{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .yo-seg>span{width:5.5em;font-size:14px;font-weight:700;color:#d8cdbb;flex:none}
+  .yo-seg>div{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1;max-width:360px}
+  .yo-seg button{appearance:none;cursor:pointer;padding:9px 4px;border-radius:4px;background:transparent;color:#f6efe2;border:1px solid rgba(246,239,226,.35);font:800 14px var(--sans)}
+  .yo-seg button.on{background:#f6efe2;color:#241d18;border-color:#f6efe2}
+  .yo-ticket{background:#f6efe2;color:#241d18;padding:22px 22px 18px;border-radius:4px;position:sticky;top:92px;
+    background-image:radial-gradient(circle at 0 12px,#1d1714 6px,transparent 6.5px),radial-gradient(circle at 100% 12px,#1d1714 6px,transparent 6.5px);background-size:100% 24px;background-repeat:repeat-y}
+  .yt-h{text-align:center;font-family:var(--serif);font-weight:900;font-size:20px;letter-spacing:.3em;padding-bottom:12px;border-bottom:2px solid #241d18}
+  .yt-list{list-style:none;margin:0;padding:8px 0;min-height:64px}
+  .yt-list li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-weight:800;font-size:15px;border-bottom:1px dashed #cdbfa8}
+  .yt-list li b{font-family:var(--serif);white-space:nowrap}
+  .yt-total{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:2px solid #241d18}
+  .yt-total span{font-weight:800}
+  .yt-total b{font-family:var(--serif);font-size:18px}
+  .yt-total i{font-style:normal;font-size:38px;font-weight:900;color:var(--accent);margin-right:2px;font-variant-numeric:tabular-nums}
+  .yt-say,.yt-pay{padding:12px 0;border-bottom:1px dashed #cdbfa8}
+  .yt-say span,.yt-pay span{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#6f6355;margin-bottom:6px}
+  .yt-say p{margin:0;font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.5}
+  .yt-pay .pay-chips span{display:inline-flex;color:inherit;font-size:12.5px;letter-spacing:0;margin:0}
+  .yt-pay .pay-chips .ok{color:#1f7a4d}
+  .yt-pay .pay-chips .ng{color:#8a7d6b}
+  .yt-note{margin:10px 0 0;font-size:12px;color:#6f6355}
+
+  /* ===== 券売機（注文の予習を、券売機の形にする） ===== */
+  .yo{background:transparent;padding:0;border-bottom:0;box-shadow:none;color:#f6efe2}
+  .yo-ctrl{background:linear-gradient(180deg,#2e2724,#1a1411);border:3px solid #4a3f39;border-radius:16px;padding:0 22px 22px;box-shadow:inset 0 2px 0 rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.35)}
+  .km-top{display:flex;justify-content:space-between;align-items:center;margin:0 -22px 18px;padding:12px 22px;background:var(--accent);border-radius:12px 12px 0 0;border-bottom:3px solid #6b1b17}
+  .km-name{font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:.5em;color:#fff}
+  .km-lamps{display:flex;gap:6px}
+  .km-lamps i{width:9px;height:9px;border-radius:50%;background:#ffcf5a;box-shadow:0 0 8px #ffcf5a}
+  .km-lamps i:nth-child(2){background:#7dff9a;box-shadow:0 0 8px #7dff9a}
+  .km-led{display:flex;justify-content:space-between;align-items:center;background:#0b0908;border:2px solid #000;border-radius:8px;padding:10px 16px;margin-bottom:22px;box-shadow:inset 0 0 16px rgba(255,80,40,.12)}
+  .km-led span{font-size:12px;font-weight:800;color:#a8908a;letter-spacing:.12em}
+  .km-led b{font-family:"Consolas","Courier New",monospace;font-size:34px;color:#ff5a3c;text-shadow:0 0 10px rgba(255,90,60,.7);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+  .km-led b i{font-style:normal}
+  .km-led b em{font-style:normal;font-size:16px;margin-left:4px}
+  .yo-ctrl .yb{border-radius:6px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.08)}
+  .yo-ctrl .yb.on{box-shadow:0 0 14px rgba(255,120,90,.55)}
+  .km-bottom{display:grid;grid-template-columns:auto auto 1fr;gap:14px;align-items:center;margin-top:24px;padding-top:20px;border-top:2px dashed #4a3f39}
+  .km-slot{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:800;color:#a8908a;letter-spacing:.1em}
+  .km-slot i{display:block;width:12px;height:34px;border-radius:6px;background:#000;border:2px solid #5a4d46}
+  .km-slot.bill i{width:56px;height:12px}
+  .km-issue{justify-self:end;appearance:none;cursor:pointer;border:0;border-radius:999px;padding:16px 34px;font:900 18px var(--serif);letter-spacing:.3em;color:#fff;
+    background:radial-gradient(circle at 35% 30%,#ff7a5c,var(--accent) 60%);box-shadow:0 6px 0 #6b1b17,0 10px 20px rgba(0,0,0,.4);transition:transform .08s,box-shadow .08s}
+  .km-issue:active{transform:translateY(5px);box-shadow:0 1px 0 #6b1b17,0 4px 10px rgba(0,0,0,.4)}
+  .yo-ticket{background:#2a221e;color:#f6efe2;background-image:none;border-radius:16px;padding:0 18px 18px;border:3px solid #4a3f39}
+  .yt-slot{margin:0 -18px 14px;height:30px;border-radius:12px 12px 0 0;background:linear-gradient(#000,#1a1411);display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:.3em;color:#7d6b62;border-bottom:2px solid #000}
+  .yt-tray{min-height:170px;display:flex;flex-direction:column;gap:8px;padding-bottom:14px;border-bottom:1px dashed #5a4d46;overflow:hidden}
+  .yt-empty{margin:auto 0;text-align:center;color:#a8908a;font-size:13.5px;line-height:1.8}
+  .yt-empty b{display:block;font-family:var(--serif);font-size:18px;color:#f6efe2}
+  .tk{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;padding:12px 16px 12px 22px;border-radius:3px;color:#241d18;
+    background:#ffd3d9;box-shadow:0 3px 8px rgba(0,0,0,.35);font-family:var(--serif)}
+  .tk::before,.tk::after{content:"";position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#2a221e;transform:translateY(-50%)}
+  .tk::before{left:-6px}.tk::after{right:-6px}
+  .tk.top{background:#fff0a6}
+  .tk.pref{background:#f6efe2}
+  .tk small{grid-column:1/-1;font:800 10.5px var(--sans);letter-spacing:.2em;color:#8a5a52}
+  .tk b{font-size:17px;font-weight:900}
+  .tk em{font-style:normal;font-weight:900;font-size:16px;white-space:nowrap}
+  .yt-tray.stale .tk{opacity:.45}
+  .yt-stale{display:none;font-size:12px;color:#ffb4a3;font-weight:800;text-align:center}
+  .yt-tray.stale + .yt-stale{display:block;margin-top:8px}
+  .yo-ticket .yt-say,.yo-ticket .yt-pay{border-bottom-color:#5a4d46}
+  .yo-ticket .yt-say span,.yo-ticket .yt-pay span{color:#a8908a}
+  .yo-ticket .yt-pay .pay-chips .ok{color:#7fe0a8}
+  .yo-ticket .yt-pay .pay-chips .ng{color:#8a7d6b}
+  .yo-ticket .yt-note{color:#a8908a}
+  @media (prefers-reduced-motion:no-preference){
+    .tk{animation:tkdrop .55s cubic-bezier(.2,.9,.25,1.15) both}
+    @keyframes tkdrop{from{transform:translateY(-120%) rotate(-2deg);opacity:0}to{transform:none;opacity:1}}
+    .km-lamps i{animation:lamp 1.6s steps(2) infinite}.km-lamps i:nth-child(2){animation-delay:.4s}.km-lamps i:nth-child(3){animation-delay:.8s}
+    @keyframes lamp{50%{opacity:.35}}
+  }
+
+  /* ===== 発券：券が発券口のすき間から、少しずつ押し出されてくる ===== */
+  .yt-slot{position:relative;height:44px;display:flex;align-items:flex-start;justify-content:center;padding-top:6px}
+  .yt-slot::after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:8px;border-radius:4px;background:#000;box-shadow:inset 0 2px 3px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.12)}
+  .yt-slot .lamp{position:absolute;right:16px;top:9px;width:8px;height:8px;border-radius:50%;background:#3a2f2a}
+  .yo.printing .yt-slot .lamp{background:#7dff9a;box-shadow:0 0 8px #7dff9a}
+  .yt-tray{gap:0;padding-top:0}
+  .tkw{overflow:hidden;max-height:0;margin-bottom:0;flex:none}
+  .tkw .tk{margin:0 0 8px}
+  .tkw.in{max-height:120px}
+  .km-issue[disabled]{cursor:default;filter:saturate(.6) brightness(.85)}
+  .km-led.msg b{font-size:22px;letter-spacing:.12em}
+  @media (prefers-reduced-motion:no-preference){
+    .tkw .tk{animation:none}
+    .tkw.in{animation:tkgrow .95s steps(10,end) both}
+    .tkw.in .tk{animation:tkfeed .95s steps(10,end) both,tkland .25s .95s ease-out}
+    @keyframes tkgrow{from{max-height:0}to{max-height:120px}}
+    @keyframes tkfeed{from{transform:translateY(-100%)}to{transform:none}}
+    @keyframes tkland{50%{transform:translateY(3px) rotate(-.6deg)}}
+    .yo.printing .yo-ctrl{animation:hum .12s linear infinite}
+    @keyframes hum{50%{transform:translate(.6px,-.4px)}}
+    .km-led.msg b{animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:.35}}
+  }
+
+  @media(max-width:860px){ .km-name{letter-spacing:.3em;font-size:15px} .km-led b{font-size:28px} .km-bottom{grid-template-columns:auto auto 1fr} .km-issue{padding:14px 24px} }
+
+  @media(max-width:860px){
+    .yo{grid-template-columns:1fr;padding:20px 16px}
+    .yo-ticket{position:static}
+    .yo-btns{grid-template-columns:repeat(2,1fr)}
+    .yo-seg{flex-direction:column;align-items:stretch;gap:6px;margin-bottom:12px}
+    .yo-seg>span{width:auto}
+    .yo-seg>div{max-width:none}
+    .pay-strip small{margin-left:0;width:100%}
+  }
+
+  /* ===== 運用版で足したもの ===== */
+  /* お知らせ */
+  .news-sec{padding:44px 0 8px}
+  .news{list-style:none;margin:0 auto;padding:0;max-width:820px;background:var(--card);border:1px solid var(--line);border-radius:6px}
+  .news li{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:14px 20px;border-bottom:1px dashed var(--line);font-size:14.5px}
+  .news li:last-child{border-bottom:0}
+  .news time{font-family:var(--serif);font-weight:800;color:var(--accent-d)}
+  .news .new{font-style:normal;font-size:10.5px;font-weight:800;color:#fff;background:var(--accent);border-radius:3px;padding:2px 7px;margin-right:10px;vertical-align:2px}
+  @media(max-width:560px){.news li{grid-template-columns:1fr;gap:2px}}
+  /* 期間限定・売り切れ */
+  .gentei{display:inline-block;font:800 11px/1 var(--sans);letter-spacing:.08em;color:#fff;background:#d6861b;border-radius:3px;padding:4px 7px;margin-left:8px;vertical-align:3px}
+  .tab .gentei{margin:0 0 4px;align-self:flex-start}
+  .tab{display:flex;flex-direction:column}
+  @media(min-width:901px){.stage-tabs{grid-template-columns:repeat(var(--n,4),1fr)}}
+  .yb[disabled]{cursor:not-allowed;background:#4a403b;color:#9c8f86;border-bottom-color:#3a312c;position:relative}
+  .yb[disabled] small{color:#9c8f86;text-decoration:line-through}
+  .yb .uri{position:absolute;top:6px;right:6px;font:900 11px/1 var(--serif);color:#fff;background:#e0362a;padding:4px 6px;border-radius:3px;box-shadow:0 0 10px rgba(255,60,40,.8)}
+  .yb .gentei{position:absolute;top:6px;right:6px;margin:0}
+  .yb{position:relative}
+  .yb:has(.gentei),.yb:has(.uri){padding-right:46px}
+  .menu-list .soldout{font:800 11px/1 var(--sans);color:#fff;background:#6f6355;border-radius:3px;padding:4px 7px;margin-left:8px;vertical-align:3px}
+  .limited-term{display:block;font-size:12.5px;font-weight:800;color:#d6861b;margin-top:-12px;margin-bottom:16px}
+
+  /* ===== ヒーロー形②：湯気が立ちのぼる・縦に大きな一言 ===== */
+  .rh{position:relative;height:min(92vh,820px);min-height:600px;overflow:hidden;background:#120d0a;color:#fff;border-bottom:6px solid var(--accent)}
+  .rh .ph{position:absolute;inset:0}
+  @media(min-width:721px){.rh .ph{left:30%}}
+  .rh .ph img{width:100%;height:100%;object-fit:cover;object-position:70% 50%;opacity:.62}
+  .rh::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(14,9,7,.94) 8%,rgba(14,9,7,.55) 45%,rgba(14,9,7,.1) 80%),linear-gradient(0deg,rgba(14,9,7,.7),transparent 40%)}
+  .rh canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+  .rh .wrap{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:clamp(14px,2vw,22px);max-width:1180px}
+  .rh h1{margin:0;font-family:var(--serif);font-weight:900;font-size:clamp(46px,7vw,96px);line-height:1.1;letter-spacing:.1em;white-space:nowrap;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.6);flex:none}
+  .rh h1 span{display:inline-block}
+  .rh-side{max-width:420px}
+  .rh-hanko{display:inline-grid;place-items:center;width:64px;height:64px;border:3px solid #e0362a;color:#e0362a;border-radius:6px;font:900 22px/1.05 var(--serif);writing-mode:vertical-rl;letter-spacing:.05em;transform:rotate(-8deg);margin-bottom:4px;background:rgba(224,54,42,.08)}
+  .rh-eye{display:block;font-family:var(--serif);font-weight:700;font-size:13.5px;letter-spacing:.24em;color:#f2b134;margin-bottom:12px}
+  .rh-copy{font-family:var(--serif);font-weight:900;font-size:clamp(22px,2.8vw,32px);line-height:1.5;margin:0 0 18px}
+  .rh-now{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;margin-bottom:26px}
+  .rh-now i{width:9px;height:9px;border-radius:50%;background:#7dff9a;box-shadow:0 0 10px #7dff9a}
+  .rh-now.off i{background:#8a7d6b;box-shadow:none}
+  .rh-btns{display:flex;gap:12px;flex-wrap:wrap}
+  .rh-btns a{display:inline-flex;align-items:center;padding:15px 26px;border-radius:6px;font-weight:800;font-size:15px;background:var(--accent);color:#fff;border:2px solid var(--accent);transition:.18s}
+  .rh-btns a:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .rh-btns a+a{background:transparent;border-color:rgba(255,255,255,.55)}
+  .rh-btns a+a:hover{background:rgba(255,255,255,.12)}
+  @media(max-width:720px){
+    .rh{height:auto;min-height:calc(100svh - 72px)}
+    .rh .wrap{justify-content:flex-end;padding-top:40px;padding-bottom:44px;gap:14px}
+    .rh h1{font-size:clamp(40px,13vw,64px);letter-spacing:.06em}
+    .rh-copy{margin-bottom:12px}.rh-now{margin-bottom:16px}
+    .rh::after{background:linear-gradient(0deg,rgba(14,9,7,.95) 20%,rgba(14,9,7,.35) 70%,rgba(14,9,7,.2))}
+    .rh-hanko{width:52px;height:52px;font-size:18px;margin-bottom:12px}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .rh .ph img{animation:rhkb 26s ease-in-out infinite alternate}
+    @keyframes rhkb{from{transform:scale(1.03)}to{transform:scale(1.12) translate(-2%,1%)}}
+    /* 一文字ずつ、判を押すように落ちてくる */
+    .rh.wait h1 span,.rh.wait .rh-hanko,.rh.wait .rh-eye,.rh.wait .rh-copy,.rh.wait .rh-now,.rh.wait .rh-btns{opacity:0}
+    .rh h1 span.hit{animation:stamp .42s cubic-bezier(.2,1.4,.4,1) both}
+    @keyframes stamp{from{opacity:0;transform:scale(2.1);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+    .rh .rh-hanko.hit{animation:hanko .5s cubic-bezier(.2,1.5,.4,1) both}
+    @keyframes hanko{from{opacity:0;transform:rotate(-8deg) scale(2.4)}to{opacity:1;transform:rotate(-8deg)}}
+    .rh .fin{animation:rhfin .8s ease both}
+    @keyframes rhfin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .rh.thud .wrap{animation:thud .18s linear}
+    @keyframes thud{25%{transform:translate(2px,-1px)}50%{transform:translate(-2px,1px)}75%{transform:translate(1px,1px)}}
+  }
+  .hero-switch{font-size:12px;color:var(--ink-2);text-align:center;margin-top:10px}
+  .hero-switch a{color:var(--accent);font-weight:700;border-bottom:1px solid var(--line);margin:0 6px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="leaf">丸</span>
+      家系ラーメン 丸屋<small>東京・千代田区／濃厚豚骨醤油</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#feature">こだわり</a>
+      <a href="#menu">品書き</a>
+      <a href="#gallery">店のようす</a>
+      <a href="#access">アクセス</a>
+      <a href="#faq">Q&amp;A</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-tel"><b data-s="tel"></b><small><span data-s="hoursShort"></span>／<span data-s="closed"></span></small></div>
+      <a href="#access" class="btn">アクセス</a>
+    </div>
+  </div>
+</header>
+
+<!-- ヒーローは2つの形を用意してある。shop-data の hero.style（または URL の ?hero=）で、使う方だけが残る -->
+
+<!-- 形①：品書きの切り替え。食券のボタンを押すと、写真と値段がすぱっと入れ替わる（中身は hero と menu から作る） -->
+<section class="stage" id="stage" data-hero="stage" aria-label="丸屋のご紹介と品書き">
+  <div class="wrap stage-grid">
+    <div class="stage-copy"></div>
+    <div class="fig"><div class="steam" aria-hidden="true"><i></i><i></i><i></i></div></div>
+    <div class="tate" aria-hidden="true"></div>
+  </div>
+  <div class="wrap"><div class="stage-tabs" role="group" aria-label="品書きを選ぶ"></div></div>
+</section>
+
+<!-- 形②：湯気が立ちのぼる写真の上に、縦に大きな一言（言葉は hero から） -->
+<section class="rh wait" id="rh" data-hero="anime">
+  <div class="ph"><img src="" alt="" fetchpriority="high"></div>
+  <canvas aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="rh-hanko" aria-hidden="true">丸屋</div>
+    <h1></h1>
+    <div class="rh-side">
+      <span class="rh-eye"></span>
+      <p class="rh-copy"></p>
+      <div class="rh-now"><i></i><span></span></div>
+      <div class="rh-btns"><a href="#menu">品書きを見る</a><a href="#yoshu">券売機で予習する</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 今日の丸屋（parts3.js が、shop-data を読んで中身を入れる） -->
+<section id="today" class="today">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Today</span>
+      <h2>今日の丸屋</h2>
+      <p>いま開いているか、並ぶかどうか。ここだけ見ればわかります。</p>
+    </div>
+    <div id="today-box"></div>
+    <div class="pay-strip"><b>お支払い</b><div class="pay-chips"></div><small class="pay-note"></small></div>
+  </div>
+</section>
+
+<!-- お知らせ（shop-data の news） -->
+<section class="news-sec" id="news">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:20px"><span class="eyebrow">News</span><h2>お知らせ</h2></div>
+    <ul class="news reveal" id="newsList"></ul>
+  </div>
+</section>
+
+<!-- 注文の予習：ボタンは shop-data の menu（ticket）と prefs から作る -->
+<section id="yoshu" class="yoshu">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Order</span>
+      <h2>注文の予習</h2>
+      <p>券売機の前で迷わないように。ボタンを選んで「発券」を押すと、食券と「店での伝え方」が出てきます。</p>
+    </div>
+    <div class="yo reveal">
+      <div class="yo-ctrl">
+        <div class="km-top"><span class="km-name">食券販売機</span><span class="km-lamps" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="km-led"><span>ご注文金額</span><b><i id="yoTotal">0</i><em>円</em></b></div>
+        <div class="yo-step">
+          <h3><b>一</b>一杯を選ぶ</h3>
+          <div class="yo-btns" data-group="main"></div>
+        </div>
+        <div class="yo-step">
+          <h3><b>二</b>トッピング・サイド<span>いくつでも</span></h3>
+          <div class="yo-btns" data-group="top"></div>
+        </div>
+        <div class="yo-step" id="prefStep">
+          <h3><b>三</b>お好み<span>無料</span></h3>
+        </div>
+        <div class="km-bottom">
+          <div class="km-slot" aria-hidden="true"><i></i>硬貨</div>
+          <div class="km-slot bill" aria-hidden="true"><i></i>お札</div>
+          <button type="button" class="km-issue" id="yoIssue">発券</button>
+        </div>
+      </div>
+      <aside class="yo-ticket" aria-live="polite">
+        <div class="yt-slot">発 券 口<span class="lamp"></span></div>
+        <div class="yt-tray" id="yoTray"><p class="yt-empty"><b>まだ、食券は出ていません</b>ボタンを選んで、<br>「発券」を押してください。</p></div>
+        <p class="yt-stale">選び直しました。もう一度「発券」を押してください。</p>
+        <div class="yt-say"><span>店での伝え方</span><p id="yoSay">「普通で」</p></div>
+        <div class="yt-pay"><span>お支払い</span><div class="pay-chips"></div></div>
+        <p class="yt-note">※ 金額は目安です。ご注文は、入口の券売機で。</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- こだわり（店の考え方。めったに変えないので HTML に書いてある） -->
+<section id="feature">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Our Bowl</span>
+      <h2>丸屋の、ゆずれない三箇条</h2>
+      <p>難しいことはしない。ただ、手は抜かない。</p>
+    </div>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 11h16a8 8 0 01-8 8 8 8 0 01-8-8zM6 8c-.6-1 .6-2 0-3M10 8c-.6-1 .6-2 0-3M14 8c-.6-1 .6-2 0-3M3 21h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>濃厚豚骨醤油スープ</h3>
+        <p>大量の豚骨を強火で炊き上げ、かえしの醤油とぶつける。濃いのに後を引く、丸屋の背骨となる一杯です。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M4 6c4-1 12-1 16 0M4 10c4-1 12-1 16 0M4 14c4-1 12-1 16 0M4 18c4-1 12-1 16 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>もっちり自家製麺</h3>
+        <p>毎日店で打つ、食べ応えのある極太麺。スープをしっかり持ち上げる、丸屋のためだけの麺です。硬さもお好みで。</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.7L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <h3>頑固一徹、味は一つ</h3>
+        <p>創業からブレない看板の味。お好み（味の濃さ・脂・麺の硬さ）は無料で調整。券売機は入口すぐ、初めてでも迷いません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- お品書き（shop-data の menu） -->
+<section id="menu" class="menu">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Menu</span>
+      <h2>お品書き</h2>
+      <p>ご注文は入口の券売機で。（表示は税込）</p>
+    </div>
+    <div id="menuBox"></div>
+    <p class="menu-note reveal" id="menuNote"></p>
+  </div>
+</section>
+
+<!-- ギャラリー（shop-data の gallery） -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Gallery</span>
+      <h2>店のようす、作り手のこと</h2>
+      <p>写真をタップすると大きく表示されます。</p>
+    </div>
+    <div class="gal reveal" id="galBox"></div>
+  </div>
+</section>
+
+<!-- アクセス（shop-data の access・hours・closed から） -->
+<section id="access" class="access">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Access</span>
+      <h2>アクセス・営業時間</h2>
+      <p>下町の通り沿い。テイクアウト・出前もやってます。</p>
+    </div>
+    <div class="access-grid reveal">
+      <div class="info-table" id="infoBox"></div>
+      <div class="access-visual">
+        <div class="access-photo"><img id="accPhoto" src="" alt="丸屋のある下町の通り" loading="lazy"></div>
+        <div class="map-ph">
+          <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
+          <span class="map-badge">デモ：皇居を表示（本番は自店の地図に差替え）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ（shop-data の faq） -->
+<section id="faq" style="background:var(--card-2)">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Q &amp; A</span>
+      <h2>よくあるご質問</h2>
+    </div>
+    <div class="faq reveal" id="faqBox"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <h2>腹を空かせて、会いに来い。</h2>
+    <p>湯気の立つうちが、いちばん旨い。</p>
+    <div class="tel" data-s="tel"></div>
+    <div class="sub"><span data-s="hoursShort"></span> ／ <span data-s="closed"></span>（スープ切れ次第終了）</div>
+    <div class="btns">
+      <a href="#" class="btn" data-tel>電話で問い合わせ</a>
+      <a href="#" class="btn" id="deliveryBtn"></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="text-align:center;font-size:12px;color:var(--ink-2);padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px">
+    ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。&nbsp;<a href="index.html" style="color:var(--accent);font-weight:700">‹ サンプル一覧へ戻る</a>
+    <p class="hero-switch">ヒーローの形を見くらべる：<a href="?hero=stage">品書きの切り替え</a><a href="?hero=anime">湯気＋大きな一言</a></p>
+  </div>
+  <div class="wrap foot">
+    <a href="#" class="brand">
+      <span class="leaf">丸</span>
+      家系ラーメン 丸屋<small>東京・千代田区／濃厚豚骨醤油</small>
+    </a>
+    <span class="copy">© 2026 Iekei Ramen MARUYA — All Rights Reserved</span>
+  </div>
+</footer>
+
+<!-- スマホ固定CTAバー -->
+<nav class="mcta">
+  <a href="#" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 011-2z"/></svg>電話する</a>
+  <a href="#menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>品書き</a>
+  <a href="#access" class="p"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a7 7 0 1114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>アクセス</a>
+</nav>
+
+<!-- ライトボックス -->
+<div class="lightbox" id="lightbox"><span class="x">×</span><img src="" alt=""></div>
+
+<script src="shop-data-ramen2.js"></script>
+<script src="unyou.js"></script>
+<script>
+  /* ===== shop-data を読んで、ページの中身を入れる ===== */
+  (function(){
+    var D=U.D, el=U.el;
+    var ICON={
+      bowl:'<path d="M4 11h16a8 8 0 01-8 8 8 8 0 01-8-8zM3 21h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      noodle:'<path d="M4 7c4-1 12-1 16 0M4 12c4-1 12-1 16 0M4 17c4-1 12-1 16 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+      top:'<path d="M12 3v18M5 8h14M6 8c0 4 2 6 6 6s6-2 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+      star:'<path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.7L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+    };
+    var MENU=D.menu.filter(U.inPeriod);                       // 期間外の限定は、ここで外れる
+    var SOLD=D.soldout||[];
+    function isSold(name){ return SOLD.indexOf(name)>=0; }
+    function until(c){ if(!c.to) return ''; var d=new Date(c.to+'T00:00'); return (d.getMonth()+1)+'/'+d.getDate()+' まで'; }
+
+    U.bind();
+    U.jsonLd('Restaurant');
+    var heroType=U.heroStyle();
+
+    /* ヒーロー（形①）：最初＝hero、そのあと＝品書きの区分ごと */
+    if(heroType==='stage'){
+      var H=D.hero, copy=document.querySelector('#stage .stage-copy');
+      document.querySelector('#stage .tate').textContent=H.side;
+      var p0=el('div','panel on'); p0.dataset.img=H.photo; p0.dataset.label=H.label; p0.dataset.price=H.tag;
+      p0.appendChild(el('span','s-eye',H.eyebrow));
+      var h1=el('h1'); H.catch.split('\n').forEach(function(line,i){
+        if(i) h1.appendChild(el('br'));
+        var k=H.mark?line.indexOf(H.mark):-1;
+        if(k<0){ h1.appendChild(document.createTextNode(line)); return; }
+        h1.appendChild(document.createTextNode(line.slice(0,k))); h1.appendChild(el('span','mark',H.mark)); h1.appendChild(document.createTextNode(line.slice(k+H.mark.length)));
+      });
+      p0.appendChild(h1); p0.appendChild(el('p','s-lead',H.lead));
+      var bs=el('div','s-btns'); H.buttons.forEach(function(b,i){ var a=el('a','sbtn'+(i?' line':''),b.label); a.href=b.href; bs.appendChild(a); }); p0.appendChild(bs);
+      copy.appendChild(p0);
+      MENU.forEach(function(c,ci){
+        var p=el('div','panel'); p.dataset.img=c.photo; p.dataset.label=c.label;
+        p.dataset.price=Math.min.apply(null,c.items.map(function(it){return it.price;})).toLocaleString('ja-JP')+'円'+(c.items.length>1?'〜':'');
+        if(c.steam) p.dataset.steam='1';
+        if(c.to) p.dataset.gentei=until(c);
+        p.appendChild(el('span','s-eye',c.to?'期間限定　'+until(c):'品書き 其の'+'一二三四五六'.charAt(ci)));
+        p.appendChild(el('h2','s-ttl',c.name));
+        var ul=el('ul','plist'); c.items.slice(0,4).forEach(function(it){ var li=el('li'); li.appendChild(el('span',null,it.name+(isSold(it.name)?'（売切）':''))); li.appendChild(el('b',null,U.price(it))); ul.appendChild(li); });
+        p.appendChild(ul); p.appendChild(el('p','s-note',c.stageNote||''));
+        copy.appendChild(p);
+      });
+    }
+    /* ヒーロー（形②）：縦の大きな一言・添える一言・いま営業中か */
+    if(heroType==='anime'){
+      var rh=document.getElementById('rh'), H2=D.hero;
+      rh.querySelector('.ph img').src=H2.animePhoto; rh.querySelector('.ph img').alt=H2.label+'の一杯';
+      var t=rh.querySelector('h1'); t.setAttribute('aria-label',H2.catch.replace(/\n/g,''));
+      Array.from(H2.big).forEach(function(ch){ var s=el('span',null,ch); s.setAttribute('aria-hidden','true'); t.appendChild(s); });
+      rh.querySelector('.rh-eye').textContent=H2.eyebrow;
+      rh.querySelector('.rh-copy').textContent=H2.copy;
+      var on=U.openNow(), now=rh.querySelector('.rh-now');
+      now.classList.toggle('off',!on);
+      now.querySelector('span').textContent=on?'ただいま営業中　'+D.hours.close.replace('翌','深夜')+' まで':'ただいま準備中　'+D.hours.open+' から';
+    }
+
+    /* お知らせ */
+    U.news(document.getElementById('newsList'),3);
+
+    /* 券売機のボタン（一杯・トッピング）とお好み */
+    document.querySelectorAll('#yoshu .yo-btns').forEach(function(box){
+      var first=true;
+      MENU.filter(function(c){ return c.ticket===box.dataset.group; }).forEach(function(c){
+        c.items.forEach(function(it){
+          var b=el('button','yb'); b.type='button'; b.dataset.name=it.name; b.dataset.price=it.price;
+          b.appendChild(document.createTextNode(it.name));
+          b.appendChild(el('small',null,(box.dataset.group==='top'?'＋':'')+U.yen(it.price)+'円'));
+          if(isSold(it.name)){ b.disabled=true; b.appendChild(el('span','uri','売切')); b.setAttribute('aria-label',it.name+'（売り切れ）'); }
+          else if(c.to){ b.appendChild(el('span','gentei','限定')); }
+          if(box.dataset.group==='main' && first && !b.disabled && !c.to){ b.classList.add('on'); first=false; }
+          box.appendChild(b);
+        });
+      });
+    });
+    var ps=document.getElementById('prefStep');
+    (D.prefs||[]).forEach(function(p){
+      var sg=el('div','yo-seg'); sg.dataset.key=p.key; sg.appendChild(el('span',null,p.label));
+      var w=el('div'); p.options.forEach(function(o,i){ var b=el('button',i===1?'on':'',o); b.type='button'; b.dataset.v=o; w.appendChild(b); });
+      sg.appendChild(w); ps.appendChild(sg);
+    });
+
+    /* お品書き */
+    var mb=document.getElementById('menuBox');
+    MENU.forEach(function(c,i){
+      var cat=el('div','menu-cat reveal'), hh=el('div','cat-h');
+      var ic=el('span','ic'); ic.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none">'+(ICON[c.icon]||ICON.bowl)+'</svg>'; hh.appendChild(ic);
+      var h3=el('h3',null,c.name); if(c.to) h3.appendChild(el('span','gentei','期間限定')); hh.appendChild(h3); cat.appendChild(hh);
+      if(c.to) cat.appendChild(el('span','limited-term',until(c)+'の限定です'));
+      var g=el('div','menu-grid'+(i%2?' rev':''));
+      var ph=el('div','menu-photo'), im=el('img'); im.src=c.photo; im.alt=c.alt; im.loading='lazy'; ph.appendChild(im);
+      var ul=el('ul','menu-list');
+      c.items.forEach(function(it){
+        var li=el('li'), nm=el('span','nm',it.name);
+        if(isSold(it.name)) nm.appendChild(el('span','soldout','本日売切'));
+        if(it.note) nm.appendChild(el('small',null,it.note));
+        var pr=el('span','pr',U.yen(it.price)); pr.appendChild(el('span',null,'円'));
+        li.appendChild(nm); li.appendChild(pr); ul.appendChild(li);
+      });
+      g.appendChild(ph); g.appendChild(ul); cat.appendChild(g); mb.appendChild(cat);
+    });
+    document.getElementById('menuNote').textContent=D.menuNote||'';
+
+    /* ギャラリー・アクセス・FAQ・出前 */
+    U.gallery(document.getElementById('galBox'));
+    var pay=D.pay.filter(function(p){return p.ok;}).map(function(p){return p.name;}).join('／');
+    U.info(document.getElementById('infoBox'),[['お支払い',pay+'（'+D.payNote.replace(/。$/,'')+'）']]);
+    U.map(document.getElementById('mapFrame'));
+    document.getElementById('accPhoto').src=D.access.photo;
+    U.faq(document.getElementById('faqBox'),{openFirst:true,qMark:true,plus:true});
+    var db=document.getElementById('deliveryBtn'); db.textContent=D.links.delivery.label; db.href=D.links.delivery.href;
+
+    U.bind();
+    U.lightbox();
+  })();
+</script>
+<script>
+  /* スクロールで表示 */
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)||reduce){ els.forEach(function(e){e.classList.add('in')}); return; }
+    var groups=new Map();
+    els.forEach(function(e){var p=e.parentElement;var a=groups.get(p)||[];a.push(e);groups.set(p,a);});
+    groups.forEach(function(a){a.forEach(function(e,i){e.style.transitionDelay=Math.min(i*90,450)+'ms';});});
+    var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  })();
+
+  /* ヒーロー形①：食券のボタンを押したときだけ、写真と文章を入れ替える */
+  (function(){
+    var stage=document.getElementById('stage'); if(!stage) return;
+    var panels=[].slice.call(stage.querySelectorAll('.panel')), fig=stage.querySelector('.fig'), box=stage.querySelector('.stage-tabs');
+    var imgs=[], tabs=[];
+    box.style.setProperty('--n',Math.min(panels.length,5));
+    panels.forEach(function(p,idx){
+      var im=document.createElement('img'); im.src=p.dataset.img; im.alt=p.dataset.label; fig.appendChild(im); imgs.push(im);
+      var b=document.createElement('button'); b.type='button'; b.className='tab';
+      if(p.dataset.gentei){ var g=document.createElement('span'); g.className='gentei'; g.textContent='限定'; b.appendChild(g); }
+      b.appendChild(document.createTextNode(p.dataset.label));
+      var sm=document.createElement('small'); sm.textContent=p.dataset.price; b.appendChild(sm);
+      b.addEventListener('click',function(){ go(idx); });
+      box.appendChild(b); tabs.push(b);
+    });
+    function go(i){
+      [panels,imgs,tabs].forEach(function(arr){ arr.forEach(function(e,idx){ e.classList.toggle('on',idx===i); }); });
+      fig.classList.toggle('steaming',!!panels[i].dataset.steam);
+      panels.forEach(function(p,idx){ p.setAttribute('aria-hidden',idx===i?'false':'true'); });
+      tabs.forEach(function(b,idx){ b.setAttribute('aria-pressed',idx===i?'true':'false'); });
+    }
+    go(0);
+  })();
+
+  /* ヒーロー形②：一文字ずつ判を押す ＋ どんぶりから湯気を立ちのぼらせる（Canvas） */
+  (function(){
+    var rh=document.getElementById('rh'); if(!rh) return;
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var chars=[].slice.call(rh.querySelectorAll('h1 span')), hanko=rh.querySelector('.rh-hanko');
+    var rest=[rh.querySelector('.rh-eye'),rh.querySelector('.rh-copy'),rh.querySelector('.rh-now'),rh.querySelector('.rh-btns')];
+    if(reduce){ rh.classList.remove('wait'); }
+    else {
+      var t=500;
+      chars.forEach(function(c){ setTimeout(function(){ c.classList.add('hit'); rh.classList.remove('thud'); void rh.offsetWidth; rh.classList.add('thud'); },t); t+=330; });
+      setTimeout(function(){ hanko.classList.add('hit'); },t+150);
+      rest.forEach(function(e,k){ setTimeout(function(){ e.classList.add('fin'); },t+600+k*180); });
+      setTimeout(function(){ rh.classList.remove('wait'); },t+1600);
+    }
+    /* 湯気：やわらかい白い粒が、ゆらぎながら上へ。広がって消える */
+    var cv=rh.querySelector('canvas'), ctx=cv.getContext('2d'), W=0, H=0, dpr=Math.min(2,window.devicePixelRatio||1), puffs=[];
+    function size(){ W=rh.clientWidth; H=rh.clientHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    function src(){ var m=W<720; return { x:W*(m?.5:.65)+(Math.random()-.5)*W*(m?.4:.22), y:H*(m?.55:.72) }; }
+    function spawn(age){ var s=src(); puffs.push({ x:s.x, y:s.y, r:18+Math.random()*26, life:0, max:5200+Math.random()*3000, ph:Math.random()*6.28, vx:(Math.random()-.5)*.012, a:.05+Math.random()*.05, born:age||0 }); }
+    function draw(dt,now){
+      ctx.clearRect(0,0,W,H);
+      if(puffs.length<70 && Math.random()<.5) spawn();
+      for(var i=puffs.length-1;i>=0;i--){
+        var p=puffs[i]; p.life+=dt;
+        var k=p.life/p.max; if(k>=1){ puffs.splice(i,1); continue; }
+        p.y-=dt*.045*(1+k);
+        p.x+=Math.sin(now*.0012+p.ph)*.35+p.vx*dt;
+        var r=p.r*(1+k*2.6), al=p.a*Math.sin(Math.PI*Math.min(1,k*1.15));
+        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
+        g.addColorStop(0,'rgba(255,255,255,'+al+')'); g.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,r,0,6.2832); ctx.fill();
+      }
+    }
+    size(); for(var j=0;j<40;j++){ spawn(); puffs[j].life=Math.random()*puffs[j].max*.8; }
+    var last=performance.now(), on=true, raf;
+    function loop(now){ var dt=Math.min(60,now-last); last=now; draw(dt,now); if(on) raf=requestAnimationFrame(loop); }
+    if(reduce){ draw(16,0); }
+    else {
+      raf=requestAnimationFrame(loop);
+      if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ on=e.isIntersecting; if(on){ cancelAnimationFrame(raf); last=performance.now(); raf=requestAnimationFrame(loop); } }); }).observe(rh); }
+    }
+    window.addEventListener('resize',size);
+  })();
+</script>
+<script src="parts3.js"></script>
+<script>
+  /* 支払い方法：shop-data の pay を読んで、使える・使えないを並べる */
+  (function(){
+    var D=window.BOT_DATA||{}, pay=D.pay||[];
+    document.querySelectorAll('.pay-chips').forEach(function(box){
+      pay.forEach(function(p){ var s=document.createElement('span'); s.className=p.ok?'ok':'ng'; s.textContent=(p.ok?'○ ':'× ')+p.name; s.setAttribute('aria-label',p.name+(p.ok?'：使えます':'：使えません')); box.appendChild(s); });
+    });
+    document.querySelectorAll('.pay-note').forEach(function(e){ e.textContent=D.payNote||''; });
+  })();
+
+  /* 券売機：選ぶと金額が光り、「発券」を押すと、券が発券口のすき間から1枚ずつ押し出されてくる */
+  (function(){
+    var root=document.getElementById('yoshu'); if(!root) return;
+    var total=root.querySelector('#yoTotal'), say=root.querySelector('#yoSay'), tray=root.querySelector('#yoTray'), shown=0, raf, issued=false;
+    var busy=false, yo=root.querySelector('.yo'), led=root.querySelector('.km-led'), btn=root.querySelector('#yoIssue');
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function yen(n){ return n.toLocaleString('ja-JP'); }
+    function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
+    function pref(){ var parts=[]; root.querySelectorAll('.yo-seg').forEach(function(sg){ var v=sg.querySelector('button.on').dataset.v; if(v!=='普通') parts.push(sg.dataset.key+v); }); return parts; }
+    function update(){
+      var sum=0; root.querySelectorAll('.yb.on').forEach(function(b){ sum+=+b.dataset.price; });
+      var ps=pref(); say.textContent='「'+(ps.length?ps.join('・'):'普通')+'で」';
+      if(issued && !busy) tray.classList.add('stale');
+      cancelAnimationFrame(raf);
+      var from=shown, t0=performance.now();
+      if(reduce){ shown=sum; total.textContent=yen(sum); return; }
+      (function step(t){ var k=Math.min(1,(t-t0)/280); shown=Math.round(from+(sum-from)*k); total.textContent=yen(shown); if(k<1) raf=requestAnimationFrame(step); })(t0);
+    }
+    /* LEDに文字を出す（発券中／お取りください）。終わったら金額に戻す */
+    var keep=null;
+    function ledMsg(t){ var b=led.querySelector('b'); if(keep===null) keep=b.innerHTML; led.classList.add('msg'); b.textContent=t; }
+    function ledBack(){ var b=led.querySelector('b'); led.classList.remove('msg'); if(keep!==null){ b.innerHTML=keep; keep=null; total=root.querySelector('#yoTotal'); total.textContent=yen(shown); } }
+    function makeCards(){
+      var cards=[];
+      root.querySelectorAll('.yo-btns').forEach(function(g){
+        g.querySelectorAll('.yb.on').forEach(function(b){
+          var tk=el('div','tk'+(g.dataset.group==='main'?'':' top'));
+          tk.appendChild(el('small',null,'丸屋　食券')); tk.appendChild(el('b',null,b.dataset.name)); tk.appendChild(el('em',null,yen(+b.dataset.price)+'円'));
+          cards.push(tk);
+        });
+      });
+      var ps=pref(), pk=el('div','tk pref');
+      pk.appendChild(el('small',null,'お好み（口頭で伝えます）')); pk.appendChild(el('b',null,ps.length?ps.join('・'):'ぜんぶ普通')); pk.appendChild(el('em',null,'無料'));
+      cards.push(pk);
+      return cards;
+    }
+    function issue(){
+      if(busy) return; busy=true; btn.disabled=true;
+      tray.textContent=''; tray.classList.remove('stale'); issued=true;
+      var cards=makeCards(), i=0, step=reduce?0:1150;
+      if(window.innerWidth<860) tray.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+      yo.classList.add('printing'); ledMsg('発券中');
+      (function next(){
+        var w=el('div','tkw'); w.appendChild(cards[i]); tray.insertBefore(w,tray.firstChild);   /* 新しい券が上に出て、前の券を下へ押す */
+        void w.offsetWidth; w.classList.add('in');
+        i++;
+        if(i<cards.length){ setTimeout(next,step); return; }
+        setTimeout(function(){
+          yo.classList.remove('printing'); ledMsg('お取りください');
+          setTimeout(function(){ ledBack(); busy=false; btn.disabled=false; }, reduce?0:1600);
+        }, reduce?0:1000);
+      })();
+    }
+    root.querySelectorAll('.yo-btns').forEach(function(g){
+      g.addEventListener('click',function(e){
+        var b=e.target.closest('.yb'); if(!b) return;
+        if(g.dataset.group==='main'){ g.querySelectorAll('.yb').forEach(function(x){ x.classList.toggle('on',x===b); }); }
+        else b.classList.toggle('on');
+        g.querySelectorAll('.yb').forEach(function(x){ x.setAttribute('aria-pressed',x.classList.contains('on')?'true':'false'); });
+        update();
+      });
+    });
+    root.querySelectorAll('.yo-seg').forEach(function(sg){
+      sg.addEventListener('click',function(e){
+        var b=e.target.closest('button'); if(!b) return;
+        sg.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on',x===b); x.setAttribute('aria-pressed',x===b?'true':'false'); });
+        update();
+      });
+    });
+    btn.addEventListener('click',issue);
+    update();
+  })();
+</script>
+</body>
+</html>

@@ -28,6 +28,7 @@
     takeout: ["ここが、お持ち帰りの予約ページになります", "お持ち帰りの受付に使っているページのURLに替えてください。"],
     instagram: ["ここが、Instagram のページになります", "あなたのお店の Instagram のプロフィールのURLに替えてください。"],
     line: ["ここが、LINE の友だち追加になります", "LINE公式アカウントの、友だち追加用のURLに替えてください。"],
+    delivery: ["ここが、出前の注文ページになります", "お使いのデリバリーサービスの、あなたのお店のページのURLに替えてください。"],
   };
   var to = new URLSearchParams(location.search).get("to");
   if (M[to]) { document.getElementById("t").textContent = M[to][0]; document.getElementById("d").textContent = M[to][1]; }

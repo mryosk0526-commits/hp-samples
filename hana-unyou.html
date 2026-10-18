@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花と緑の店 まるはな｜千代田区の花屋・花束・当日配達</title>
+<!-- タイトルと説明文は、検索結果に出る文なので HTML に直接書く（年に1回くらい見直す）。店の情報の構造化データは shop-data-hana2.js から自動で作る -->
+<meta name="description" content="東京・千代田区の花屋「花と緑の店 まるはな」。誕生日やお祝い、お供えの花束を、ご予算に合わせてお作りします。14時までのご注文で当日配達。">
+<style>
+  :root{
+    --bg:#fbf8f4;        /* 生成り */
+    --card:#ffffff;
+    --card-2:#f4eee7;
+    --ink:#2f2a28;
+    --ink-2:#7a706b;
+    --line:#e9e0d7;
+    --accent:#b85c6e;    /* くすみローズ */
+    --accent-d:#954757;
+    --accent-soft:#f6e3e6;
+    --leaf:#6f8f6a;      /* 葉の緑 */
+    --leaf-soft:#e6eee3;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,Meiryo,system-ui,sans-serif;
+    --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;
+    --max:1100px;
+    --shadow:0 8px 28px rgba(60,40,35,.08),0 1px 3px rgba(60,40,35,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#1f1b1a;--card:#2a2523;--card-2:#332c2a;--ink:#f1e9e4;--ink-2:#b9aca6;--line:#3e3633;
+      --accent:#e08a9b;--accent-d:#eaa1b0;--accent-soft:#40292e;--leaf:#9dbb96;--leaf-soft:#2d3a2c;--shadow:0 8px 28px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1f1b1a;--card:#2a2523;--card-2:#332c2a;--ink:#f1e9e4;--ink-2:#b9aca6;--line:#3e3633;
+    --accent:#e08a9b;--accent-d:#eaa1b0;--accent-soft:#40292e;--leaf:#9dbb96;--leaf-soft:#2d3a2c;--shadow:0 8px 28px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{margin:0;font-weight:700;text-wrap:balance}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:var(--serif);font-size:13px;letter-spacing:.24em;color:var(--accent);display:block;margin-bottom:10px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:999px;font-weight:800;font-size:15px;
+    background:var(--accent);color:#fff;border:2px solid var(--accent);transition:.18s;cursor:pointer;font-family:inherit}
+  .btn:hover{background:var(--accent-d);border-color:var(--accent-d);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--card-2)}
+  .btn.leaf{background:var(--leaf);border-color:var(--leaf)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  section{padding:88px 0}
+  .head{text-align:center;margin-bottom:44px}
+  .head h2{font-family:var(--serif);font-size:clamp(25px,3.6vw,34px)}
+  .head p{color:var(--ink-2);margin:12px 0 0;font-size:15px}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:19px;white-space:nowrap}
+  .brand .mk{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+  .nav-links{display:flex;gap:22px;font-size:14px;font-weight:700}
+  .nav-links a{color:var(--ink-2);white-space:nowrap}
+  .nav-links a:hover{color:var(--accent)}
+  .nav .btn{padding:10px 20px;font-size:14px;white-space:nowrap}
+  @media(max-width:920px){.nav-links{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;padding:0}
+  .hero .ph{position:absolute;inset:0}
+  .hero .ph img{width:100%;height:100%;object-fit:cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,20,18,.05) 30%,rgba(30,20,18,.62))}
+  .hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:64px;color:#fff}
+  .hero h1{font-family:var(--serif);font-size:clamp(32px,5.6vw,58px);line-height:1.35;letter-spacing:.04em;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+  .hero p{font-size:clamp(15px,1.8vw,17px);margin:18px 0 26px;max-width:540px;opacity:.95}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero .btn.ghost{color:#fff;border-color:rgba(255,255,255,.7)}
+  .hero .btn.ghost:hover{background:rgba(255,255,255,.15)}
+  .petal{position:absolute;z-index:1;top:-30px;width:14px;height:10px;border-radius:70% 0 70% 0;background:#f6c5cf;opacity:.85;pointer-events:none}
+  @media (prefers-reduced-motion:no-preference){
+    .hero .ph img{animation:kb 22s ease-in-out infinite alternate}
+    @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+    .petal{animation:fall linear infinite}
+    @keyframes fall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(120px,105vh) rotate(540deg)}}
+  }
+  @media (prefers-reduced-motion:reduce){.petal{display:none}}
+
+  /* ===== 今日のお届け（細い帯） ===== */
+  .deliv{padding:0;margin-top:-34px;position:relative;z-index:5}
+  .dv{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding:20px 26px}
+  @media(max-width:820px){.dv{grid-template-columns:1fr;gap:14px;text-align:center}}
+  .dv-ic{width:58px;height:58px;border-radius:50%;background:var(--leaf-soft);display:grid;place-items:center;font-size:28px;margin:0 auto}
+  .dv-main b{display:block;font-family:var(--serif);font-size:clamp(18px,2.4vw,22px)}
+  .dv-main span{color:var(--ink-2);font-size:13.5px}
+  .dv-count{display:flex;align-items:baseline;gap:4px;justify-content:center;font-variant-numeric:tabular-nums}
+  .dv-count .lbl{font-size:12px;color:var(--ink-2);font-weight:700;margin-right:6px}
+  .dv-count b{font-family:var(--serif);font-size:30px;color:var(--accent)}
+  .dv-count small{font-size:13px;color:var(--ink-2)}
+  .dv.closed .dv-ic{background:var(--card-2)}
+  .dv-areas{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;border-top:1px dashed var(--line);padding-top:14px}
+  .dv-areas span{font-size:12.5px;font-weight:700;background:var(--card-2);border-radius:999px;padding:5px 12px}
+  .dv-areas span i{font-style:normal;color:var(--accent);margin-left:6px}
+
+  /* ===== 花束をつくる ===== */
+  .maker{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+  @media(max-width:900px){.maker{grid-template-columns:1fr}}
+  .mk-ctrl{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+  .mk-step{margin-bottom:22px}
+  .mk-step:last-child{margin-bottom:0}
+  .mk-step h3{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .mk-step h3 b{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;font:inherit;font-weight:700;font-size:13.5px;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:7px;transition:.15s}
+  .chip:hover{border-color:var(--accent)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .chip[disabled]{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+  .chip .dot{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.12)}
+  .mk-note{font-size:12.5px;color:var(--accent-d);background:var(--accent-soft);border-radius:12px;padding:8px 12px;margin:10px 0 0;display:none}
+  .mk-note.on{display:block}
+  .mk-flowers{margin-top:12px;background:var(--card-2);border-radius:16px;padding:14px 16px}
+  .mk-flowers .ttl{font-size:12px;font-weight:800;color:var(--ink-2);letter-spacing:.06em;margin:0 0 8px}
+  .mk-flowers .fl{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+  .mk-flowers .fl span{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 6px;font-weight:800;font-size:13.5px}
+  .mk-flowers .fl svg{width:26px;height:26px}
+  .mk-flowers p{margin:0;font-size:13px;color:var(--ink);line-height:1.75}
+  .mk-flowers .avoid{margin-top:8px;font-size:12.5px;color:var(--accent-d)}
+  .mk-cap{font-size:13px;font-weight:700;color:var(--ink-2);margin:-4px 0 10px}
+  .mk-cap b{color:var(--ink)}
+  .msg-in{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;font-size:14.5px;background:var(--bg);color:var(--ink)}
+  .mk-view{position:sticky;top:96px;background:linear-gradient(180deg,var(--card-2),var(--card));border:1px solid var(--line);border-radius:24px;padding:20px 24px 24px;box-shadow:var(--shadow);text-align:center}
+  .mk-view svg{width:100%;max-width:380px;height:auto;display:block;margin:0 auto}
+  .mk-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 16px}
+  .mk-sum div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 6px;line-height:1.4}
+  .mk-sum small{display:block;font-size:11.5px;color:var(--ink-2);font-weight:700}
+  .mk-sum b{font-family:var(--serif);font-size:19px}
+  .mk-view .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .mk-view .hint{font-size:11.5px;color:var(--ink-2);margin:12px 0 0}
+  .bq-flower{transform-box:fill-box;transform-origin:center}
+  @media (prefers-reduced-motion:no-preference){ .bq-flower{animation:bloom .5s cubic-bezier(.2,.9,.3,1.3) both} @keyframes bloom{from{transform:scale(0)}to{transform:scale(1)}} }
+
+  /* ===== 今月の花 ===== */
+  .season{background:var(--card-2)}
+  .ss{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+  @media(max-width:860px){.ss{grid-template-columns:1fr}}
+  .ss-ph{border-radius:24px;overflow:hidden;aspect-ratio:3/2;box-shadow:var(--shadow)}
+  .ss-ph img{width:100%;height:100%;object-fit:cover}
+  .months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:22px}
+  .months button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 0;font:inherit;font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-2)}
+  .months button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+  .months button.now{border-color:var(--accent);color:var(--accent)}
+  .months button.now[aria-pressed="true"]{color:var(--bg)}
+  .ss-list{display:flex;flex-direction:column;gap:10px}
+  .ss-item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
+  .ss-item svg{flex:none}
+  .ss-item b{font-family:var(--serif);font-size:17px}
+  .ss-cap{font-size:13px;color:var(--ink-2);margin:14px 0 0}
+
+  /* ===== 写真の帯（作り手の手元） ===== */
+  .gal{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:16px}
+  @media(max-width:820px){.gal{grid-template-columns:1fr 1fr}.gal figure:first-child{grid-column:1/-1}}
+  .gal figure{margin:0;position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/4}
+  .gal figure:first-child{aspect-ratio:auto}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+  .gal figure:hover img{transform:scale(1.05)}
+  .gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;color:#fff;font-size:13.5px;font-weight:700;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+  .gal figcaption b{display:block;font-family:var(--serif);font-size:17px}
+
+  /* ===== ご注文の流れ ===== */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:f}
+  @media(max-width:820px){.flow{grid-template-columns:1fr 1fr}}
+  .flow div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 18px;counter-increment:f;position:relative}
+  .flow div::before{content:counter(f);position:absolute;top:-14px;left:18px;width:30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+  .flow b{display:block;font-size:15px;margin:6px 0 4px}
+  .flow p{margin:0;font-size:13.5px;color:var(--ink-2)}
+
+  /* ===== よくある質問 ===== */
+  .faq{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:16px}
+  .faq summary{list-style:none;cursor:pointer;padding:17px 50px 17px 22px;font-weight:800;position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--accent);transition:.2s}
+  .faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+  .faq details p{margin:0;padding:0 22px 18px;color:var(--ink-2);font-size:14.5px}
+
+  /* ===== アクセス ===== */
+  .acc{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:stretch}
+  @media(max-width:820px){.acc{grid-template-columns:1fr}}
+  .acc-ph{border-radius:20px;overflow:hidden;min-height:320px}
+  .acc-ph img{width:100%;height:100%;object-fit:cover}
+  .acc-r{display:flex;flex-direction:column;gap:16px}
+  .tbl{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .tbl .r{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid var(--line);font-size:14.5px}
+  .tbl .r:last-child{border-bottom:none}
+  .tbl .k{background:var(--card-2);padding:13px 16px;font-weight:800;font-size:13px}
+  .tbl .v{padding:13px 18px}
+  .acc iframe{width:100%;flex:1;min-height:220px;border:0;border-radius:18px}
+
+  .cta-band{background:linear-gradient(150deg,var(--accent),var(--accent-d));color:#fff;text-align:center}
+  .cta-band h2{font-family:var(--serif);font-size:clamp(24px,3.8vw,34px)}
+  .cta-band p{opacity:.92;margin:12px 0 22px}
+  .cta-band .tel{font-family:var(--serif);font-size:clamp(28px,5vw,40px);margin-bottom:20px}
+  .cta-band .btn{background:#fff;color:var(--accent-d);border-color:#fff}
+  footer{padding:34px 0;text-align:center;font-size:12px;color:var(--ink-2)}
+  footer a{color:var(--accent);font-weight:700}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+  }
+
+  /* ===== 運用版で足したもの ===== */
+  /* 行事の予約受付（期間内だけ出る帯） */
+  .camp{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+  .camp a{display:flex;gap:14px;align-items:center;background:var(--leaf-soft);border:1px solid var(--line);border-radius:18px;padding:14px 18px;transition:.15s}
+  .camp a:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .camp .ic{font-size:30px;flex:none}
+  .camp b{display:block;font-family:var(--serif);font-size:16px}
+  .camp span{display:block;font-size:13px;color:var(--ink-2)}
+  .camp em{font-style:normal;font-size:11.5px;font-weight:800;color:var(--leaf);margin-left:6px}
+  /* お知らせ */
+  .news-sec{padding:64px 0}
+  .news{list-style:none;margin:0 auto;padding:0;max-width:780px;background:var(--card);border:1px solid var(--line);border-radius:18px}
+  .news li{display:grid;grid-template-columns:100px 1fr;gap:14px;padding:15px 22px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .news li:last-child{border-bottom:0}
+  .news time{font-family:var(--serif);font-weight:700;color:var(--accent)}
+  .news .new{font-style:normal;font-size:10.5px;font-weight:800;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px;margin-right:10px;vertical-align:2px}
+  @media(max-width:560px){.news li{grid-template-columns:1fr;gap:2px}}
+  .hero-switch{margin-top:8px}
+  .hero-switch a{margin:0 6px}
+
+  /* ===== ヒーロー形②：花が咲いて、散っていく・大きな一言 ===== */
+  .fh{position:relative;min-height:min(90vh,780px);display:flex;align-items:center;overflow:hidden;background:var(--bg);padding:0}
+  .fh .ph{position:absolute;top:0;right:0;bottom:0;width:58%;overflow:hidden}
+  .fh .ph img{width:100%;height:100%;object-fit:cover}
+  .fh .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg),color-mix(in srgb,var(--bg) 50%,transparent) 35%,transparent 70%)}
+  .fh canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+  .fh .wrap{position:relative;z-index:2;width:100%}
+  .fh-eye{font-family:var(--serif);font-size:13px;letter-spacing:.34em;color:var(--accent)}
+  .fh h1{font-family:var(--serif);font-weight:700;font-size:clamp(32px,4.4vw,60px);line-height:1.28;letter-spacing:.03em;margin:16px 0 0;color:var(--ink)}
+  .fh h1 .ln{display:block;white-space:nowrap}
+  .fh h1 .c{display:inline-block}
+  /* 「花」の字の後ろで、花が咲く */
+  .fh h1 .mk{position:relative;color:var(--accent-d);isolation:isolate}
+  .fh h1 .mk svg{position:absolute;left:50%;top:50%;width:1.75em;height:1.75em;margin:-.875em 0 0 -.875em;overflow:visible;pointer-events:none;z-index:-1}
+  .fh h1 .mk .pt{transform-box:view-box;transform-origin:50px 50px}
+  .fh h1 .mk .out ellipse{fill:#f7d3da;stroke:#e8a7b4;stroke-width:.8}
+  .fh h1 .mk .in ellipse{fill:#f2b3c1;stroke:#de8fa0;stroke-width:.8}
+  .fh h1 .mk .lf{fill:#9dbb96}
+  .fh h1 .mk .ct{fill:#f2d44b}
+  .fh-lead{max-width:440px;color:var(--ink-2);font-size:15.5px;margin:22px 0 0}
+  .fh-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;align-items:center}
+  .fh-dv{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--leaf);background:var(--leaf-soft);border-radius:999px;padding:7px 14px}
+  .fh-dv i{width:8px;height:8px;border-radius:50%;background:var(--leaf)}
+  @media(max-width:820px){
+    .fh{align-items:flex-end;min-height:calc(100svh - 70px)}
+    .fh .ph{width:100%;height:58%;top:0;bottom:auto}
+    .fh .ph::after{background:linear-gradient(0deg,var(--bg) 4%,transparent 60%)}
+    .fh .wrap{padding-bottom:48px}
+    .fh h1{font-size:clamp(28px,8.2vw,40px)}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .fh .ph img{animation:kb 24s ease-in-out infinite alternate}
+    .fh.wait h1 .c,.fh.wait .fh-eye,.fh.wait .fh-lead,.fh.wait .fh-cta{opacity:0}
+    .fh h1 .c.on{animation:fhc .9s cubic-bezier(.2,.8,.2,1) both}
+    @keyframes fhc{from{opacity:0;transform:translateY(.35em);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+    .fh .fin{animation:fhf .9s ease both}
+    @keyframes fhf{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    /* つぼみ→花びらが外側から1枚ずつ開く→真ん中が出る→そのあとは、ゆっくり呼吸するように */
+    .fh h1 .mk .pt,.fh h1 .mk .ct{transform:scale(0)}
+    .fh h1 .mk.draw .lf{animation:lf .6s cubic-bezier(.2,1.3,.4,1) both}
+    .fh h1 .mk.draw .pt{animation:pt .7s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(.25s + var(--i) * .09s)}
+    .fh h1 .mk.draw .ct{animation:pt .5s 1.35s cubic-bezier(.2,1.6,.4,1) both}
+    .fh h1 .mk.draw svg{animation:breathe 6s 2s ease-in-out infinite}
+    @keyframes pt{from{transform:rotate(var(--r)) scale(0)}to{transform:rotate(var(--r)) scale(1)}}
+    @keyframes lf{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+    @keyframes breathe{50%{transform:rotate(8deg) scale(1.05)}}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand"><span class="mk"><svg width="20" height="20" viewBox="0 0 24 24"><g fill="#b85c6e"><circle cx="12" cy="7" r="3.2"/><circle cx="16.8" cy="10.5" r="3.2"/><circle cx="15" cy="16" r="3.2"/><circle cx="9" cy="16" r="3.2"/><circle cx="7.2" cy="10.5" r="3.2"/></g><circle cx="12" cy="11.6" r="2.4" fill="#f2d44b"/></svg></span>花と緑の店 まるはな</a>
+    <nav class="nav-links">
+      <a href="#maker">花束をつくる</a>
+      <a href="#season">今月の花</a>
+      <a href="#flow">ご注文の流れ</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#access">アクセス</a>
+    </nav>
+    <a href="#" class="btn" data-tel>電話で注文</a>
+  </div>
+</header>
+
+<!-- ヒーローは2つの形を用意してある。shop-data の hero.style（または URL の ?hero=）で、使う方だけが残る -->
+
+<!-- 形①：写真に花びらが舞う（言葉は hero から） -->
+<section class="hero" id="hero" data-hero="photo">
+  <div class="ph"><img src="" alt="" fetchpriority="high"></div>
+  <div class="wrap">
+    <span class="eyebrow" style="color:#ffd9df"></span>
+    <h1></h1>
+    <p></p>
+    <div class="cta"></div>
+  </div>
+</section>
+
+<!-- 形②：花びらがヒラヒラ舞う＋「花」の後ろで花が咲く。写真を大きく見せる（言葉は hero から） -->
+<section class="fh wait" id="fh" data-hero="anime">
+  <div class="ph"><img src="" alt=""></div>
+  <canvas aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="fh-eye"></span>
+    <h1></h1>
+    <p class="fh-lead"></p>
+    <div class="fh-cta"></div>
+  </div>
+</section>
+
+<!-- 今日のお届け（shop-data-hana.js の delivery を読む。?now= で日時を変えて試せる） -->
+<section class="deliv" id="deliv" aria-label="今日のお届け">
+  <div class="wrap">
+    <div class="dv" id="dv">
+      <div class="dv-ic" id="dvIc">🚚</div>
+      <div class="dv-main"><b id="dvHead">今日のお届け</b><span id="dvSub"></span></div>
+      <div class="dv-count" id="dvCount"></div>
+      <div class="dv-areas" id="dvAreas"></div>
+    </div>
+    <!-- 行事の予約受付（shop-data の campaigns。期間内のものだけ） -->
+    <div class="camp" id="campBox"></div>
+  </div>
+</section>
+
+<!-- 花束をつくる（選ぶと、右の花束の絵と金額が変わる） -->
+<section id="maker">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">MAKE YOUR BOUQUET</span>
+      <h2>花束を、つくってみる</h2>
+      <p>用途・色・ご予算を選ぶと、だいたいの大きさと花束のイメージが出ます。</p>
+    </div>
+    <div class="maker reveal">
+      <div class="mk-ctrl">
+        <div class="mk-step">
+          <h3><b>1</b>どんなときに？</h3>
+          <div class="chips" data-k="use">
+            <button type="button" class="chip" data-v="birthday" aria-pressed="true">🎂 誕生日</button>
+            <button type="button" class="chip" data-v="celebrate" aria-pressed="false">🎉 お祝い</button>
+            <button type="button" class="chip" data-v="mimai" aria-pressed="false">🍀 お見舞い</button>
+            <button type="button" class="chip" data-v="osonae" aria-pressed="false">🕊 お供え</button>
+            <button type="button" class="chip" data-v="self" aria-pressed="false">☕ 自分用</button>
+          </div>
+          <div class="mk-flowers" id="mkFlowers" aria-live="polite"></div>
+          <p class="mk-note" id="mkNote"></p>
+        </div>
+        <div class="mk-step">
+          <h3><b>2</b>色は？</h3>
+          <div class="chips" data-k="color">
+            <button type="button" class="chip" data-v="pink" aria-pressed="true"><span class="dot" style="background:#f2a6b8"></span>ピンク</button>
+            <button type="button" class="chip" data-v="yellow" aria-pressed="false"><span class="dot" style="background:#f6c94b"></span>黄・オレンジ</button>
+            <button type="button" class="chip" data-v="red" aria-pressed="false"><span class="dot" style="background:#c9344b"></span>赤</button>
+            <button type="button" class="chip" data-v="purple" aria-pressed="false"><span class="dot" style="background:#a98ad6"></span>紫</button>
+            <button type="button" class="chip" data-v="white" aria-pressed="false"><span class="dot" style="background:#f7f5ef"></span>白・グリーン</button>
+          </div>
+        </div>
+        <div class="mk-step">
+          <h3><b>3</b>ご予算は？</h3>
+          <div class="chips" data-k="budget"></div>
+        </div>
+        <div class="mk-step">
+          <h3><b>4</b>包み紙は？</h3>
+          <div class="chips" data-k="wrap"></div>
+        </div>
+        <div class="mk-step">
+          <h3><b>5</b>メッセージカード（無料）</h3>
+          <input class="msg-in" id="mkMsg" maxlength="20" placeholder="例）お誕生日おめでとう" value="お誕生日おめでとう">
+        </div>
+      </div>
+      <div class="mk-view" aria-live="polite">
+        <svg id="bq" viewBox="30 28 340 392" role="img" aria-label="花束のイメージ"></svg>
+        <p class="mk-cap" id="mkCap"></p>
+        <div class="mk-sum">
+          <div><small>花の数（目安）</small><b id="mkN">11本</b></div>
+          <div><small>高さ（目安）</small><b id="mkH">45cm</b></div>
+          <div><small>お値段</small><b id="mkP">5,500円</b></div>
+        </div>
+        <div class="btns"><a href="#" class="btn" data-tel>この内容で電話注文</a><a href="#" class="btn leaf" id="lineBtn"></a></div>
+        <p class="hint" id="mkHint"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 今月の花（月を押すと切り替わる。中身は shop-data-hana.js の season） -->
+<section id="season" class="season">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">SEASONAL</span>
+      <h2>今月の花</h2>
+      <p>季節ごとに、市場からいちばんいい花を選んでいます。</p>
+    </div>
+    <div class="ss reveal">
+      <div class="ss-ph"><img src="img/hana-rose.jpg" alt="ピンクのバラとかすみ草の花束" loading="lazy"></div>
+      <div>
+        <div class="months" id="months" aria-label="月を選ぶ"></div>
+        <div class="ss-list" id="ssList"></div>
+        <p class="ss-cap">※ 入荷はその年の天候によって変わります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- お知らせ（shop-data の news） -->
+<section class="news-sec" id="news">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:24px"><span class="eyebrow">NEWS</span><h2>お知らせ</h2></div>
+    <ul class="news reveal" id="newsList"></ul>
+  </div>
+</section>
+
+<!-- 写真の帯（shop-data の gallery） -->
+<section style="padding-bottom:40px">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">OUR WORK</span>
+      <h2>ご注文を受けてから、束ねます</h2>
+      <p>作り置きはしません。お話をうかがってから、一本ずつ合わせていきます。</p>
+    </div>
+    <div class="gal reveal" id="galBox"></div>
+  </div>
+</section>
+
+<!-- ご注文の流れ -->
+<section id="flow">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">HOW TO ORDER</span><h2>ご注文の流れ</h2></div>
+    <div class="flow reveal" id="flowBox"></div>
+  </div>
+</section>
+
+<!-- よくある質問 -->
+<section id="faq" style="background:var(--card-2)">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Q &amp; A</span><h2>よくある質問</h2></div>
+    <div class="faq reveal" id="faqBox"></div>
+  </div>
+</section>
+
+<!-- アクセス -->
+<section id="access">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">ACCESS</span><h2>アクセス・営業時間</h2></div>
+    <div class="acc reveal">
+      <div class="acc-ph"><img id="accPhoto" src="" alt="緑の外壁の店がまえ" loading="lazy"></div>
+      <div class="acc-r">
+        <div class="tbl" id="infoBox"></div>
+        <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="地図（デモ表示：皇居）"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>贈りたい気持ちを、そのまま聞かせてください。</h2>
+    <p>「予算はこれくらい」「こんな人に」だけでも大丈夫です。</p>
+    <div class="tel" data-s="tel"></div>
+    <a href="#maker" class="btn">花束をつくってみる</a>
+  </div>
+</section>
+
+<footer>
+  ※ このサイトはAIで制作したデモです（架空の店舗・実在しません）。写真は Unsplash／Pixabay の無料素材です。&nbsp;<a href="index.html">‹ サンプル一覧へ戻る</a><br>
+  <span class="hero-switch">ヒーローの形を見くらべる：<a href="?hero=photo">写真＋花びら</a><a href="?hero=anime">花が咲く＋大きな一言</a></span><br>
+  © 2026 花と緑の店 まるはな
+</footer>
+
+<script src="shop-data-hana2.js"></script>
+<script src="unyou.js"></script>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search).get('now'), NOW=q?new Date(q):new Date();
+  var D=U.D;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function el(t,c,x){ var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; }
+  function yen(n){ return n.toLocaleString('ja-JP')+'円'; }
+
+
+  /* ===== shop-data を読んで、ページの中身を入れる ===== */
+  U.bind();
+  U.jsonLd('Florist');
+  var heroType=U.heroStyle();
+  var B=D.bouquet, MIN=B.budgets[0].price;
+  var V=D.delivery;
+
+  /* 咲く花：外の花びら8枚（out）＋内の花びら6枚（in）＋葉2枚＋真ん中。花びらは --r の角度に向け、--i の順に開く */
+  function bloom(){
+    var h='<svg viewBox="0 0 100 100" aria-hidden="true">';
+    h+='<ellipse class="lf" cx="22" cy="74" rx="16" ry="6" transform="rotate(-35 22 74)"/><ellipse class="lf" cx="80" cy="76" rx="15" ry="5.5" transform="rotate(30 80 76)"/>';
+    h+='<g class="out">'; for(var i=0;i<8;i++) h+='<g class="pt" style="--r:'+(i*45)+'deg;--i:'+i+'"><ellipse cx="50" cy="27" rx="12.5" ry="22"/></g>'; h+='</g>';
+    h+='<g class="in">'; for(var k=0;k<6;k++) h+='<g class="pt" style="--r:'+(k*60+30)+'deg;--i:'+(k+8)+'"><ellipse cx="50" cy="36" rx="8.5" ry="14"/></g>'; h+='</g>';
+    h+='<circle class="ct" cx="50" cy="50" r="6"/></svg>';
+    return h;
+  }
+
+  /* ヒーロー形①：写真と言葉 */
+  if(heroType==='photo'){
+    var hs=document.getElementById('hero'), H=D.hero;
+    hs.querySelector('.ph img').src=H.photo; hs.querySelector('.ph img').alt=H.alt;
+    hs.querySelector('.eyebrow').textContent=H.eyebrow;
+    U.lines(hs.querySelector('h1'),H.catch);
+    hs.querySelector('p').textContent=H.lead;
+    H.buttons.forEach(function(b,i){ var a=el('a','btn'+(i?' ghost':''),b.label); a.href=b.href; hs.querySelector('.cta').appendChild(a); });
+  }
+  /* ヒーロー形②：大きな一言（1文字ずつ）＋印の線＋今日のお届け */
+  if(heroType==='anime'){
+    var fh=document.getElementById('fh'), H2=D.hero;
+    fh.querySelector('.ph img').src=H2.photo; fh.querySelector('.ph img').alt=H2.alt;
+    fh.querySelector('.fh-eye').textContent=H2.eyebrow;
+    var h1=fh.querySelector('h1'); h1.setAttribute('aria-label',H2.catch.replace(/\n/g,''));
+    var marked=false;
+    H2.catch.split('\n').forEach(function(line){
+      var ln=el('span','ln'); ln.setAttribute('aria-hidden','true');
+      Array.from(line).forEach(function(ch){
+        var c=el('span','c',ch);
+        if(!marked && ch===H2.mark){ marked=true; c.classList.add('mk'); c.insertAdjacentHTML('beforeend',bloom()); }
+        ln.appendChild(c);
+      });
+      h1.appendChild(ln);
+    });
+    fh.querySelector('.fh-lead').textContent=H2.lead;
+    var cta=fh.querySelector('.fh-cta'), a0=el('a','btn',H2.buttons[0].label); a0.href=H2.buttons[0].href; cta.appendChild(a0);
+    var dv=el('a','fh-dv'); dv.href='#deliv'; dv.appendChild(el('i')); dv.appendChild(document.createTextNode(V.cutoff+' までのご注文で、今日お届け')); cta.appendChild(dv);
+  }
+
+  /* 行事の予約受付 */
+  var cb=document.getElementById('campBox');
+  U.campaigns().forEach(function(c){
+    var a=el('a'); a.href='#maker'; a.appendChild(el('span','ic',c.icon));
+    var t=el('div'), b=el('b',null,c.title); var d=new Date(c.to+'T00:00'); b.appendChild(el('em',null,(d.getMonth()+1)+'/'+d.getDate()+' まで'));
+    t.appendChild(b); t.appendChild(el('span',null,c.text)); a.appendChild(t); cb.appendChild(a);
+  });
+
+  /* 花束づくりの値段・包み紙のチップ */
+  var bb=document.querySelector('.chips[data-k="budget"]');
+  B.budgets.forEach(function(x){ var c=el('button','chip',U.yen(x.price)+'円'); c.type='button'; c.dataset.v=x.price; c.setAttribute('aria-pressed',x.first?'true':'false'); bb.appendChild(c); });
+  var wb=document.querySelector('.chips[data-k="wrap"]');
+  B.wraps.forEach(function(w,i){ var c=el('button','chip'); c.type='button'; c.dataset.v=w.id; c.setAttribute('aria-pressed',i?'false':'true'); var dot=el('span','dot'); dot.style.background=w.color; c.appendChild(dot); c.appendChild(document.createTextNode(w.label)); wb.appendChild(c); });
+  document.getElementById('mkHint').textContent=B.note;
+  var lb=document.getElementById('lineBtn'); lb.textContent=D.links.line.label; lb.href=D.links.line.href;
+
+  /* お知らせ・写真・流れ・FAQ・アクセス */
+  U.news(document.getElementById('newsList'),3);
+  var gb=document.getElementById('galBox');
+  D.gallery.forEach(function(g){ var f=el('figure'), im=el('img'); im.src=g.src; im.alt=g.alt; im.loading='lazy'; f.appendChild(im);
+    var fc=el('figcaption'); fc.appendChild(el('b',null,g.title)); fc.appendChild(document.createTextNode(g.caption.replace('{min}',U.yen(MIN)+'円'))); f.appendChild(fc); gb.appendChild(f); });
+  var fb=document.getElementById('flowBox');
+  D.flow.forEach(function(x){ var d=el('div'); d.appendChild(el('b',null,x.title)); d.appendChild(el('p',null,x.text.replace('{cutoff}',V.cutoff))); fb.appendChild(d); });
+  U.faq(document.getElementById('faqBox'),{aTag:'p'});
+  U.info(document.getElementById('infoBox'));
+  U.map(document.getElementById('mapFrame'));
+  document.getElementById('accPhoto').src=D.access.photo;
+
+  /* ボットの「配達」の答えは、締切と配達料から作る */
+  (D.topics||[]).forEach(function(t){
+    if(t.id!=='delivery') return;
+    var free=V.areas.filter(function(a){return !a.fee;}).map(function(a){return a.name;}).join('・');
+    t.answer=V.cutoff+'までのご注文で、今日お届けします'+(free?'（'+free+'は配達料無料）':'')+'。';
+    t.more[0].a=V.areas.map(function(a){ return a.name+'は'+(a.fee?U.yen(a.fee)+'円':'無料'); }).join('、')+'です。'+V.note;
+  });
+  U.bind();
+
+  /* ---- スクロールで表示 ---- */
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)||reduce){ els.forEach(function(e){e.classList.add('in')}); }
+  else { var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.1}); els.forEach(function(e){io.observe(e)}); }
+
+  /* ---- ヒーローの花びら ---- */
+  if(!reduce && document.getElementById('hero')){ var hero=document.getElementById('hero');
+    for(var i=0;i<14;i++){ var p=el('span','petal'); p.style.left=(Math.random()*100)+'%'; p.style.animationDuration=(9+Math.random()*9)+'s'; p.style.animationDelay=(-Math.random()*15)+'s'; p.style.opacity=.5+Math.random()*.4; p.style.transform='scale('+(.6+Math.random()*.8)+')'; hero.appendChild(p); } }
+
+  /* ---- ヒーロー形②：文字を順に出す＋「花」の後ろで花が咲く＋花びらがヒラヒラ舞う（Canvas）。花びらの色に「今月の花」を少し混ぜる ---- */
+  (function(){
+    var fh=document.getElementById('fh'); if(!fh) return;
+    var cs=[].slice.call(fh.querySelectorAll('h1 .c')), mk=fh.querySelector('h1 .mk');
+    if(reduce){ fh.classList.remove('wait'); fh.querySelectorAll('.mk .pt').forEach(function(g){ g.setAttribute('transform','rotate('+parseFloat(g.style.getPropertyValue('--r'))+' 50 50)'); }); }
+    else {
+      cs.forEach(function(c,k){ c.style.animationDelay=(.25+k*.07)+'s'; c.classList.add('on'); });
+      var end=.25+cs.length*.07;
+      if(mk) setTimeout(function(){ mk.classList.add('draw'); },end*1000);
+      [fh.querySelector('.fh-eye'),fh.querySelector('.fh-lead'),fh.querySelector('.fh-cta')].forEach(function(e,k){ e.style.animationDelay=(end+.2+k*.2)+'s'; e.classList.add('fin'); });
+      setTimeout(function(){ fh.classList.remove('wait'); },(end+1.4)*1000);
+    }
+    var m=(D.season||{})[NOW.getMonth()+1]||[];
+    var COLORS=['#f6c5cf','#f6c5cf','#f9d9df'].concat(m.map(function(f){return f[1];}).filter(function(c){ return c.toLowerCase()!=='#ffffff'; }));
+    var cv=fh.querySelector('canvas'), ctx=cv.getContext('2d'), W=0, Hh=0, dpr=Math.min(2,window.devicePixelRatio||1), petals=[];
+    function size(){ W=fh.clientWidth; Hh=fh.clientHeight; cv.width=W*dpr; cv.height=Hh*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    function add(y){ petals.push({ x:Math.random()*W, y:y, s:5+Math.random()*5, c:COLORS[Math.floor(Math.random()*COLORS.length)], vy:.018+Math.random()*.02, sw:20+Math.random()*30, ph:Math.random()*6.28, rot:Math.random()*6.28, vr:(Math.random()-.5)*.003, al:.45+Math.random()*.4 }); }
+    function draw(dt,now){
+      ctx.clearRect(0,0,W,Hh);
+      petals.forEach(function(p){
+        p.y+=p.vy*dt; p.rot+=p.vr*dt;
+        var x=p.x+Math.sin(now*.0007+p.ph)*p.sw+p.y*.12, flip=Math.cos(now*.002+p.ph);   /* 左右にゆれて、くるっと裏返る */
+        if(p.y>Hh+20){ p.y=-20; p.x=Math.random()*W; }
+        ctx.save(); ctx.translate(x,p.y); ctx.rotate(p.rot); ctx.scale(1,Math.max(.25,Math.abs(flip)));
+        ctx.globalAlpha=p.al; ctx.fillStyle=p.c;
+        ctx.beginPath(); ctx.ellipse(0,0,p.s,p.s*.62,0,0,6.2832); ctx.fill();
+        ctx.restore();
+      });
+    }
+    size(); window.addEventListener('resize',size);
+    for(var k=0;k<14;k++) add(Math.random()*Hh);
+    var last=performance.now(), on=true, raf;
+    function loop(now){ var dt=Math.min(60,now-last); last=now; draw(dt,now); if(on) raf=requestAnimationFrame(loop); }
+    if(!reduce){
+      raf=requestAnimationFrame(loop);
+      if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ on=e.isIntersecting; if(on){ cancelAnimationFrame(raf); last=performance.now(); raf=requestAnimationFrame(loop); } }); }).observe(fh); }
+    }
+  })();
+
+  /* ---- 今日のお届け ---- */
+  (function(){
+    var V=D.delivery; if(!V) return;
+    var WD=['日','月','火','水','木','金','土'];
+    function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+    function closedName(d){ var k=ymd(d), sp=(V.closedDates||[]).find(function(x){return k>=x.from&&k<=x.to;}); if(sp) return sp.name; if((V.closedWeekly||[]).indexOf(d.getDay())>=0) return '定休日'; return null; }
+    function nextOpen(d){ var x=new Date(d); for(var i=0;i<20;i++){ x.setDate(x.getDate()+1); if(!closedName(x)) return x; } return x; }
+    function lbl(d){ return (d.getMonth()+1)+'/'+d.getDate()+'（'+WD[d.getDay()]+'）'; }
+    function toMin(s){ var a=s.split(':'); return +a[0]*60+ +a[1]; }
+    var dv=document.getElementById('dv'), head=document.getElementById('dvHead'), sub=document.getElementById('dvSub'), cnt=document.getElementById('dvCount'), ic=document.getElementById('dvIc');
+    function render(){
+      var n=q?NOW:new Date(), m=n.getHours()*60+n.getMinutes(), cn=closedName(n), cut=toMin(V.cutoff);
+      cnt.textContent=''; dv.classList.remove('closed');
+      if(cn){ dv.classList.add('closed'); ic.textContent='🌙'; head.textContent='本日は'+cn+'です'; sub.textContent='いまのご注文は、'+lbl(nextOpen(n))+' のお届けになります。'; return; }
+      if(m<cut){
+        ic.textContent='🚚'; head.textContent=m<toMin(V.open)?'今日のお届け、'+V.open+' から受付します':'今日のお届け、受付中です'; sub.textContent=V.cutoff+' までのご注文で、今日 '+lbl(n)+' にお届けします。';
+        var left=cut-m; cnt.appendChild(el('span','lbl','締切まで'));
+        if(left>=60){ cnt.appendChild(el('b',null,String(Math.floor(left/60)))); cnt.appendChild(el('small',null,'時間')); }
+        cnt.appendChild(el('b',null,String(left%60))); cnt.appendChild(el('small',null,'分'));
+      } else {
+        var tm=new Date(n); tm.setDate(tm.getDate()+1); if(closedName(tm)) tm=nextOpen(n);
+        ic.textContent='🌷'; head.textContent='今日の配達は締め切りました'; sub.textContent='いまのご注文は、'+lbl(tm)+' のお届けになります。'+(m<toMin(V.close)?'店頭なら '+V.close+' までお作りします。':'');
+      }
+    }
+    var areas=document.getElementById('dvAreas');
+    (V.areas||[]).forEach(function(a){ var s=el('span',null,a.name); s.appendChild(el('i',null,a.fee?'配達料 '+yen(a.fee):'配達料 無料')); areas.appendChild(s); });
+    render(); if(!q) setInterval(render,30000);
+  })();
+
+  /* ---- 花束をつくる ---- */
+  (function(){
+    var svg=document.getElementById('bq'); if(!svg) return;
+    var NS='http://www.w3.org/2000/svg';
+    var PAL={ pink:['#f2a6b8','#f7c6d2','#e57f98','#fbe1e7'], yellow:['#f6c94b','#f39a3d','#fbe08a','#f7b267'], red:['#c9344b','#e0566a','#9e2236','#f08a8a'],
+      purple:['#a98ad6','#c8b3ec','#7f63b8','#e3d6f5'], white:['#ffffff','#f4f1e6','#e9efe1','#fdfbf5'] };
+    var WRAP={}, COUNT={}, HEIGHT={};
+    D.bouquet.wraps.forEach(function(w){ WRAP[w.id]=[w.color,w.edge]; });
+    D.bouquet.budgets.forEach(function(b){ COUNT[b.price]=b.count; HEIGHT[b.price]=b.height; });
+    var firstB=D.bouquet.budgets.find(function(b){return b.first;})||D.bouquet.budgets[0];
+    var S={use:'birthday',color:'pink',budget:String(firstB.price),wrap:D.bouquet.wraps[0].id};
+    var NOTE={ osonae:'お供えなので、白を中心にしています（赤・黄色は外しています。淡いピンク・紫は選べます）。' };
+    /* 用途ごとに、よく選ばれる花（左から多めに入る）。flowers の名前は、下の SHAPE と NAME にある花から選ぶ */
+    var RECIPE={
+      birthday:{ flowers:['gerbera','rose'], why:'明るく元気な印象のガーベラに、定番のバラを合わせました。年齢を問わず喜ばれる組み合わせです。' },
+      celebrate:{ flowers:['lily','rose'], why:'大きく開くユリとバラで、華やかに。開店・昇進・結婚のお祝いの席に映えます。' },
+      mimai:{ flowers:['gerbera','lisianthus'], why:'香りが控えめなガーベラとトルコキキョウで、明るくやさしい雰囲気に。',
+        avoid:'お見舞いで避けたい花：鉢植え（「根づく＝寝つく」）、香りの強いユリ、お供えを思わせる菊、花が首から落ちる椿、シクラメン' },
+      osonae:{ flowers:['kiku','lily','lisianthus'], why:'白い小菊・ユリ・トルコキキョウで、落ち着いた花束に。故人のお好きだった花を入れることもできます。' },
+      self:{ flowers:['dahlia','cosmos'], why:'その月にいちばんいい季節の花を中心に。部屋に飾りやすい大きさでお作りします。', season:true }
+    };
+    var NAME={ gerbera:'ガーベラ', rose:'バラ', lily:'ユリ', lisianthus:'トルコキキョウ', kiku:'小菊', dahlia:'ダリア', cosmos:'コスモス', carnation:'カーネーション' };
+    function mk(t,a){ var e=document.createElementNS(NS,t); for(var k in a) e.setAttribute(k,a[k]); return e; }
+    function rnd(seed){ return function(){ seed=(seed*9301+49297)%233280; return seed/233280; }; }
+    function ring(g,count,dist,rx,ry,x,y,fill,stroke,off){
+      for(var i=0;i<count;i++){ var a=(i/count)*Math.PI*2+(off||0), px=x+Math.cos(a)*dist, py=y+Math.sin(a)*dist;
+        g.appendChild(mk('ellipse',{cx:px,cy:py,rx:rx,ry:ry,transform:'rotate('+(a*57.2958+90)+' '+px+' '+py+')',fill:fill,stroke:stroke||'rgba(0,0,0,.08)','stroke-width':.8})); }
+    }
+    /* 花の種類ごとの描き方 */
+    var SHAPE={
+      rose:function(g,x,y,r,c){ g.appendChild(mk('circle',{cx:x,cy:y,r:r,fill:c,stroke:'rgba(0,0,0,.14)','stroke-width':1}));
+        [.76,.54,.33].forEach(function(k,i){ g.appendChild(mk('circle',{cx:x+(i%2?1:-1)*r*.04,cy:y-r*.03*i,r:r*k,fill:c,stroke:'rgba(0,0,0,.2)','stroke-width':1.2})); });
+        g.appendChild(mk('path',{d:'M'+(x-r*.12)+' '+y+' q'+(r*.12)+' '+(-r*.16)+' '+(r*.22)+' 0',fill:'none',stroke:'rgba(0,0,0,.28)','stroke-width':1.3})); },
+      gerbera:function(g,x,y,r,c){ ring(g,16,r*.56,r*.16,r*.46,x,y,c); ring(g,12,r*.36,r*.1,r*.24,x,y,c,'rgba(0,0,0,.12)',.13);
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.28,fill:'#5b3a26'})); g.appendChild(mk('circle',{cx:x,cy:y,r:r*.28,fill:'none',stroke:'#e7c25a','stroke-width':2})); },
+      lily:function(g,x,y,r,c){ ring(g,6,r*.5,r*.24,r*.62,x,y,c,'rgba(0,0,0,.12)');
+        for(var i=0;i<6;i++){ var a=i*Math.PI/3+.5; g.appendChild(mk('line',{x1:x,y1:y,x2:x+Math.cos(a)*r*.45,y2:y+Math.sin(a)*r*.45,stroke:'#7a9a4a','stroke-width':1.2}));
+          g.appendChild(mk('ellipse',{cx:x+Math.cos(a)*r*.48,cy:y+Math.sin(a)*r*.48,rx:2.4,ry:1.4,fill:'#b5651d'})); }
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.12,fill:'#d6e6a4'})); },
+      lisianthus:function(g,x,y,r,c){ for(var i=0;i<5;i++){ var a=i*Math.PI*2/5; g.appendChild(mk('circle',{cx:x+Math.cos(a)*r*.38,cy:y+Math.sin(a)*r*.38,r:r*.5,fill:c,stroke:'rgba(0,0,0,.12)','stroke-width':1})); }
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.4,fill:'rgba(255,255,255,.35)'})); g.appendChild(mk('circle',{cx:x,cy:y,r:r*.14,fill:'#cfe0a0'})); },
+      kiku:function(g,x,y,r,c){ ring(g,22,r*.55,r*.09,r*.42,x,y,c,'rgba(0,0,0,.1)'); ring(g,14,r*.32,r*.08,r*.26,x,y,c,'rgba(0,0,0,.12)',.2);
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.17,fill:'#e9d36a'})); },
+      dahlia:function(g,x,y,r,c){ ring(g,14,r*.62,r*.17,r*.36,x,y,c,'rgba(0,0,0,.14)'); ring(g,11,r*.42,r*.15,r*.3,x,y,c,'rgba(0,0,0,.16)',.25); ring(g,8,r*.22,r*.12,r*.22,x,y,c,'rgba(0,0,0,.18)',.1);
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.1,fill:'rgba(0,0,0,.2)'})); },
+      cosmos:function(g,x,y,r,c){ ring(g,8,r*.5,r*.26,r*.5,x,y,c,'rgba(0,0,0,.1)'); g.appendChild(mk('circle',{cx:x,cy:y,r:r*.2,fill:'#f2c230'})); },
+      carnation:function(g,x,y,r,c){ for(var i=0;i<14;i++){ var a=i*Math.PI*2/14; g.appendChild(mk('circle',{cx:x+Math.cos(a)*r*.66,cy:y+Math.sin(a)*r*.66,r:r*.34,fill:c,stroke:'rgba(0,0,0,.12)','stroke-width':.8})); }
+        for(var j=0;j<8;j++){ var b=j*Math.PI*2/8+.2; g.appendChild(mk('circle',{cx:x+Math.cos(b)*r*.34,cy:y+Math.sin(b)*r*.34,r:r*.3,fill:c,stroke:'rgba(0,0,0,.14)','stroke-width':.8})); }
+        g.appendChild(mk('circle',{cx:x,cy:y,r:r*.24,fill:c})); }
+    };
+    function flower(type,x,y,r,c,delay){
+      var g=mk('g',{class:'bq-flower',style:'animation-delay:'+delay+'s'});
+      (SHAPE[type]||SHAPE.cosmos)(g,x,y,r,c);
+      return g;
+    }
+    function icon(type,c){ var sv=mk('svg',{viewBox:'0 0 40 40'}); var g=mk('g',{}); (SHAPE[type])(g,20,20,15,c); sv.appendChild(g); return sv; }
+    function showFlowers(){
+      var R=RECIPE[S.use], pal=PAL[S.color], box=document.getElementById('mkFlowers'); box.textContent='';
+      var ttl=document.createElement('p'); ttl.className='ttl'; ttl.textContent=S.use==='self'?'季節の花で':'この用途に、よく選ばれる花'; box.appendChild(ttl);
+      var fl=document.createElement('div'); fl.className='fl';
+      R.flowers.forEach(function(t,i){ var sp=document.createElement('span'); sp.appendChild(icon(t,pal[i%pal.length])); sp.appendChild(document.createTextNode(NAME[t])); fl.appendChild(sp); });
+      box.appendChild(fl);
+      var w=document.createElement('p'); w.textContent=R.why;
+      if(R.season){ var m=(D.season||{})[NOW.getMonth()+1]; if(m) w.textContent=R.why+'（今月なら '+m.map(function(f){return f[0];}).join('・')+'）'; }
+      box.appendChild(w);
+      if(R.avoid){ var av=document.createElement('p'); av.className='avoid'; av.textContent=R.avoid; box.appendChild(av); }
+      document.getElementById('mkCap').innerHTML='入る花：<b>'+R.flowers.map(function(t){return NAME[t];}).join('・')+'・かすみ草</b>';
+    }
+    function draw(){
+      svg.textContent='';
+      var n=COUNT[S.budget], pal=PAL[S.color], wr=WRAP[S.wrap], rand=rnd(n*7+S.color.length*13);
+      var cx=200, cy=178, R=58+n*3.2, fr=23+n*.6;          // 花の広がりと、花1つの大きさ（予算で変わる）
+      var wl=cx-R*.92, wrr=cx+R*.92, wy=222;                // 包み紙の口
+      // 茎
+      for(var i=0;i<7;i++){ svg.appendChild(mk('path',{d:'M'+(188+i*4)+' 260 L'+(193+i*2)+' 405',stroke:'#6f8f6a','stroke-width':3,fill:'none'})); }
+      // 葉（外まわり）
+      for(var j=0;j<10+n;j++){ var a=Math.PI+(j/(10+n))*Math.PI+(rand()-.5)*.2, lx=cx+Math.cos(a)*(R+6), ly=cy+Math.sin(a)*(R+6)*.72;
+        svg.appendChild(mk('ellipse',{cx:lx,cy:ly,rx:fr*.42,ry:fr*1.05,transform:'rotate('+(a*57.3+90)+' '+lx+' '+ly+')',fill:j%2?'#7fa074':'#5f8257'})); }
+      // 花の位置（ひまわりの種の並び方で、ドーム状にすき間なく並べる）
+      var placed=[];
+      for(var k=0;k<n;k++){ var rr=R*.86*Math.sqrt((k+.5)/n), th=k*2.39996, x=cx+Math.cos(th)*rr, y=cy+Math.sin(th)*rr*.62-(1-rr/R)*14;
+        placed.push([x,y,fr*(.88+rand()*.24)]); }
+      placed.sort(function(a,b){return a[1]-b[1];});
+      // かすみ草
+      for(var h=0;h<n*3;h++){ var ha=rand()*Math.PI*2, hr=R*Math.sqrt(rand()); svg.appendChild(mk('circle',{cx:cx+Math.cos(ha)*hr,cy:cy+Math.sin(ha)*hr*.62,r:2.6,fill:'#fff',opacity:.95})); }
+      var types=RECIPE[S.use].flowers, wts=types.map(function(_,i){return types.length-i;}), tot=wts.reduce(function(a,b){return a+b;},0);
+      placed.forEach(function(p,i){ var v=rand()*tot, t=types[0]; for(var q=0,acc=0;q<types.length;q++){ acc+=wts[q]; if(v<acc){ t=types[q]; break; } }
+        var c=pal[(i+types.indexOf(t))%pal.length]; svg.appendChild(flower(t,p[0],p[1],p[2],c,reduce?0:i*0.03)); });
+      // 包み紙
+      svg.appendChild(mk('path',{d:'M'+wl+' '+wy+' L200 400 L'+wrr+' '+wy+' Q200 '+(wy+34)+' '+wl+' '+wy+'Z',fill:wr[0],stroke:wr[1],'stroke-width':2}));
+      svg.appendChild(mk('path',{d:'M'+wl+' '+wy+' L'+(cx-R*.35)+' 300 L200 '+(wy+16)+'Z',fill:wr[1],opacity:.35}));
+      svg.appendChild(mk('path',{d:'M'+wrr+' '+wy+' L'+(cx+R*.35)+' 300 L200 '+(wy+16)+'Z',fill:wr[1],opacity:.22}));
+      // リボン
+      var rib=S.use==='osonae'?'#d9d4cc':'#b85c6e';
+      svg.appendChild(mk('ellipse',{cx:184,cy:330,rx:19,ry:9,fill:rib,transform:'rotate(-25 184 330)'}));
+      svg.appendChild(mk('ellipse',{cx:216,cy:330,rx:19,ry:9,fill:rib,transform:'rotate(25 216 330)'}));
+      svg.appendChild(mk('path',{d:'M196 334 L186 362 M204 334 L214 362',stroke:rib,'stroke-width':5,'stroke-linecap':'round'}));
+      svg.appendChild(mk('circle',{cx:200,cy:332,r:6.5,fill:rib}));
+      // メッセージカード
+      var msg=document.getElementById('mkMsg').value.trim();
+      if(msg){ var cg=mk('g',{transform:'rotate(-8 300 350)'}); cg.appendChild(mk('rect',{x:252,y:326,width:120,height:50,rx:6,fill:'#fffdf8',stroke:'#e2d6c8'}));
+        var tx=mk('text',{x:312,y:356,'text-anchor':'middle','font-size':msg.length>10?10:12,'font-family':'Yu Mincho,serif',fill:'#5a4a44'}); tx.textContent=msg; cg.appendChild(tx);
+        cg.appendChild(mk('line',{x1:252,y1:350,x2:222,y2:340,stroke:'#e2d6c8','stroke-width':1.5})); svg.appendChild(cg); }
+      document.getElementById('mkN').textContent=n+'本';
+      document.getElementById('mkH').textContent=HEIGHT[S.budget]+'cm';
+      document.getElementById('mkP').textContent=yen(+S.budget);
+    }
+    function sync(){
+      // お供えのときは、明るすぎる色を外す
+      var colorBox=document.querySelector('.chips[data-k="color"]');
+      colorBox.querySelectorAll('.chip').forEach(function(c){ var ng=S.use==='osonae'&&(c.dataset.v==='red'||c.dataset.v==='yellow'); c.disabled=ng; });
+      if(S.use==='osonae'&&(S.color==='red'||S.color==='yellow')) S.color='white';
+      document.querySelectorAll('.chips').forEach(function(box){ var k=box.dataset.k; box.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.v===S[k]?'true':'false'); }); });
+      var note=document.getElementById('mkNote'); note.textContent=NOTE[S.use]||''; note.classList.toggle('on',!!NOTE[S.use]);
+      showFlowers(); draw();
+    }
+    document.querySelectorAll('.chips').forEach(function(box){
+      box.addEventListener('click',function(e){ var c=e.target.closest('.chip'); if(!c||c.disabled) return; S[box.dataset.k]=c.dataset.v;
+        if(box.dataset.k==='use'){ var m=document.getElementById('mkMsg'); var def={birthday:'お誕生日おめでとう',celebrate:'おめでとうございます',mimai:'早くよくなりますように',osonae:'',self:''}; m.value=def[S.use]; if(S.use==='osonae') S.color='white'; }
+        sync(); });
+    });
+    document.getElementById('mkMsg').addEventListener('input',draw);
+    sync();
+  })();
+
+  /* ---- 今月の花 ---- */
+  (function(){
+    var SS=D.season; if(!SS) return;
+    var box=document.getElementById('months'), list=document.getElementById('ssList'), cur=NOW.getMonth()+1, sel=cur;
+    function show(m){
+      sel=m; list.textContent='';
+      box.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed',+b.dataset.m===m?'true':'false'); });
+      (SS[m]||[]).forEach(function(f){ var it=el('div','ss-item');
+        it.innerHTML='<svg width="34" height="34" viewBox="0 0 24 24"><g fill="'+f[1]+'" stroke="rgba(0,0,0,.15)" stroke-width=".5"><circle cx="12" cy="6.5" r="4"/><circle cx="17.2" cy="10.2" r="4"/><circle cx="15.2" cy="16.4" r="4"/><circle cx="8.8" cy="16.4" r="4"/><circle cx="6.8" cy="10.2" r="4"/></g><circle cx="12" cy="11.6" r="3" fill="#f2d44b"/></svg>';
+        it.appendChild(el('b',null,f[0])); list.appendChild(it); });
+    }
+    for(var m=1;m<=12;m++){ var b=el('button',m===cur?'now':null,m+'月'); b.type='button'; b.dataset.m=m; b.addEventListener('click',function(){ show(+this.dataset.m); }); box.appendChild(b); }
+    show(cur);
+  })();
+})();
+</script>
+<script src="bot.js"></script>
+</body>
+</html>
