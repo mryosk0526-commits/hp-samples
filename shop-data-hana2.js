@@ -124,7 +124,7 @@ window.SHOP = {
   // ───────── ④ めったに変わらない ─────────
 
   shop: "花と緑の店 まるはな",
-  theme: { accent: "#b85c6e", accentDark: "#954757", accentSoft: "#f6e3e6", action: "#6f8f6a" },
+  theme: { accent: "#141414", accentDark: "#000000", accentSoft: "#f3f3f1", action: "#141414" },
   contact: {
     tel: "03-0000-0000",
     telNote: "受付 10:00〜19:00（水曜休み）",

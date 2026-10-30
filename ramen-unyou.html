@@ -554,20 +554,45 @@
   .noren .cl small{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:700 12px var(--sans);letter-spacing:.3em;color:rgba(255,255,255,.75)}
   .noren .skip{position:absolute;right:16px;bottom:16px;font:700 12px var(--sans);letter-spacing:.1em;color:#fff;background:rgba(0,0,0,.45);border-radius:999px;padding:6px 14px}
   @media(max-width:720px){.noren .cloths{left:3%;right:3%;gap:5px;height:62vh}.noren .rod{left:2%;right:2%}}
-  /* ゆれる → 真ん中から手でかき分ける → 上へ */
+  /* ふだんは、ゆっくりゆれている */
   .noren .cl{animation:sway 1.6s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.35s)}
   @keyframes sway{from{transform:rotate(.8deg)}to{transform:rotate(-.8deg)}}
-  /* 右手で、下から押し上げてくぐる：手が当たった布（真ん中より少し右）から順に、裾が奥へ・上へ持ち上がる */
-  .noren.part .cl{animation:none;transition:transform .75s cubic-bezier(.35,.05,.25,1),filter .75s;transition-delay:var(--dl);
-    transform:rotateX(var(--a)) rotateZ(var(--z));filter:brightness(.7)}
-  .noren.lift .cloths,.noren.lift .rod{transition:transform .8s cubic-bezier(.6,0,.4,1),opacity .8s;transform:translateY(-105%);opacity:0}
   .noren.done{opacity:0;pointer-events:none;transition:opacity .3s}
+  /* つまんで右上へ払う：つまんでいる間は、ゆれを止めて指についてくる */
+  .noren{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+  .noren.grab{cursor:grabbing}
+  .noren.grab .cl,.noren.back .cl{animation:none}
+  .noren.back .cl{transition:transform .55s cubic-bezier(.3,1.5,.5,1),filter .55s}
+  .noren .cl{will-change:transform}
+  .noren.fly .cloths,.noren.fly .rod{transition:transform .6s cubic-bezier(.5,0,.3,1),opacity .6s;transform:translate(26%,-110%) rotate(-7deg);opacity:0}
+  .noren .hint{position:absolute;left:0;right:0;top:calc(min(70vh,620px) + 34px);text-align:center;font:700 13.5px var(--sans);letter-spacing:.14em;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6);pointer-events:none}
+  .noren .hint i{display:inline-block;font-style:normal;margin-left:8px;animation:nudge 1.4s ease-in-out infinite}
+  @keyframes nudge{50%{transform:translate(5px,-5px)}}
+  .noren.grab .hint,.noren.fly .hint{opacity:0;transition:opacity .2s}
+  @media(max-width:720px){.noren .hint{top:calc(62vh + 26px)}}
+
+  /* ===== お知らせのポップアップ（shop-data の popup） ===== */
+  .pop{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.62);opacity:0;transition:opacity .35s}
+  .pop.on{opacity:1}
+  .pop-card{position:relative;width:min(440px,100%);background:#1c1c1c;color:#f3f1ee;border:1px solid #3a3a3a;border-top:4px solid var(--accent);box-shadow:0 30px 80px rgba(0,0,0,.6);transform:translateY(18px) scale(.97);transition:transform .45s cubic-bezier(.2,1.2,.3,1)}
+  .pop.on .pop-card{transform:none}
+  .pop-ph{aspect-ratio:16/10;overflow:hidden}
+  .pop-ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .pop-body{padding:22px 24px 26px}
+  .pop-label{display:inline-block;font:800 11.5px/1 var(--sans);letter-spacing:.14em;color:#fff;background:var(--accent);padding:5px 9px;margin-bottom:12px}
+  .pop-title{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.35;letter-spacing:.06em;margin:0 0 10px}
+  .pop-text{font-size:14px;color:var(--ink-2);margin:0 0 18px;line-height:1.8}
+  .pop-btn{display:flex;justify-content:center;padding:14px;background:var(--accent);color:#fff;font-weight:800;letter-spacing:.12em;border:2px solid var(--accent)}
+  .pop-btn:hover{background:transparent}
+  .pop-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.2s}
+  .pop-x:hover{background:#fff;color:#111;transform:rotate(90deg)}
+  @media (prefers-reduced-motion:reduce){.pop,.pop-card{transition:none}}
 </style>
 </head>
 <body>
 
 <!-- 暖簾（中身は shop-data の noren から。押すか、少し待つとめくれる） -->
-<div class="noren" id="noren" hidden aria-hidden="true"><div class="rod"></div><div class="cloths"></div><span class="skip">タップで入る</span></div>
+<div class="noren" id="noren" hidden aria-hidden="true"><div class="rod"></div><div class="cloths"></div><p class="hint">右上へ、めくって入る<i>↗</i></p></div>
 
 <header>
   <div class="wrap nav">
@@ -802,44 +827,79 @@
 <!-- ライトボックス -->
 <div class="lightbox" id="lightbox"><span class="x">×</span><img src="" alt=""></div>
 
-<script src="shop-data-ramen2.js?v=2"></script>
+<script src="shop-data-ramen2.js?v=3"></script>
 <script src="unyou.js?v=2"></script>
 <script>
-  /* 暖簾：ゆれて → 右手で下から押し上げる（手の近い布ほど早く・大きく）→ 上へ。終わったら消す（動きを減らす設定のときは出さない） */
+  /* 暖簾：布をつまんで、右上へ払うとめくれて消える（右利きの手の動き）
+     ・つまんだ布が指についてくる（裾が上へ・少し右へ）。隣の布は、離れるほど少しだけ
+     ・少し動かすか、すっと振れば、暖簾ごと右上へ抜けて消える。動きが小さいまま離すと、元に戻る
+     ・タップだけでも開く／しばらく触らなければ自動で開く／動きを減らす設定のときは出さない */
   (function(){
     var N=(window.SHOP||{}).noren, box=document.getElementById('noren');
     var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var q=new URLSearchParams(location.search).get('noren');
     if(!N||!N.show||reduce||q==='0'){ box.remove(); return; }
-    var cl=box.querySelector('.cloths'), n=N.chars.length;
-    var hand=(n-1)*.62;                 /* 手が当たる位置＝真ん中より少し右（右手） */
+    var wrap=box.querySelector('.cloths'), cls=[];
     N.chars.forEach(function(ch,i){
-      var c=document.createElement('div'); c.className='cl';
-      var dist=Math.abs(i-hand);
-      c.style.setProperty('--i',i);
-      c.style.setProperty('--a',(-82+dist*16).toFixed(0)+'deg');                 /* 手に近いほど、大きく持ち上がる */
-      c.style.setProperty('--z',((i>=hand?-1:1)*(4+dist*2)).toFixed(1)+'deg');   /* 手の左右に、少し押し分けられる */
-      c.style.setProperty('--dl',(dist*.14).toFixed(2)+'s');                      /* 手に近い布から順に */
+      var c=document.createElement('div'); c.className='cl'; c.style.setProperty('--i',i);
       var b=document.createElement('b'); b.textContent=ch; c.appendChild(b);
-      if(N.sub && i===n-1){ var s=document.createElement('small'); s.textContent=N.sub; c.appendChild(s); }
-      cl.appendChild(c);
+      if(N.sub && i===N.chars.length-1){ var s=document.createElement('small'); s.textContent=N.sub; c.appendChild(s); }
+      wrap.appendChild(c); cls.push(c);
     });
     box.hidden=false;
     window.NOREN_WAIT=true;            /* ヒーローの文字は、暖簾が消えてから出す（noren:done の合図を待つ） */
-    var t1,t2,t3,opened=false;
-    function open(fast){
-      if(opened) return; opened=true;
-      clearTimeout(t1);
-      box.classList.add('part');
-      t2=setTimeout(function(){ box.classList.add('lift'); },fast?350:950);
-      t3=setTimeout(function(){
-        box.classList.add('done');
-        setTimeout(function(){ box.remove(); window.NOREN_WAIT=false; window.dispatchEvent(new Event('noren:done')); },300);
-      },fast?900:1650);
+
+    var gone=false, drag=null, idle;
+    function finish(){
+      if(gone) return; gone=true; clearTimeout(idle);
+      box.classList.remove('grab'); box.classList.add('fly');
+      setTimeout(function(){ box.classList.add('done'); }, 450);
+      setTimeout(function(){ box.remove(); window.NOREN_WAIT=false; window.dispatchEvent(new Event('noren:done')); }, 800);
     }
-    t1=setTimeout(function(){ open(false); },1000);
-    box.addEventListener('click',function(){ open(true); });
-    window.addEventListener('wheel',function(){ open(true); },{passive:true,once:true});
+    /* つまんだ布の動きを、まわりの布にも少しずつ伝える */
+    function pose(k, dx, dy){
+      var h=wrap.clientHeight, up=Math.max(0,-dy), right=dx;
+      cls.forEach(function(c,i){
+        var f=Math.max(0,1-Math.abs(i-k)*.55);                          /* つまんだ布＝1、となり＝0.45、その先＝ほぼ0 */
+        var ax=Math.min(80, up/h*150)*f;                                 /* 上へ持ち上げた分だけ、裾が奥へ */
+        var az=Math.max(-22, Math.min(22, -right/9))*f;                  /* 右へ引いた分だけ、裾が右へ */
+        c.style.transform='rotateX('+(-ax).toFixed(1)+'deg) rotateZ('+az.toFixed(1)+'deg)';
+        c.style.filter='brightness('+(1-ax/300).toFixed(2)+')';
+      });
+    }
+    box.addEventListener('pointerdown',function(e){
+      if(gone) return;
+      var c=e.target.closest('.cl'); var k=c?cls.indexOf(c):Math.round((cls.length-1)*.62);
+      drag={k:k,x:e.clientX,y:e.clientY,t:performance.now(),lx:e.clientX,ly:e.clientY,lt:performance.now(),vx:0,vy:0,moved:0};
+      box.classList.remove('back'); box.classList.add('grab');
+      box.setPointerCapture(e.pointerId); clearTimeout(idle);
+    });
+    box.addEventListener('pointermove',function(e){
+      if(!drag||gone) return;
+      var now=performance.now(), dt=Math.max(1,now-drag.lt);
+      drag.vx=(e.clientX-drag.lx)/dt; drag.vy=(e.clientY-drag.ly)/dt; drag.lx=e.clientX; drag.ly=e.clientY; drag.lt=now;
+      var dx=e.clientX-drag.x, dy=e.clientY-drag.y; drag.moved=Math.max(drag.moved,Math.hypot(dx,dy));
+      pose(drag.k,dx,dy);
+      /* 右上へ、ある程度めくれたら、もう離さなくても抜ける */
+      if((-dy)+Math.max(0,dx)*.6>Math.min(240,wrap.clientHeight*.45)) finish();
+    });
+    function release(e){
+      if(!drag||gone){ drag=null; return; }
+      var dx=e.clientX-drag.x, dy=e.clientY-drag.y;
+      var flick=(-drag.vy+Math.max(0,drag.vx)*.6)>.55;                   /* すっと振った */
+      var far=(-dy)+Math.max(0,dx)*.6>70;                                /* 軽くでも、右上へ動かした */
+      var tap=drag.moved<6;                                              /* 触っただけ */
+      drag=null;
+      if(flick||far||tap){ finish(); return; }
+      box.classList.remove('grab'); box.classList.add('back');            /* 動きが小さい・下向き → 元に戻る */
+      cls.forEach(function(c){ c.style.transform=''; c.style.filter=''; });
+      idle=setTimeout(finish,8000);
+    }
+    box.addEventListener('pointerup',release);
+    box.addEventListener('pointercancel',release);
+    window.addEventListener('wheel',finish,{passive:true,once:true});
+    window.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '||e.key==='Escape') finish(); },{once:true});
+    idle=setTimeout(finish,8000);                                        /* 触らない人のために、8秒で自動で開く */
   })();
 </script>
 <script>
@@ -1043,6 +1103,41 @@
       if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(e){ on=e.isIntersecting; if(on){ cancelAnimationFrame(raf); last=performance.now(); raf=requestAnimationFrame(loop); } }); }).observe(rh); }
     }
     window.addEventListener('resize',size);
+  })();
+</script>
+<script>
+  /* お知らせのポップアップ：暖簾と判押しのあとに出す。×・外側・Escで閉じる。一度閉じたらこのタブでは出さない */
+  (function(){
+    var P=(window.SHOP||{}).popup, q=new URLSearchParams(location.search).get('popup');
+    if(!P||!P.show||!U.inPeriod(P)||q==='0') return;
+    var KEY='popup-closed:'+P.title;
+    try{ if(sessionStorage.getItem(KEY) && q!=='1') return; }catch(e){}
+    var el=U.el, box=el('div','pop'); box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-label',P.title.replace(/\n/g,''));
+    var card=el('div','pop-card');
+    var x=el('button','pop-x','×'); x.type='button'; x.setAttribute('aria-label','閉じる');
+    var ph=el('div','pop-ph'), im=el('img'); im.src=P.photo; im.alt=P.alt; ph.appendChild(im);
+    var b=el('div','pop-body'); b.appendChild(el('span','pop-label',P.label)); b.appendChild(U.lines(el('h2','pop-title'),P.title)); b.appendChild(el('p','pop-text',P.text));
+    var go=el('a','pop-btn',P.button.label); go.href=P.button.href; b.appendChild(go);
+    card.appendChild(x); card.appendChild(ph); card.appendChild(b); box.appendChild(card);
+    var before=null;
+    function close(){
+      try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
+      box.classList.remove('on'); document.removeEventListener('keydown',esc);
+      setTimeout(function(){ box.remove(); if(before&&before.focus) before.focus(); },350);
+    }
+    function esc(e){ if(e.key==='Escape') close(); }
+    x.addEventListener('click',close);
+    go.addEventListener('click',close);
+    box.addEventListener('click',function(e){ if(e.target===box) close(); });   /* 外側（暗いところ）を押しても閉じる */
+    function open(){
+      before=document.activeElement; document.body.appendChild(box);
+      void box.offsetWidth;                 /* 一度描いてから on を付ける（描画の合図を待たない＝透明のまま残らない） */
+      box.classList.add('on'); x.focus();
+      document.addEventListener('keydown',esc);
+    }
+    /* 暖簾があるときは、めくれて判押しが落ち着いてから。無いときは少し待ってから */
+    if(window.NOREN_WAIT) window.addEventListener('noren:done',function(){ setTimeout(open,3200); },{once:true});
+    else setTimeout(open,2500);
   })();
 </script>
 <script src="parts3.js?v=2"></script>
