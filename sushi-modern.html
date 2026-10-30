@@ -111,7 +111,9 @@
   .shopph img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
 
   /* ---- 季節の飾り（のれんの写真の上に、薄く重ねる） ---- */
-  .shopph{container-type:size}
+  .shopph,.hero{container-type:size}
+  .hero-season{opacity:0;transition:opacity 1.4s ease}
+  .hero-season.on{opacity:1}
   .season{position:absolute;inset:0;pointer-events:none;overflow:hidden}
   .season .ly{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}
   .season .ly.on{opacity:1}
@@ -222,6 +224,7 @@
 
 <div class="hero" id="top">
   <div id="heroPhotos"></div>
+  <div class="season hero-season" id="heroSeason" aria-hidden="true"></div>
   <div class="tate">
     <div class="shop" data-t="name"></div>
     <div class="lead" id="heroLead"></div>
@@ -333,7 +336,7 @@
 
 <div class="telbar" id="telbar"></div>
 
-<script src="shop-data-sushi.js?v=4"></script>
+<script src="shop-data-sushi.js?v=5"></script>
 <script>
 (function () {
   var S = window.SHOP, $ = function (id) { return document.getElementById(id); };
@@ -360,6 +363,7 @@
     imgs[cur].classList.remove("on"); dots[cur].classList.remove("on");
     cur = n;
     imgs[cur].classList.add("on"); dots[cur].classList.add("on");
+    $("heroSeason").classList.toggle("on", !!hp[cur].season);   // season:true の写真のときだけ、季節の飾りを重ねる
     lead.classList.add("out");
     setTimeout(function () { lead.textContent = hp[cur].lead; lead.classList.remove("out"); }, 600);
   }
@@ -511,19 +515,23 @@
       return '<span class="p" style="' + st.join(";") + '"><i' + ic + "></i></span>";
     }
     function byMonth() { var m = now.getMonth() + 1; return m >= 3 && m <= 5 ? "spring" : m >= 6 && m <= 8 ? "summer" : m >= 9 && m <= 11 ? "autumn" : "winter"; }
-    box.innerHTML = KINDS.map(function (k) {
-      var h = ""; for (var i = 0; i < k.n; i++) h += piece(k);
-      return '<div class="ly ' + k.cls + '">' + h + "</div>";
-    }).join("");
-    var cur = -1, timer = null, layers = box.querySelectorAll(".ly"), word = null, btns = [];
+    function fill(el) {
+      el.innerHTML = KINDS.map(function (k) {
+        var h = ""; for (var i = 0; i < k.n; i++) h += piece(k);
+        return '<div class="ly ' + k.cls + '">' + h + "</div>";
+      }).join("");
+    }
+    var heroBox = $("heroSeason");
+    fill(box); fill(heroBox);
+    var cur = -1, timer = null, layers = box.querySelectorAll(".ly"), heroLayers = heroBox.querySelectorAll(".ly"), word = null, btns = [];
     if (cfg.demo) {
       ui.innerHTML = '<span class="word" id="seasonWord"></span><span class="sw">' + KINDS.map(function (k) { return '<button type="button" aria-label="' + k.word + '">' + k.mark + "</button>"; }).join("") + "</span>";
       word = $("seasonWord"); btns = ui.querySelectorAll("button");
     }
     function show(n) {
       n = (n + KINDS.length) % KINDS.length;
-      if (cur >= 0) { layers[cur].classList.remove("on"); if (btns[cur]) btns[cur].classList.remove("on"); }
-      cur = n; layers[cur].classList.add("on"); if (btns[cur]) btns[cur].classList.add("on");
+      if (cur >= 0) { layers[cur].classList.remove("on"); heroLayers[cur].classList.remove("on"); if (btns[cur]) btns[cur].classList.remove("on"); }
+      cur = n; layers[cur].classList.add("on"); heroLayers[cur].classList.add("on"); if (btns[cur]) btns[cur].classList.add("on");
       if (word) { word.classList.add("out"); setTimeout(function () { word.textContent = KINDS[cur].word; word.classList.remove("out"); }, 350); }
     }
     function play() { clearInterval(timer); timer = setInterval(function () { if (!document.hidden) show(cur + 1); }, (cfg.seconds || 5) * 1000); }

@@ -9,11 +9,12 @@ window.SHOP = {
 
   // ヒーロー（いちばん上の大きい写真）。上から順に切り替わる。写真ごとに、添える言葉も変わる
   // 足す・減らす・並べ替えは、ここだけ
+  // season: true の写真には、下の「季節の飾り」が重なる
   heroPhotos: [
     { src: "img/sushi-7.jpg", alt: "カウンターで寿司を握る手もと", lead: "一貫に、代々の手しごとを。" },
     { src: "img/sushi-aji.jpg", alt: "鯵の握り", pos: "40% 50%", lead: "今月の一貫は、鯵。" },
     { src: "img/sushi-2.jpg", alt: "握りの盛り合わせ", pos: "50% 60%", lead: "その日いちばんの魚を。" },
-    { src: "img/sushi-noren.jpg", alt: "お店ののれん", pos: "30% 45%", lead: "暖簾をくぐって、どうぞ。" },
+    { src: "img/sushi-noren.jpg", alt: "お店ののれん", pos: "30% 45%", lead: "暖簾をくぐって、どうぞ。", season: true },
   ],
 
   // つなぐ先。行き先は、いったん見本のページ。自分のお店のURLに替える
@@ -81,7 +82,7 @@ window.SHOP = {
   },
   shopPhoto: "img/sushi-noren.jpg",
 
-  // 季節の飾り（のれんの写真に重ねる）。春＝桜／夏＝蛍／秋＝もみじ／冬＝雪
+  // 季節の飾り（のれんの写真＝店舗情報とヒーローに重ねる）。春＝桜／夏＝蛍／秋＝もみじ／冬＝雪
   //   show: "auto" なら月で決まる（3〜5月=春、6〜8月=夏、9〜11月=秋、12〜2月=冬）
   //         "spring" "summer" "autumn" "winter" で、その季節に固定。"none" で出さない
   //   demo: true なら、見本として、数秒ごとに春夏秋冬を順に見せる（実際のお店では false）
