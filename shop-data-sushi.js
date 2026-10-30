@@ -81,6 +81,12 @@ window.SHOP = {
   },
   shopPhoto: "img/sushi-noren.jpg",
 
+  // 季節の飾り（のれんの写真に重ねる）。春＝桜／夏＝蛍／秋＝もみじ／冬＝雪
+  //   show: "auto" なら月で決まる（3〜5月=春、6〜8月=夏、9〜11月=秋、12〜2月=冬）
+  //         "spring" "summer" "autumn" "winter" で、その季節に固定。"none" で出さない
+  //   demo: true なら、見本として、数秒ごとに春夏秋冬を順に見せる（実際のお店では false）
+  season: { show: "auto", demo: true, seconds: 5 },
+
   // お品書きの抜粋（価格を変えるときは、ここをまとめて直す）
   menu: [
     { when: "昼", name: "ランチにぎり（数量限定）", price: 1650, from: true },

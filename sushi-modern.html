@@ -110,6 +110,38 @@
   .shopph{margin:0 0 28px;position:relative;overflow:hidden;aspect-ratio:21/8;background:#221a12}
   .shopph img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
 
+  /* ---- 季節の飾り（のれんの写真の上に、薄く重ねる） ---- */
+  .shopph{container-type:size}
+  .season{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .season .ly{position:absolute;inset:0;opacity:0;transition:opacity 1s ease}
+  .season .ly.on{opacity:1}
+  .season .ly:not(.on) *{animation-play-state:paused}
+  .season .p{position:absolute;top:-8%;left:var(--x);animation:fall var(--d) linear var(--dl) infinite}
+  .season .p i{display:block;width:var(--s);height:var(--s);animation:sway var(--w) ease-in-out var(--dl) infinite alternate}
+  @keyframes fall{to{transform:translateY(125cqh)}}
+  @keyframes sway{from{transform:translateX(calc(var(--a) * -1)) rotate(var(--r0))}to{transform:translateX(var(--a)) rotate(var(--r1))}}
+  /* 春：桜の花びら */
+  .sakura i{height:calc(var(--s) * .72);border-radius:85% 0 85% 0;background:linear-gradient(135deg,#ffe3ea,#f6a9bd);box-shadow:0 0 6px rgba(255,190,205,.35);opacity:.9}
+  /* 夏：蛍。落ちずに、灯っては消えながら漂う。光が見えるように、写真を宵の暗さにする */
+  .season .ly.hotaru{background:linear-gradient(180deg,rgba(6,12,26,.62),rgba(6,12,26,.46))}
+  .hotaru .p{top:var(--y);animation:drift var(--d) ease-in-out var(--dl) infinite alternate}
+  .hotaru i{width:6px;height:6px;border-radius:50%;background:#f1ffb0;box-shadow:0 0 10px 4px rgba(214,255,120,.85),0 0 28px 12px rgba(190,240,90,.35);animation:glow var(--w) ease-in-out var(--dl) infinite}
+  @keyframes drift{from{transform:translate(0,0)}to{transform:translate(var(--a),var(--b))}}
+  @keyframes glow{0%,100%{opacity:.08}45%,60%{opacity:1}}
+  /* 秋：もみじと、いちょう */
+  .momiji i{background:var(--c);opacity:.92;clip-path:polygon(50% 0,58% 22%,74% 10%,72% 32%,100% 30%,82% 48%,96% 62%,70% 62%,74% 84%,54% 72%,50% 100%,46% 72%,26% 84%,30% 62%,4% 62%,18% 48%,0 30%,28% 32%,26% 10%,42% 22%)}
+  .momiji i.ic{clip-path:polygon(50% 100%,46% 62%,0 34%,10% 12%,30% 2%,50% 14%,70% 2%,90% 12%,100% 34%,54% 62%)}
+  /* 冬：雪。白いのれんの上でも見えるように、少しだけ青く沈める */
+  .season .ly.yuki{background:rgba(18,28,48,.26)}
+  .yuki i{border-radius:50%;background:#fff;opacity:var(--o);filter:blur(var(--bl))}
+  /* 見本用：季節の名前と、切り替えの丸いボタン */
+  .season-ui{position:absolute;left:18px;bottom:16px;z-index:2;display:flex;align-items:center;gap:14px;color:#fff;font-family:var(--gothic);text-shadow:0 1px 8px rgba(0,0,0,.6)}
+  .season-ui .word{font-family:var(--mincho);font-size:15px;letter-spacing:.2em;transition:opacity .35s}
+  .season-ui .word.out{opacity:0}
+  .season-ui .sw{display:flex;gap:4px}
+  .season-ui button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(20,14,8,.35);color:#fff;font-family:var(--mincho);font-size:13px;cursor:pointer}
+  .season-ui button.on{background:#fff;color:var(--ink);border-color:#fff}
+
   /* ---- 営業日とお知らせ ---- */
   .two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
   .cal h3,.news h3{font-size:18px;font-weight:500;letter-spacing:.22em;margin:0 0 16px}
@@ -152,7 +184,7 @@
 
   .rise{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
   .rise.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.hero img,.hero img.on{transition:none;animation:none}.scroll i::after{animation:none}}
+  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}.hero img,.hero img.on{transition:none;animation:none}.scroll i::after{animation:none}.season,.season-ui{display:none}}
 
   @media (max-width:820px){
     nav a:not(.nav-res){display:none}
@@ -279,7 +311,7 @@
 <section id="access">
   <div class="wrap">
     <div class="ttl rise"><h2>店舗情報</h2><span>ACCESS</span></div>
-    <div class="shopph rise"><img id="shopPhoto" alt="お店ののれん"></div>
+    <div class="shopph rise"><img id="shopPhoto" alt="お店ののれん"><div class="season" id="season" aria-hidden="true"></div><div class="season-ui" id="seasonUi"></div></div>
     <div class="info">
       <div class="card rise"><dl id="info"></dl></div>
       <div class="map rise"><iframe id="map" loading="lazy" title="地図"></iframe></div>
@@ -301,7 +333,7 @@
 
 <div class="telbar" id="telbar"></div>
 
-<script src="shop-data-sushi.js?v=3"></script>
+<script src="shop-data-sushi.js?v=4"></script>
 <script>
 (function () {
   var S = window.SHOP, $ = function (id) { return document.getElementById(id); };
@@ -450,6 +482,55 @@
     '<a class="btn" href="' + L.map.href + '" target="_blank" rel="noopener">' + L.map.label + "</a>" +
     '<a class="btn" href="' + L.instagram.href + '">' + L.instagram.label + "</a>";
   $("telbar").innerHTML = '<a class="t" href="' + tel + '">電話する</a><a href="' + L.reserve.href + '">ネット予約</a><a href="#days">営業日</a>';
+
+  // ---- 季節の飾り（春＝桜／夏＝蛍／秋＝もみじ／冬＝雪）
+  (function () {
+    var cfg = S.season || {}, box = $("season"), ui = $("seasonUi");
+    if (cfg.show === "none") return;
+    var KINDS = [
+      { key: "spring", cls: "sakura", mark: "春", word: "春 ― 桜の頃", n: 14 },
+      { key: "summer", cls: "hotaru", mark: "夏", word: "夏 ― 蛍の宵", n: 12 },
+      { key: "autumn", cls: "momiji", mark: "秋", word: "秋 ― 紅葉の頃", n: 13 },
+      { key: "winter", cls: "yuki", mark: "冬", word: "冬 ― 雪の日", n: 34 },
+    ];
+    var rnd = function (a, b) { return a + Math.random() * (b - a); };
+    var f0 = function (a, b) { return rnd(a, b).toFixed(0); }, f1 = function (a, b) { return rnd(a, b).toFixed(1); };
+    var AUT = ["#c8402d", "#d9622b", "#e0a531", "#b5341f", "#e6b93c"];
+    function piece(k) {       // 1枚ずつ、大きさ・速さ・揺れ幅をばらつかせる
+      var st = ["--x:" + f1(-4, 100) + "%", "--dl:-" + f1(0, 14) + "s"], ic = "";
+      if (k.cls === "sakura") st.push("--s:" + f0(9, 15) + "px", "--d:" + f1(9, 15) + "s", "--w:" + f1(2.2, 3.8) + "s", "--a:" + f0(14, 34) + "px", "--r0:" + f0(-60, 0) + "deg", "--r1:" + f0(60, 200) + "deg");
+      if (k.cls === "hotaru") st.push("--y:" + f0(18, 86) + "%", "--d:" + f1(7, 12) + "s", "--w:" + f1(3, 5.5) + "s", "--a:" + f0(-70, 70) + "px", "--b:" + f0(-46, 30) + "px");
+      if (k.cls === "momiji") {
+        st.push("--s:" + f0(22, 36) + "px", "--d:" + f1(8, 13) + "s", "--w:" + f1(2.4, 4) + "s", "--a:" + f0(18, 44) + "px", "--r0:" + f0(-40, 20) + "deg", "--r1:" + f0(120, 300) + "deg", "--c:" + AUT[Math.floor(Math.random() * AUT.length)]);
+        if (Math.random() < 0.3) ic = ' class="ic"';
+      }
+      if (k.cls === "yuki") {
+        var z = rnd(2.5, 7);
+        st.push("--s:" + z.toFixed(1) + "px", "--d:" + f1(7, 14) + "s", "--w:" + f1(3, 6) + "s", "--a:" + f0(4, 16) + "px", "--r0:0deg", "--r1:0deg", "--o:" + rnd(0.55, 0.95).toFixed(2), "--bl:" + (z > 5.5 ? 1 : 0) + "px");
+      }
+      return '<span class="p" style="' + st.join(";") + '"><i' + ic + "></i></span>";
+    }
+    function byMonth() { var m = now.getMonth() + 1; return m >= 3 && m <= 5 ? "spring" : m >= 6 && m <= 8 ? "summer" : m >= 9 && m <= 11 ? "autumn" : "winter"; }
+    box.innerHTML = KINDS.map(function (k) {
+      var h = ""; for (var i = 0; i < k.n; i++) h += piece(k);
+      return '<div class="ly ' + k.cls + '">' + h + "</div>";
+    }).join("");
+    var cur = -1, timer = null, layers = box.querySelectorAll(".ly"), word = null, btns = [];
+    if (cfg.demo) {
+      ui.innerHTML = '<span class="word" id="seasonWord"></span><span class="sw">' + KINDS.map(function (k) { return '<button type="button" aria-label="' + k.word + '">' + k.mark + "</button>"; }).join("") + "</span>";
+      word = $("seasonWord"); btns = ui.querySelectorAll("button");
+    }
+    function show(n) {
+      n = (n + KINDS.length) % KINDS.length;
+      if (cur >= 0) { layers[cur].classList.remove("on"); if (btns[cur]) btns[cur].classList.remove("on"); }
+      cur = n; layers[cur].classList.add("on"); if (btns[cur]) btns[cur].classList.add("on");
+      if (word) { word.classList.add("out"); setTimeout(function () { word.textContent = KINDS[cur].word; word.classList.remove("out"); }, 350); }
+    }
+    function play() { clearInterval(timer); timer = setInterval(function () { if (!document.hidden) show(cur + 1); }, (cfg.seconds || 5) * 1000); }
+    var start = cfg.show && cfg.show !== "auto" ? cfg.show : byMonth();
+    show(Math.max(0, KINDS.map(function (k) { return k.key; }).indexOf(start)));
+    if (cfg.demo) { play(); btns.forEach(function (b, i) { b.addEventListener("click", function () { show(i); play(); }); }); }
+  })();
 
   // ---- 動き（控えめ）
   var hd = $("hd"), onS = function () { hd.classList.toggle("solid", window.scrollY > window.innerHeight * 0.7); };
